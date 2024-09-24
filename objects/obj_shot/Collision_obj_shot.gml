@@ -1,0 +1,1 @@
+if (!image_index && other.owner != owner) instance_destroy();
