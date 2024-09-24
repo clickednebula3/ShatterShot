@@ -31,12 +31,13 @@ cayote_time_for_speed = 0;
 
 function soulmode_set(_set_to) {
 	color_index = _set_to;
-	if (_set_to != COLOR_INDEX.RED) { with(obj_fight) { instance_destroy(); } }
+	if (_set_to != COLOR_INDEX.RED) { instance_destroy(obj_fight); }
 	obj_player.alarm[3] = sec;
 }
 
 function soulmode_jump(_jump_by = 1) {
 	color_index += _jump_by;
+	if (_jump_by != COLOR_INDEX.RED) { instance_destroy(obj_fight); }
 	obj_player.alarm[3] = sec;
 }
 

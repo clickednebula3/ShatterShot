@@ -1,3 +1,5 @@
+if (instance_exists(obj_player) && obj_player.my_color != c_red) { instance_destroy(); return; }
+
 if (act_done > 0) {
 	speed = 0;
 	act_done--;
@@ -10,12 +12,10 @@ if (act_done > 0) {
 		ds_list_destroy(_killcoll);
 	}
 	
-	if (act_done == 1)
-	{ instance_destroy(); }
+	if (act_done == 1) { instance_destroy(); }
 	return;
 }
 
-sprite_index = possible_acts[act_index%array_length(possible_acts)];
 image_index *= 0.94;
 //image_index = 0;
 speed += 3;
@@ -38,5 +38,3 @@ var left_or_right = (bbox_left < 2 || bbox_right > room_width-2);
 if (left_or_right && top_or_bottom) {//DVD hitting corner be like: 
 	SUPER = 10*sec;
 };
-
-if (instance_exists(obj_player) && obj_player.my_color != c_red) { instance_destroy(); }

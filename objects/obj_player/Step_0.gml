@@ -66,7 +66,7 @@ else if (controller_index > 1)//CONTROLLER = controller_index-2
 }
 #endregion
 
-if (mode_swap) { soulmode_jump(); }
+if (mode_swap && !shoot_hold && !shift) { soulmode_jump(); }
 
 HP = clamp(HP, 0, obj_player.MAX_HP);
 if (my_color != c_purple && my_color != c_aqua) {

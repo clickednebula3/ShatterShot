@@ -10,18 +10,16 @@ if (sprite_index == spr_fight || sprite_index == spr_yell) {
 	//ds_list_destroy(_killcoll);
 }
 if (sprite_index == spr_act) {
-	act_done = -1;
+	act_done = 0;
 	possible_acts = possible_act_acts;
 	act_index = irandom_range(0, array_length(possible_act_acts)-1);
-	return;
+	sprite_index = possible_act_acts[act_index%array_length(possible_act_acts)];
 }
 if (sprite_index == spr_item) {
-	if (instance_exists(obj_player)) { obj_player.HP+=2; }
+	if (instance_exists(obj_player)) { obj_player.HP += 2; }
 }
 if (sprite_index == spr_mercy) {
-	if (instance_exists(obj_mon)) {
-		with (obj_mon) { instance_destroy(self); break; }
-	}
+	with (obj_mon) { instance_destroy(self); break; }
 }
 if (sprite_index == spr_bruh) {
 	turn_sped = 1;
@@ -37,8 +35,10 @@ if (sprite_index == spr_yeet) {
 }
 if (sprite_index == spr_yellow) {
 	if (instance_exists(obj_player)) {
-		obj_player.soulmode_set(COLOR_INDEX.YELLOW);
-		obj_player.redyellow_timer = obj_player.redyellow_maxtimer;
+		with (obj_player) {
+			soulmode_set(COLOR_INDEX.YELLOW);
+			redyellow_timer = obj_player.redyellow_maxtimer;
+		}
 	}
 }
 if (sprite_index == spr_color) {
