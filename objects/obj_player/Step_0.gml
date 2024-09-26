@@ -250,7 +250,17 @@ else if (my_color == c_green)
 {
 	green_allround_shield = false;
 	speed = 0;
-	if (shoot_hold) { green_allround_shield = true; x = xprevious; y = yprevious; }
+	if (shoot_hold && !instance_exists(green_shield)) { green_allround_shield = true; x = xprevious; y = yprevious; }
+	if (shift && !instance_exists(green_shield) && green_shield_cooldown <= 0) {
+		green_shield = instance_create_depth(x, y, depth, obj_capshield);
+		green_shield.direction = aim;
+		green_shield.speed = 15;
+		green_shield.owner = self;
+	}
+	if (instance_exists(green_shield) && green_shield.alarm[0] > sec/2) {
+		green_shield.direction = aim;
+	}
+	if (green_shield_cooldown > 0) { green_shield_cooldown--; }
 	gravity_direction = aim;
 }
 

@@ -1,0 +1,1 @@
+if (alarm[0] < sec/2) { instance_destroy(); }

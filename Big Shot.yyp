@@ -34,6 +34,7 @@
   },
   "name":"Big Shot",
   "resources":[
+    {"id":{"name":"obj_capshield","path":"objects/obj_capshield/obj_capshield.yy",},},
     {"id":{"name":"obj_control","path":"objects/obj_control/obj_control.yy",},},
     {"id":{"name":"obj_fight","path":"objects/obj_fight/obj_fight.yy",},},
     {"id":{"name":"obj_grapple","path":"objects/obj_grapple/obj_grapple.yy",},},

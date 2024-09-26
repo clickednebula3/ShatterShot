@@ -1,7 +1,7 @@
 if (other.speed > obj_mon_spawner.unhandlable_pure_speed) { instance_destroy(); return; }
 if (my_color == c_green) { instance_destroy(); return; }
 
-if (other.my_color == c_green && (other.green_allround_shield || abs( point_direction(other.x, other.y, x, y) - other.gravity_direction) < 60) )
+if (other.my_color == c_green && !instance_exists(other.green_shield) && other.cayote_time_for_speed <= 0 && (other.green_allround_shield || abs( point_direction(other.x, other.y, x, y) - other.gravity_direction) < 60) )
 { direction = other.gravity_direction; gravity_direction = other.gravity_direction; speed = 10; return; }
 
 if (!instance_exists(purplayer_my_purpellet)) { instance_destroy(); return; }

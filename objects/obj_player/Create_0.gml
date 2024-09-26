@@ -20,6 +20,9 @@ aqua_parry_rad = 64;
 purple_string_gap = 32;
 purple_string_x = 0;//loop in (0 to gap);
 purple_string_y = 0;
+green_shield = noone;
+green_shield_cooldown = 0;
+green_shield_cooldown_max = 5*sec;
 
 redyellow_maxtimer = 12*sec;
 redyellow_timer = -1;

@@ -62,7 +62,11 @@ if (my_color == c_aqua) {
 	
 }
 draw_set_alpha(1);
-if (my_color == c_green) { draw_sprite_ext(spr_shield, green_allround_shield, x, y, image_xscale, image_yscale, gravity_direction, c_white, 1); }
+if (my_color == c_green && !instance_exists(green_shield)) {
+	if (green_shield_cooldown <= 0)
+	{ draw_sprite_ext(spr_shield, green_allround_shield, x, y, image_xscale, image_yscale, gravity_direction, c_white, 0.35*((green_shield_cooldown/green_shield_cooldown_max))); }
+	else {draw_sprite_ext(spr_shield, green_allround_shield, x, y, image_xscale, image_yscale, gravity_direction, c_white, 1); }
+}
 
 if (speed > obj_mon_spawner.unhandlable_pure_speed)
 {
