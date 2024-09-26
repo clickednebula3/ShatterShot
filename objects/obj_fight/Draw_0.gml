@@ -1,6 +1,6 @@
 if (SUPER > 0)
 {
-	var global.possible_colors = [
+	global.possible_colors = [
 		c_red, c_aqua, c_orange,
 		c_yellow, c_purple, c_blue, c_green
 	];

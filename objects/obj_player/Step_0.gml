@@ -95,11 +95,10 @@ if (redyellow_timer > 0) { redyellow_timer--; }
 
 if (my_color == c_red)
 {
-	var _dir = "save"+string(player_id)+".txt";
-	if (shift) { game_load(_dir); }
+	if (shift) { game_load("save"+string(player_id)+".txt"); }
 	
 	function soul_save_game()
-	{ alarm[2] = sec; game_save(_dir); alarm[1] = sec; alarm[2] = 0; }
+	{ alarm[2] = sec; game_save("save"+string(player_id)+".txt"); alarm[1] = sec; alarm[2] = 0; }
 	
 	
 	image_angle = -90;
