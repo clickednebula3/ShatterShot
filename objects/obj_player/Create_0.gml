@@ -8,6 +8,7 @@ my_color = global.possible_colors[color_index%array_length(global.possible_color
 //aqua and orange
 //gravitation or smth to player
 
+player_id = 0;
 controller_index = 0;
 uses_mouse = false;
 

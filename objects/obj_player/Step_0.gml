@@ -24,9 +24,9 @@ if (controller_index == 0)//ARROW
 	pad_u = keyboard_check_direct(vk_up);
 	pad_d = keyboard_check_direct(vk_down);
 	//special_hold = keyboard_check_direct(vk_control) || mouse_check_button(mb_right);
-	shoot_hold = keyboard_check_direct(ord("Z")) || mouse_check_button(mb_left) || keyboard_check_direct(vk_enter);
-	shoot_dont = keyboard_check_released(ord("Z")) || mouse_check_button_released(mb_left) || keyboard_check_released(vk_enter);
-	shift = keyboard_check_direct(ord("X")) || mouse_check_button(mb_right) || keyboard_check_direct(vk_shift);
+	shoot_hold = keyboard_check_direct(ord("Z")) || mouse_check_button(mb_left);
+	shoot_dont = keyboard_check_released(ord("Z")) || mouse_check_button_released(mb_left);
+	shift = keyboard_check_direct(ord("X")) || mouse_check_button(mb_right);
 	if (uses_mouse) {
 		aim = point_direction(x, y, mouse_x, mouse_y);
 	} else {
@@ -95,10 +95,11 @@ if (redyellow_timer > 0) { redyellow_timer--; }
 
 if (my_color == c_red)
 {
-	if (shift) { game_load("save.txt"); }
+	var _dir = "save"+string(player_id)+".txt";
+	if (shift) { game_load(_dir); }
 	
 	function soul_save_game()
-	{ alarm[2] = sec; game_save("save.txt"); alarm[1] = sec; alarm[2] = 0; }
+	{ alarm[2] = sec; game_save(_dir); alarm[1] = sec; alarm[2] = 0; }
 	
 	
 	image_angle = -90;

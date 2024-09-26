@@ -79,15 +79,17 @@ draw_set_color(c_white);
 draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, my_color, image_alpha);
 draw_sprite_ext(sprite_index, 1, x, y, image_xscale, image_yscale, image_angle, c_white, (bigshottery*bigshottery*bigshottery / (bigshottery_max*bigshottery_max*bigshottery_max))*image_alpha);
 //draw_text(0, 0, string(HP));
-draw_text(116, 0, "HP");
-draw_healthbar(156, 2, room_width/3, 18, HP*10, c_red, c_yellow, c_yellow, 0, true, false);
-draw_text(24+room_width/3, 0, string(HP)+"/"+string(MAX_HP))
-if (halarity > 0) {draw_text(0, 34, "+"+string(halarity)+" Halariousness Buff"); halarity-=1/sec;}
+
+var _y = player_id*32;
+draw_text(116, 0+_y, "HP");
+draw_healthbar(156, 2+_y, room_width/3, 18+_y, HP*10, c_red, c_yellow, c_yellow, 0, true, false);
+draw_text(24+room_width/3, 0+_y, string(HP)+"/"+string(MAX_HP))
+if (halarity > 0) {draw_text(0, 34+_y, "+"+string(halarity)+" Halariousness Buff"); halarity-=1/sec;}
 
 draw_set_valign(fa_bottom);
 draw_set_alpha(alarm[1] / sec);
-draw_text(0, room_height, "FILE SAVED");
+draw_text(0, room_height-_y, "FILE "+string(player_id)+" SAVED");
 draw_set_alpha(alarm[2] / sec);
-draw_text(0, room_height, "FILE LOADED");
+draw_text(0, room_height-_y, "FILE "+string(player_id)+" LOADED");
 draw_set_alpha(1);
 draw_set_valign(fa_top);
