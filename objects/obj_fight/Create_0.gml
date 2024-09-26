@@ -4,6 +4,8 @@ possible_act_acts = [spr_bruh, spr_color, spr_yeet, spr_yell];
 act_index = irandom_range(0, array_length(possible_acts)-1);
 sprite_index = possible_acts[act_index%array_length(possible_acts)];
 
+player = noone;
+
 SUPER = 0;
 act_done = 0;
 turn_sped = 0;

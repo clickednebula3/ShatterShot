@@ -16,34 +16,34 @@ if (sprite_index == spr_act) {
 	sprite_index = possible_act_acts[act_index%array_length(possible_act_acts)];
 }
 if (sprite_index == spr_item) {
-	if (instance_exists(obj_player)) { obj_player.HP += 2; }
+	if (instance_exists(player)) { player.HP += 2; }
 }
 if (sprite_index == spr_mercy) {
 	with (obj_mon) { instance_destroy(self); break; }
 }
 if (sprite_index == spr_bruh) {
 	turn_sped = 1;
-	if (instance_exists(obj_player)) { obj_player.halarity += 5;}
+	if (instance_exists(player)) { player.halarity += 5; }
 }
 if (sprite_index == spr_yeet) {
-	if (instance_exists(obj_player)) {
-		with (obj_player) {
+	if (instance_exists(player)) {
+		with (player) {
 			direction = irandom_range(0, 360);
 			speed = 70;	
 		}
 	}
 }
 if (sprite_index == spr_yellow) {
-	if (instance_exists(obj_player)) {
-		with (obj_player) {
+	if (instance_exists(player)) {
+		with (player) {
 			soulmode_set(COLOR_INDEX.YELLOW);
-			redyellow_timer = obj_player.redyellow_maxtimer;
+			redyellow_timer = redyellow_maxtimer;
 		}
 	}
 }
 if (sprite_index == spr_color) {
-	if (instance_exists(obj_player)) {
+	if (instance_exists(player)) {
 		var _soulmode_i = irandom_range(1, 7);
-		obj_player.soulmode_set(_soulmode_i);
+		player.soulmode_set(_soulmode_i);
 	}
 }

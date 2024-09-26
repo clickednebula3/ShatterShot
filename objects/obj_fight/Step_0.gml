@@ -1,4 +1,4 @@
-if (instance_exists(obj_player) && obj_player.my_color != c_red) { instance_destroy(); return; }
+if (instance_exists(player) && player.my_color != c_red) { instance_destroy(); return; }
 
 if (act_done > 0) {
 	speed = 0;

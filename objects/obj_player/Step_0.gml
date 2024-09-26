@@ -104,7 +104,8 @@ if (my_color == c_red)
 	image_angle = -90;
 	if (shoot_dont) {
 		var _fight_coll = collision_point(x, y, obj_fight, true, false);
-		if (_fight_coll != noone && _fight_coll.alarm[0] <= 0) { _fight_coll.alarm[0] = 1; }
+		if (_fight_coll != noone && _fight_coll.alarm[0] <= 0)
+		{ _fight_coll.player = self; _fight_coll.alarm[0] = 1; }
 		else { soul_save_game(); }
 	}
 	
