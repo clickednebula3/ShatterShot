@@ -1,6 +1,9 @@
 /// @description spr_FIGHT check
 
-if (instance_exists(obj_player) && obj_player.my_color == c_red && !instance_exists(obj_fight))
+var _red_player_found = false;
+with (obj_player) { if (my_color == c_red) { _red_player_found = true; break; } }
+
+if (_red_player_found && !instance_exists(obj_fight))
 {
 	instance_create_depth(
 		irandom_range(64, room_width-64),

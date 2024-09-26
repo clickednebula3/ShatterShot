@@ -2,8 +2,8 @@ spd = 2;
 HP = 3;
 MAX_HP = 10;
 color_index = COLOR_INDEX.RED;
-global.possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white];
-my_color = global.possible_colors[color_index%array_length(global.possible_colors)];
+possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white];
+my_color = possible_colors[color_index%array_length(possible_colors)];
 
 //aqua and orange
 //gravitation or smth to player
@@ -30,14 +30,14 @@ cayote_time_for_speed_max = 0.5*sec;
 cayote_time_for_speed = 0;
 
 function soulmode_set(_set_to) {
-	color_index = _set_to%array_length(global.possible_colors);
+	color_index = _set_to%array_length(possible_colors);
 	if (_set_to != COLOR_INDEX.RED) { instance_destroy(obj_fight); }
 	obj_player.alarm[3] = sec;
 }
 
 function soulmode_jump(_jump_by = 1) {
 	color_index += _jump_by;
-	color_index = color_index%array_length(global.possible_colors);
+	color_index = color_index%array_length(possible_colors);
 	if (_jump_by != COLOR_INDEX.RED) { instance_destroy(obj_fight); }
 	obj_player.alarm[3] = sec;
 }

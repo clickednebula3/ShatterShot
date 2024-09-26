@@ -1,20 +1,24 @@
 x = clamp(x, 8, room_width-8);
 y = clamp(y, 8, room_height-8);
+
+var _target = noone;
+if (instance_exists(obj_player)) { _target = instance_nearest(x, y, obj_player); }
+
 if (my_color = c_white)
 {
-	if (instance_exists(obj_player)) {
+	if (instance_exists(_target)) {
 		gravity = 0.15;
-		gravity_direction = point_direction(x, y, obj_player.x, obj_player.y);
+		gravity_direction = point_direction(x, y, _target.x, _target.y);
 	} else { gravity = 0; }
 	speed *= 0.98;
 }
 else if (my_color = c_red)
 {
-	if (instance_exists(obj_player)) {
-		if (abs(obj_player.y-y) > abs(obj_player.x-x)) {
-			y += 2*((obj_player.y-y)/abs((obj_player.y-y)));
+	if (instance_exists(_target)) {
+		if (abs(_target.y-y) > abs(_target.x-x)) {
+			y += 2*((_target.y-y)/abs((_target.y-y)));
 		} else {
-			x += 2*((obj_player.x-x+0.01)/abs((obj_player.x-x)));
+			x += 2*((_target.x-x+0.01)/abs((_target.x-x)));
 		}
 	}
 	speed *= 0.98;
@@ -33,8 +37,8 @@ else if (my_color = c_green)
 else if (my_color = c_yellow)
 {
 	speed *= 0.98;
-	if (instance_exists(obj_player)) {
-		image_angle = point_direction(x, y, obj_player.x, obj_player.y)+90;
+	if (instance_exists(_target)) {
+		image_angle = point_direction(x, y, _target.x, _target.y)+9;
 		direction = image_angle;
 		speed = yellow_counterdirectionativity;
 		
@@ -55,11 +59,11 @@ else if (my_color = c_blue)
 	if (Time % (sec*3) <= sec*2.5 && Time % (sec*3) >= 2*sec) { x += irandom_range(-1, 1); y += irandom_range(-1, 1); }
 	speed *= 0.9;
 	image_angle = gravity_direction+90;
-	if (instance_exists(obj_player)) {
+	if (instance_exists(_target)) {
 		if (gravity_direction%180 == 0) {
-			y += ((obj_player.y-y)/abs((obj_player.y-y)));
+			y += ((_target.y-y)/abs((_target.y-y)));
 		} else {
-			x += ((obj_player.x-x+0.01)/abs((obj_player.x-x)));
+			x += ((_target.x-x+0.01)/abs((_target.x-x)));
 		}
 	}
 }
@@ -73,12 +77,12 @@ else if (my_color = c_purple)
 		}
 	}
 	var target = self;
-	if (instance_exists(obj_player)) {
-		target = obj_player;
+	if (instance_exists(_target)) {
+		target = _target;
 		
 		if (Time % (sec*3) == sec/2) {
 			purples_strings_makes_them_ring_b = instance_create_depth(x, y, depth, obj_grapple);
-			purples_strings_makes_them_ring_b.direction = point_direction(x, y, obj_player.x, obj_player.y);
+			purples_strings_makes_them_ring_b.direction = point_direction(x, y, _target.x, _target.y);
 			purples_strings_makes_them_ring_b.image_alpha = 0.2;
 		}
 		if (Time % (sec*3) == sec*2.5 && instance_exists(purples_strings_makes_them_ring_b)) { purples_strings_makes_them_ring_b.image_alpha = 0.4; }
@@ -138,6 +142,4 @@ Time ++;
 x = clamp(x, 8, room_width-8);
 y = clamp(y, 8, room_height-8);
 
-if (orngplayer_tension <= 0) {
-	instance_destroy();
-}
+if (orngplayer_tension <= 0) { instance_destroy(); }
