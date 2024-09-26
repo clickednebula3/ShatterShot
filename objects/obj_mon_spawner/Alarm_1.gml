@@ -1,7 +1,7 @@
 /// @description spr_FIGHT check
 
 var _red_player_found = noone;
-with (obj_player) { if (my_color == c_red) { _red_player_found = player; break; } }
+with (obj_player) { if (my_color == c_red) { _red_player_found = self; break; } }
 
 if (instance_exists(_red_player_found) && !instance_exists(obj_fight))
 {
