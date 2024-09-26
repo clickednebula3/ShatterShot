@@ -1,11 +1,14 @@
 draw_set_alpha(0.3);
 draw_set_color(my_color);
 
+var _target = noone;
+if (instance_exists(obj_player)) { _target = instance_nearest(x, y, obj_player); }
+
 if (my_color == c_red || my_color == c_white) {
 	draw_arrow(x, y, x + 16*(x-xprevious), y + 16*(y-yprevious), 4);
 }
-if (my_color == c_yellow && instance_exists(obj_player)) {
-	draw_circle(obj_player.x, obj_player.y, point_distance(x, y, obj_player.x, obj_player.y), true);
+if (my_color == c_yellow && instance_exists(_target)) {
+	draw_circle(_target.x, _target.y, point_distance(x, y, _target.x, _target.y), true);
 }
 
 if (my_color == c_green) {
@@ -26,7 +29,7 @@ if (my_color == c_orange || my_color == c_aqua) {
 	draw_circle(x, y, orngplayer_radius, true);
 		
 	draw_set_alpha(0.1);
-	var _coll = collision_circle(x, y, orngplayer_radius, obj_player, false, false);
+	var _coll = collision_circle(x, y, orngplayer_radius, _target, false, false);
 	if (_coll != noone) {
 		draw_set_alpha(0.2);
 		var _plyr_moved = (abs(_coll.x-_coll.xprevious)>0.1||abs(_coll.y-_coll.yprevious)>0.1);

@@ -38,7 +38,7 @@ else if (my_color = c_yellow)
 {
 	speed *= 0.98;
 	if (instance_exists(_target)) {
-		image_angle = point_direction(x, y, _target.x, _target.y)+9;
+		image_angle = point_direction(x, y, _target.x, _target.y)+90;
 		direction = image_angle;
 		speed = yellow_counterdirectionativity;
 		

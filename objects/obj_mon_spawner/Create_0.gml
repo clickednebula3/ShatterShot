@@ -14,6 +14,7 @@ wave_summonee_index = 0;
 waves = [//the amount of a color is just the number of it in the field? (or weight)
 	//red&green
 	[c_red],
+	[c_yellow],//test
 	[c_red, c_green],
 	[c_red, c_red, c_red, c_green],
 	[c_red, c_red, c_red, c_green],
