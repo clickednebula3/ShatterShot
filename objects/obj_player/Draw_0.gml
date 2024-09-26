@@ -1,3 +1,5 @@
+my_color = global.possible_colors[color_index%array_length(global.possible_colors)];
+
 draw_set_alpha(0.4);
 draw_set_color(my_color);
 if (my_color == c_yellow) {
@@ -64,7 +66,7 @@ if (my_color == c_green) { draw_sprite_ext(spr_shield, green_allround_shield, x,
 
 if (speed > obj_mon_spawner.unhandlable_pure_speed)
 {
-	draw_sprite_ext(sprite_index, image_index, x-hspeed, y-vspeed, image_xscale, image_yscale, image_angle, possible_colors[(color_index+3)%array_length(possible_colors)], 0.6);
+	draw_sprite_ext(sprite_index, image_index, x-hspeed, y-vspeed, image_xscale, image_yscale, image_angle, global.possible_colors[(color_index+3)%array_length(global.possible_colors)], 0.6);
 	cayote_time_for_speed = cayote_time_for_speed_max;
 }
 if (cayote_time_for_speed > 0) { cayote_time_for_speed--; }
@@ -81,8 +83,6 @@ draw_text(116, 0, "HP");
 draw_healthbar(156, 2, room_width/3, 18, HP*10, c_red, c_yellow, c_yellow, 0, true, false);
 draw_text(24+room_width/3, 0, string(HP)+"/"+string(MAX_HP))
 if (halarity > 0) {draw_text(0, 34, "+"+string(halarity)+" Halariousness Buff"); halarity-=1/sec;}
-
-my_color = possible_colors[color_index%array_length(possible_colors)];
 
 draw_set_valign(fa_bottom);
 draw_set_alpha(alarm[1] / sec);

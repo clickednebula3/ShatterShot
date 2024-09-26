@@ -17,6 +17,7 @@
     {"name":"Timelines","order":8,"path":"folders/Timelines.yy",},
   ],
   "ResourceOrderSettings":[
+    {"name":"obj_control","order":9,"path":"objects/obj_control/obj_control.yy",},
     {"name":"obj_fight","order":7,"path":"objects/obj_fight/obj_fight.yy",},
     {"name":"obj_grapple","order":6,"path":"objects/obj_grapple/obj_grapple.yy",},
     {"name":"obj_mon_break","order":4,"path":"objects/obj_mon_break/obj_mon_break.yy",},
@@ -40,6 +41,7 @@
     {"name":"spr_mercy","order":8,"path":"sprites/spr_mercy/spr_mercy.yy",},
     {"name":"spr_shield","order":6,"path":"sprites/spr_shield/spr_shield.yy",},
     {"name":"spr_shot","order":1,"path":"sprites/spr_shot/spr_shot.yy",},
+    {"name":"spr_soulbox","order":19,"path":"sprites/spr_soulbox/spr_soulbox.yy",},
     {"name":"spr_soulmon_breakanim","order":3,"path":"sprites/spr_soulmon_breakanim/spr_soulmon_breakanim.yy",},
     {"name":"spr_soulmon_spawn","order":4,"path":"sprites/spr_soulmon_spawn/spr_soulmon_spawn.yy",},
     {"name":"spr_soulmon","order":2,"path":"sprites/spr_soulmon/spr_soulmon.yy",},

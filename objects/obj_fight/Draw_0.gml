@@ -1,12 +1,12 @@
 if (SUPER > 0)
 {
-	var possible_colors = [
+	var global.possible_colors = [
 		c_red, c_aqua, c_orange,
 		c_yellow, c_purple, c_blue, c_green
 	];
 	draw_sprite_ext(
 		spr_dvd, 2, x, y, image_xscale, image_yscale, image_angle,
-		possible_colors[SUPER%array_length(possible_colors)], image_alpha);
+		global.possible_colors[SUPER%array_length(global.possible_colors)], image_alpha);
 }
 else
 {

@@ -221,11 +221,13 @@ else if (my_color == c_purple)
 	
 	x = (5*x - ((x-purple_string_x-g)%gap) + g)/5;
 	y = (5*y - ((y-purple_string_y-g)%gap) + g)/5
-	x += 1.8 * spd * (pad_r - pad_l) * (1 - (shift/2));
-	y += 1.8 * spd * (pad_d - pad_u) * (1 - (shift/2));
+	x += 1.81 * spd * (pad_r - pad_l) * (1 - (shift/2));
+	y += 1.81 * spd * (pad_d - pad_u) * (1 - (shift/2));
 	
-	purple_string_x += dsin(current_time/25)*dsin(current_time/25)/3;
-	purple_string_y += dcos(current_time/16)*dcos(current_time/16)/3;
+	//purple_string_x += dsin(current_time/25)*dsin(current_time/25)/3;
+	//purple_string_y += dcos(current_time/16)*dcos(current_time/16)/3;
+	purple_string_x += (x-(room_width/2))/(3*room_width/2);
+	purple_string_y += (y-(room_height/2))/(3*room_height/2);
 	if (purple_string_x >= purple_string_gap) { purple_string_x -= purple_string_gap; }
 	if (purple_string_y >= purple_string_gap) { purple_string_y -= purple_string_gap; }
 }
@@ -239,8 +241,9 @@ else if (my_color == c_blue)
 	var left_or_right = (bbox_left < 2 || bbox_right > room_width-2);
 	if (shift && left_or_right) { hspeed = 16*-dcos(gravity_direction);}
 	if (shift && top_or_bottom) { vspeed = 16*dsin(gravity_direction);}
-	if (shoot_dont) { gravity_direction-=90; }
+	//if (shoot_dont) { gravity_direction-=90; }
 	//if (shoot_hold) { gravity_direction -= 10; }
+	if (shoot_hold && (abs(pad_r-pad_l) || abs(pad_d-pad_u))) { gravity_direction = point_direction(0, 0, (pad_r-pad_l), (pad_d-pad_u)); }
 }
 else if (my_color == c_green)
 {
