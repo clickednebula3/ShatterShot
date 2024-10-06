@@ -1,0 +1,1 @@
+if (alarm[0] <= 0 && owner == other) { instance_destroy(); }

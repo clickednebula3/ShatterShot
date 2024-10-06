@@ -2,15 +2,34 @@
 //draw Z/X/ARROW
 //draw wave/mon thing
 
-possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white];
+possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white, [c_red, c_aqua]];
 
 if (!game_started) {
-	for (var i=0; i<8; i++) {
+	for (var i=0; i<array_length(possible_colors); i++) {
 		var _c = c_gray;
+		var _color = possible_colors[i];
 		var _selected = (soul_selection_index == i);
+		
 		if (_selected) { _c = possible_colors[i]; }
-		draw_sprite_ext(spr_soulbox, 0, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5, 2, 2, 5*(soul_selection_index-i), _c, 1);
-		draw_sprite_ext(spr_soul, 0, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5, 2, 2, -90+5*(soul_selection_index-i), possible_colors[i], 1);
+		var b = i-soul_selection_index;
+		var a = 3;
+		
+		if (is_array(_color))
+		{
+			if (_selected) {
+				draw_sprite_ext(spr_soulbox, 1, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5 + a*(b*b), 2, 2, 5*(soul_selection_index-i), _color[0], 1);
+				draw_sprite_ext(spr_soulbox, 2, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5 + a*(b*b), 2, 2, 5*(soul_selection_index-i), _color[1], 1);
+			} else {
+				draw_sprite_ext(spr_soulbox, 0, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5 + a*(b*b), 2, 2, 5*(soul_selection_index-i), _c, 1);
+			}
+			draw_sprite_ext(spr_soul, 2, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5 + a*(b*b), 2, 2, -90+5*(soul_selection_index-i), _color[0], 1);
+			draw_sprite_ext(spr_soul, 3, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5 + a*(b*b), 2, 2, -90+5*(soul_selection_index-i), _color[1], 1);
+		}
+		else
+		{
+			draw_sprite_ext(spr_soulbox, 0, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5 + a*(b*b), 2, 2, 5*(soul_selection_index-i), _c, 1);
+			draw_sprite_ext(spr_soul, 0, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5 + a*(b*b), 2, 2, -90+5*(soul_selection_index-i), _color, 1);
+		}
 	} 
 	draw_sprite_ext(spr_soul, 0, room_width/2, room_height/2, 1, 1, -90, c_dkgray, 1);
 	

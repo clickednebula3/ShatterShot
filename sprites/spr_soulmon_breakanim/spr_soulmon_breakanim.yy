@@ -18,6 +18,8 @@
     {"$GMSpriteFrame":"","%Name":"09730e3a-655b-49c3-ad78-d856b9b430ec","name":"09730e3a-655b-49c3-ad78-d856b9b430ec","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
     {"$GMSpriteFrame":"","%Name":"1061b4ef-91a5-484b-b878-b703869e30fe","name":"1061b4ef-91a5-484b-b878-b703869e30fe","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
     {"$GMSpriteFrame":"","%Name":"aabfb1f1-dfd9-4641-bd95-dd30e38ccbc0","name":"aabfb1f1-dfd9-4641-bd95-dd30e38ccbc0","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"76f2a738-607a-4379-a48d-b208d1238183","name":"76f2a738-607a-4379-a48d-b208d1238183","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"d03cec60-7d74-4510-8f43-9a41746f0bf1","name":"d03cec60-7d74-4510-8f43-9a41746f0bf1","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
@@ -54,7 +56,7 @@
     },
     "eventStubScript":null,
     "eventToFunction":{},
-    "length":6.0,
+    "length":8.0,
     "lockOrigin":false,
     "moments":{
       "$KeyframeStore<MomentsEventKeyframe>":"",
@@ -91,6 +93,12 @@
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
                 "0":{"$SpriteFrameKeyframe":"","Id":{"name":"aabfb1f1-dfd9-4641-bd95-dd30e38ccbc0","path":"sprites/spr_soulmon_breakanim/spr_soulmon_breakanim.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"3f52455a-d6e5-4cea-b3cd-3a25193f7c69","IsCreationKey":false,"Key":5.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"76f2a738-607a-4379-a48d-b208d1238183","path":"sprites/spr_soulmon_breakanim/spr_soulmon_breakanim.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"4ce58b4e-7143-4bf9-8345-5d38b5717417","IsCreationKey":false,"Key":6.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"d03cec60-7d74-4510-8f43-9a41746f0bf1","path":"sprites/spr_soulmon_breakanim/spr_soulmon_breakanim.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"add5a326-fc16-4952-b579-2c3ee48d8371","IsCreationKey":false,"Key":7.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

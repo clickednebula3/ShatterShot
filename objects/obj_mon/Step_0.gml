@@ -1,8 +1,12 @@
 x = clamp(x, 8, room_width-8);
 y = clamp(y, 8, room_height-8);
 
+var _target_alt = noone;
 var _target = noone;
+if (instance_exists(obj_redbluehalf)) { _target_alt = instance_nearest(x, y, obj_redbluehalf); if (!_target_alt.visible) { _target_alt = noone; } }
 if (instance_exists(obj_player)) { _target = instance_nearest(x, y, obj_player); }
+
+if (!instance_exists(_target) || (instance_exists(_target_alt) && distance_to_object(_target_alt) < distance_to_object(_target)) ) { _target = _target_alt; }
 
 if (my_color = c_white)
 {

@@ -1,7 +1,7 @@
 my_color = possible_colors[color_index%array_length(possible_colors)];
 
 draw_set_alpha(0.4);
-draw_set_color(my_color);
+if (!is_array(my_color)) { draw_set_color(my_color); }
 if (my_color == c_yellow) {
 	draw_line_color(x, y, x+64*dcos(image_angle), y+64*-dsin(image_angle), my_color, c_black);
 	if (redyellow_timer > 0) {
@@ -18,10 +18,16 @@ if (my_color == c_purple) {
 	{ draw_line(i, -1, i, room_height+1); }
 	for (var j=-purple_string_gap+purple_string_y; j<=room_height+purple_string_gap; j+=purple_string_gap)
 	{ draw_line(-1, j, room_width+1, j); }
+	draw_set_color(c_red);
+	draw_rectangle(3, 3, room_width-4, room_height-4, true);
 }
 if (alarm[3] > 0) {
 	var scale = 1+2*(1-power((alarm[3]/sec), 2));
-	draw_sprite_ext(spr_soul, 0, x, y, scale, scale, image_angle, my_color, alarm[3]/sec);
+	if (!is_array(my_color)) { draw_sprite_ext(spr_soul, 0, x, y, scale, scale, image_angle, my_color, alarm[3]/sec); }
+	else {
+		draw_sprite_ext(spr_soul, 2+(x < redbluehalf.x), x, y, scale, scale, image_angle, my_color[0], alarm[3]/sec);
+		draw_sprite_ext(spr_soul, 2+(x >= redbluehalf.x), redbluehalf.x, redbluehalf.y, scale, scale, image_angle, my_color[1], alarm[3]/sec);
+	}
 }
 if (my_color == c_orange) {
 	
@@ -64,13 +70,21 @@ if (my_color == c_aqua) {
 draw_set_alpha(1);
 if (my_color == c_green && !instance_exists(green_shield)) {
 	if (green_shield_cooldown <= 0)
-	{ draw_sprite_ext(spr_shield, green_allround_shield, x, y, image_xscale, image_yscale, gravity_direction, c_white, 0.35*((green_shield_cooldown/green_shield_cooldown_max))); }
+	{ draw_sprite_ext(spr_shield, green_allround_shield, x, y, image_xscale, image_yscale, gravity_direction, c_white, 1-0.75*(green_shield_cooldown/green_shield_cooldown_max)); }
 	else {draw_sprite_ext(spr_shield, green_allround_shield, x, y, image_xscale, image_yscale, gravity_direction, c_white, 1); }
+}
+if (is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua) {
+	draw_set_color(c_purple);
+	draw_line_width(x, y, redbluehalf.x, redbluehalf.y, 1 + redbluelaser/6);
+	if (redbluelaser > 7) { draw_set_color(c_yellow); }
+	draw_line_width(x, y, redbluehalf.x, redbluehalf.y, 1);
 }
 
 if (speed > obj_mon_spawner.unhandlable_pure_speed)
 {
-	draw_sprite_ext(sprite_index, image_index, x-hspeed, y-vspeed, image_xscale, image_yscale, image_angle, possible_colors[(color_index+3)%array_length(possible_colors)], 0.6);
+	var _col = possible_colors[(color_index+3)%array_length(possible_colors)];
+	if (is_array(_col)) { _col = _col[1]; }
+	draw_sprite_ext(sprite_index, image_index, x-hspeed, y-vspeed, image_xscale, image_yscale, image_angle, _col, 0.6);
 	cayote_time_for_speed = cayote_time_for_speed_max;
 }
 if (cayote_time_for_speed > 0) { cayote_time_for_speed--; }
@@ -80,8 +94,18 @@ if (cayote_time_for_speed > 0) { cayote_time_for_speed--; }
 //	draw_sprite_ext(sprite_index, image_index, x-4*hspeed, y-4*vspeed, image_xscale, image_yscale, image_angle, my_color, 0.2);
 //}
 draw_set_color(c_white);
-draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, my_color, image_alpha);
-draw_sprite_ext(sprite_index, 1, x, y, image_xscale, image_yscale, image_angle, c_white, (bigshottery*bigshottery*bigshottery / (bigshottery_max*bigshottery_max*bigshottery_max))*image_alpha);
+if (!is_array(my_color)) {
+	draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, my_color, image_alpha);
+	draw_sprite_ext(
+		sprite_index, 1, x, y, image_xscale, image_yscale, image_angle, c_white,
+		(bigshottery*bigshottery*bigshottery / (bigshottery_max*bigshottery_max*bigshottery_max))*image_alpha
+	);
+} else {
+	redbluehalf.image_angle = image_angle;
+	redbluehalf.image_yscale = 2*(x >= redbluehalf.x)-1;
+	draw_sprite_ext(sprite_index, 2+(x < redbluehalf.x), x, y, image_xscale+0.3*(!redbluehalf.active), image_yscale+0.3*(!redbluehalf.active), image_angle, my_color[0], image_alpha);
+	draw_sprite_ext(sprite_index, 2+(x >= redbluehalf.x), redbluehalf.x, redbluehalf.y, image_xscale+0.3*(redbluehalf.active), image_yscale+0.3*(redbluehalf.active), image_angle, my_color[1], image_alpha);
+}
 //draw_text(0, 0, string(HP));
 
 var _y = player_id*32;
