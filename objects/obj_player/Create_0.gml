@@ -14,7 +14,7 @@ uses_mouse = false;
 
 white_grapple = noone;
 white_grapple_cooldown = 0;
-white_grapple_cooldown_max = 2*sec;
+white_grapple_cooldown_max = 1*sec;
 redbluehalf = instance_create_depth(x, y, depth+2, obj_redbluehalf);
 redbluehalf.visible = false;
 redbluehalf.owner = self;

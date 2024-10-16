@@ -69,9 +69,13 @@ else if (controller_index > 1)//CONTROLLER = controller_index-2
 if (mode_swap && !shoot_hold && !shift) { soulmode_jump(); }
 
 HP = clamp(HP, 0, obj_player.MAX_HP);
-if (my_color != c_purple && my_color != c_white && my_color != c_aqua && !(is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua && redbluehalf.active)) {
+if (my_color != c_purple && my_color != c_white && my_color != c_aqua && !(is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua && redbluehalf.active && !shoot_hold)) {
 	x += spd * (pad_r - pad_l) * (1 - (shift/2));
 	y += spd * (pad_d - pad_u) * (1 - (shift/2));
+	if (shoot_hold && !redbluehalf.active) {
+		redbluehalf.x += redbluehalf.spd * (pad_r - pad_l) * (1 - (shift/2));
+		redbluehalf.y += redbluehalf.spd * (pad_d - pad_u) * (1 - (shift/2));
+	}
 }
 x = clamp(x, x-bbox_left-1, room_width-(bbox_right-x)+1);
 y = clamp(y, y-bbox_top-1, room_height-(bbox_bottom-y)+1);
@@ -103,12 +107,13 @@ if (is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua) {
 		redbluehalf.gravity = 1;
 		redbluelaser++;
 	}
+	
 	if (shoot_dont) { redbluehalf.active = !redbluehalf.active; }
 	gravity_direction = point_direction(x, y, redbluehalf.x, redbluehalf.y);
 	redbluehalf.gravity_direction = gravity_direction + 180;
 	redbluelaser *= 0.9;
 	redbluelaser = clamp(redbluelaser, 0, 20);
-	if (redbluelaser > 6) {
+	if (redbluelaser > 5) {
 		var _coll = collision_line(x, y, redbluehalf.x, redbluehalf.y, obj_mon, true, false);
 		if (instance_exists(_coll)) { instance_destroy(_coll); }
 	}
@@ -196,7 +201,7 @@ else if (my_color == c_white)
 	if (shoot_hold && (abs(pad_r-pad_l) || abs(pad_d-pad_u))) {
 		aim = point_direction(0, 0, (pad_r-pad_l), (pad_d-pad_u));
 		if (!instance_exists(white_grapple) && white_grapple_cooldown <= 0) {
-			white_grapple = instance_create_depth(x, y, depth, obj_grapple2);
+			white_grapple = instance_create_depth(x, y, depth-1, obj_grapple2);
 			white_grapple.direction = aim;
 			white_grapple.owner = self;
 			white_grapple_cooldown = white_grapple_cooldown_max;
@@ -205,21 +210,27 @@ else if (my_color == c_white)
 	if (shift && (abs(pad_r-pad_l) || abs(pad_d-pad_u))) {
 		aim = point_direction(0, 0, (pad_r-pad_l), (pad_d-pad_u));
 		if (!instance_exists(white_grapple) && white_grapple_cooldown <= 0) {
-			white_grapple = instance_create_depth(x, y, depth, obj_grapple2);
+			white_grapple = instance_create_depth(x, y, depth-1, obj_grapple2);
 			white_grapple.direction = aim;
 			white_grapple.strong_grapple = false;
 			white_grapple.owner = self;
 			white_grapple_cooldown = white_grapple_cooldown_max;
 		}
 	}
+	if (instance_exists(white_grapple) && white_grapple.gravity < 0.3 && (abs(pad_r-pad_l) || abs(pad_d-pad_u))) {
+		aim = point_direction(0, 0, (pad_r-pad_l), (pad_d-pad_u));
+		white_grapple.direction = aim;
+	}
 	if (white_grapple_cooldown > 0) { white_grapple_cooldown--; }
-	if (instance_exists(white_grapple) && white_grapple.speed < 3)
-	{
+	if (instance_exists(white_grapple)) {
 		white_grapple_cooldown = white_grapple_cooldown_max;
 		gravity_direction = point_direction(x, y, white_grapple.x, white_grapple.y);
-		gravity = 0.3;
-	}
-	else { gravity = 0; }
+		
+		if (shift && shoot_hold) { gravity = 0.3; } else { gravity = 0; }
+		if (white_grapple.speed < 3) {
+			if (shift && shoot_hold) { gravity = 0.6; } else { gravity = 0.3; }
+		}
+	} else { gravity = 0; }
 	//gravity_direction = aim;
 	//gravity = 0.15;
 	//if (shoot_hold) { speed *= 0.9; }

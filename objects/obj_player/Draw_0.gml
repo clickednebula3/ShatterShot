@@ -10,7 +10,10 @@ if (my_color == c_yellow) {
 		draw_set_alpha(0.4);
 	}
 }
-if (my_color == c_white) { image_angle = 90; draw_line_color(x, y, x+24*speed*dcos(gravity_direction), y+24*speed*-dsin(gravity_direction), my_color, c_black); }
+if (my_color == c_white) {
+	image_angle = 90;
+	draw_line_color(x, y, x+24*speed*dcos(gravity_direction), y+24*speed*-dsin(gravity_direction), my_color, c_black);
+}
 //if (my_color == c_orange || my_color == c_aqua)
 //{ draw_line(x, y, orange_dropped_pin[0], orange_dropped_pin[1]); }
 if (my_color == c_purple) {

@@ -69,8 +69,9 @@ else if (controller_index > 1)//CONTROLLER = controller_index-2
 if (active) {
 	x += spd * (pad_r - pad_l) * (1 - (shift/2));
 	y += spd * (pad_d - pad_u) * (1 - (shift/2));
-	x = clamp(x, x-bbox_left-1, room_width-(bbox_right-x)+1);
-	y = clamp(y, y-bbox_top-1, room_height-(bbox_bottom-y)+1);
 }
+
+x = clamp(x, x-bbox_left-1, room_width-(bbox_right-x)+1);
+y = clamp(y, y-bbox_top-1, room_height-(bbox_bottom-y)+1);
 
 if (speed > 10) { speed *= 0.99; } else { speed *= 0.97; }
