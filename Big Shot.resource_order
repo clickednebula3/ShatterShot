@@ -38,6 +38,7 @@
     {"name":"spr_abc","order":17,"path":"sprites/spr_abc/spr_abc.yy",},
     {"name":"spr_act","order":10,"path":"sprites/spr_act/spr_act.yy",},
     {"name":"spr_ball","order":22,"path":"sprites/spr_ball/spr_ball.yy",},
+    {"name":"spr_ballmon","order":23,"path":"sprites/spr_ballmon/spr_ballmon.yy",},
     {"name":"spr_bruh","order":11,"path":"sprites/spr_bruh/spr_bruh.yy",},
     {"name":"spr_color","order":16,"path":"sprites/spr_color/spr_color.yy",},
     {"name":"spr_crosshair","order":5,"path":"sprites/spr_crosshair/spr_crosshair.yy",},

@@ -38,8 +38,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_soulmon",
-    "path":"sprites/spr_soulmon/spr_soulmon.yy",
+    "name":"spr_ballmon",
+    "path":"sprites/spr_ballmon/spr_ballmon.yy",
   },
   "spriteMaskId":null,
   "visible":true,
