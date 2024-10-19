@@ -36,8 +36,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_soulmon_breakanim",
-    "path":"sprites/spr_soulmon_breakanim/spr_soulmon_breakanim.yy",
+    "name":"spr_ballmon_breakanim",
+    "path":"sprites/spr_ballmon_breakanim/spr_ballmon_breakanim.yy",
   },
   "spriteMaskId":null,
   "visible":true,
