@@ -57,6 +57,7 @@
     {"id":{"name":"obj_obst_basic","path":"sprites/obj_obst_basic/obj_obst_basic.yy",},},
     {"id":{"name":"spr_abc","path":"sprites/spr_abc/spr_abc.yy",},},
     {"id":{"name":"spr_act","path":"sprites/spr_act/spr_act.yy",},},
+    {"id":{"name":"spr_ball","path":"sprites/spr_ball/spr_ball.yy",},},
     {"id":{"name":"spr_bruh","path":"sprites/spr_bruh/spr_bruh.yy",},},
     {"id":{"name":"spr_color","path":"sprites/spr_color/spr_color.yy",},},
     {"id":{"name":"spr_crosshair","path":"sprites/spr_crosshair/spr_crosshair.yy",},},
