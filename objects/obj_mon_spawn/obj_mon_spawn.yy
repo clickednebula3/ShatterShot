@@ -34,8 +34,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_soulmon_spawn",
-    "path":"sprites/spr_soulmon_spawn/spr_soulmon_spawn.yy",
+    "name":"spr_ballmonspawn",
+    "path":"sprites/spr_ballmonspawn/spr_ballmonspawn.yy",
   },
   "spriteMaskId":null,
   "visible":true,
