@@ -3,10 +3,11 @@ my_death_particle.image_angle = image_angle;
 my_death_particle.my_color = my_color;
 global.score++;
 
-if (my_color == c_green) {
-	if (instance_exists(obj_player)) { obj_player.HP++; }
-}
+if (my_color == c_green) { if (instance_exists(obj_player)) { obj_player.HP++; } }
 instance_destroy(purples_strings_makes_them_ring_a);
 instance_destroy(purples_strings_makes_them_ring_b);
 instance_destroy(purplayer_my_purpellet);
 audio_play_sound(snd_shatter, 10, false, 1, 0, 1+random_range(-0.1, 0.1));
+
+var _xp = instance_create_depth(x, y, depth, obj_xp);
+_xp.my_color = my_color;

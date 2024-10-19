@@ -120,7 +120,7 @@ if (is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua) {
 }
 else if (my_color == c_red)
 {
-	if (shift) { game_load("save"+string(player_id)+".txt"); }
+	//if (shift) { game_load("save"+string(player_id)+".txt"); }
 	
 	function soul_save_game()
 	{ alarm[2] = sec; game_save("save"+string(player_id)+".txt"); alarm[1] = sec; alarm[2] = 0; }

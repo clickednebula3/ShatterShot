@@ -124,3 +124,11 @@ draw_set_alpha(alarm[2] / sec);
 draw_text(0, room_height-_y, "FILE "+string(player_id)+" LOADED");
 draw_set_alpha(1);
 draw_set_valign(fa_top);
+
+
+for (var i=0; i<array_length(possible_colors); i++) {
+	var _col = possible_colors[i];
+	if (ds_map_exists(soulscore, _col) && !is_array(_col)) {
+		draw_healthbar(i*64, 100, (i+1)*64, 116, soulscore[?_col], c_black, _col, _col, 0, true, false);
+	}
+}
