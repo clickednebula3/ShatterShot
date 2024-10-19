@@ -120,7 +120,7 @@ if (is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua) {
 }
 else if (my_color == c_red)
 {
-	if (shift) { game_load("save"+string(player_id)+".txt"); return; }
+	if (shift) { game_load("save.txt"); return; }
 	
 	image_angle = -90;//Users/Shared/*/YoYo Runner.app/Contents/MacOS/Mac_Runner
 	if (shoot_dont) {

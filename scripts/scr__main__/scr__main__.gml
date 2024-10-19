@@ -9,7 +9,7 @@ function stun_soul(soul) { soul.aqua_stunned = true; soul.aqua_move_meter = -sec
 function soul_save_game(soul)
 {
 	soul.alarm[2] = sec;
-	game_save("save"+string(soul.player_id)+".txt");
+	game_save("save.txt");
 	soul.alarm[1] = sec;
 	soul.alarm[2] = 0;
 }
