@@ -40,7 +40,7 @@ if (!game_started) {
 		game_started = true;
 		instance_destroy(player);
 		player = instance_create_depth(room_width/2, room_height/2, depth, obj_player);
-		player.soulmode_set(soul_selection_index);
+		soulmode_set(player, soul_selection_index);
 		if (instance_exists(player_2)) { player.uses_mouse = true; }
 		player.player_id = 0;
 	}
@@ -48,7 +48,7 @@ if (!game_started) {
 	if (keyboard_check_pressed(ord("P"))) {
 		instance_destroy(player_2)
 		player_2 = instance_create_depth(room_width/2, room_height/2, depth, obj_player);
-		player_2.soulmode_set(soul_selection_index);
+		soulmode_set(player_2, soul_selection_index);
 		player_2.controller_index = 1;
 		player_2.player_id = 1;
 	}

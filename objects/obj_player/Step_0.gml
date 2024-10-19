@@ -66,7 +66,7 @@ else if (controller_index > 1)//CONTROLLER = controller_index-2
 }
 #endregion
 
-if (mode_swap && !shoot_hold && !shift) { soulmode_jump(); }
+if (mode_swap && !shoot_hold && !shift) { soulmode_jump(self); }
 
 HP = clamp(HP, 0, obj_player.MAX_HP);
 if (my_color != c_purple && my_color != c_white && my_color != c_aqua && !(is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua && redbluehalf.active && !shoot_hold)) {
@@ -94,7 +94,7 @@ if (speed > obj_mon_spawner.unhandlable_pure_speed) {
 	image_yscale += speed/30;
 }
 
-if (redyellow_timer == 0) { redyellow_timer = -1; soulmode_set(COLOR_INDEX.RED); }
+if (redyellow_timer == 0) { redyellow_timer = -1; soulmode_set(self, COLOR_INDEX.RED); }
 if (redyellow_timer > 0) { redyellow_timer--; }
 
 redbluehalf.visible = false;
@@ -120,41 +120,14 @@ if (is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua) {
 }
 else if (my_color == c_red)
 {
-	//if (shift) { game_load("save"+string(player_id)+".txt"); }
+	if (shift) { game_load("save"+string(player_id)+".txt"); return; }
 	
-	function soul_save_game()
-	{ alarm[2] = sec; game_save("save"+string(player_id)+".txt"); alarm[1] = sec; alarm[2] = 0; }
-	
-	
-	image_angle = -90;
+	image_angle = -90;//Users/Shared/*/YoYo Runner.app/Contents/MacOS/Mac_Runner
 	if (shoot_dont) {
 		var _fight_coll = collision_point(x, y, obj_fight, true, false);
 		if (_fight_coll != noone && _fight_coll.alarm[0] <= 0)
 		{ _fight_coll.player = self; _fight_coll.alarm[0] = 1; }
-		else { soul_save_game(); }
-	}
-	
-	if (alarm[2] > 0) {
-		//redefine functions okie
-		function soul_hit(killtarget = noone) {
-			if (alarm[0] <= 0) {
-				HP--;
-				if (instance_exists(killtarget)) { instance_destroy(killtarget); }
-				alarm[0] = 2*sec;
-			}
-			if (HP <= 0) {
-				var my_death_particle = instance_create_depth(x, y, depth, obj_mon_break);
-				my_death_particle.image_angle = image_angle+90;
-				my_death_particle.my_color = my_color;
-				instance_destroy();
-			}
-		}
-		
-		function count_my_shots(me = self) {
-			var shots = 0;
-			with (obj_shot) { if (owner == me) { shots++; } }
-			return shots;
-		}
+		else { soul_save_game(self); }
 	}
 }
 else if (my_color == c_yellow)
@@ -251,7 +224,6 @@ else if (my_color == c_aqua)
 	image_angle = -90;
 	gravity_direction = aim;
 	direction = gravity_direction;
-	function stun_soul() { aqua_stunned = true; aqua_move_meter = -sec/2; }
 	
 	if (!aqua_stunned && (pad_r || pad_l || pad_d || pad_u)) { aqua_move_meter -= 1 - (shift/4); }
 	else {aqua_move_meter++; }
@@ -261,7 +233,7 @@ else if (my_color == c_aqua)
 		x += spd * (pad_r - pad_l) * (1 - (shift/2));
 		y += spd * (pad_d - pad_u) * (1 - (shift/2));
 	}
-	if (aqua_move_meter < 0 && !aqua_stunned) { stun_soul(); }
+	if (aqua_move_meter < 0 && !aqua_stunned) { stun_soul(self); }
 	
 	if (shoot_dont && !aqua_stunned) {
 		var _coll_mon = ds_list_create();

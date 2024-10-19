@@ -35,15 +35,13 @@ if (sprite_index == spr_yeet) {
 }
 if (sprite_index == spr_yellow) {
 	if (instance_exists(player)) {
-		with (player) {
-			soulmode_set(COLOR_INDEX.YELLOW);
-			redyellow_timer = redyellow_maxtimer;
-		}
+		soulmode_set(player, COLOR_INDEX.YELLOW);
+		player.redyellow_timer = player.redyellow_maxtimer;
 	}
 }
 if (sprite_index == spr_color) {
 	if (instance_exists(player)) {
 		var _soulmode_i = irandom_range(1, 7);
-		player.soulmode_set(_soulmode_i);
+		soulmode_set(player, _soulmode_i);
 	}
 }
