@@ -22,16 +22,16 @@ if (!game_started) {
 			} else {
 				draw_sprite_ext(spr_soulbox, 0, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5 + a*(b*b), 2, 2, 5*(soul_selection_index-i), _c, 1);
 			}
-			draw_sprite_ext(spr_soul, 2, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5 + a*(b*b), 2, 2, -90+5*(soul_selection_index-i), _color[0], 1);
-			draw_sprite_ext(spr_soul, 3, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5 + a*(b*b), 2, 2, -90+5*(soul_selection_index-i), _color[1], 1);
+			draw_sprite_ext(spr_ball, 2, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5 + a*(b*b), 2, 2, -90+5*(soul_selection_index-i), _color[0], 1);
+			draw_sprite_ext(spr_ball, 3, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5 + a*(b*b), 2, 2, -90+5*(soul_selection_index-i), _color[1], 1);
 		}
 		else
 		{
 			draw_sprite_ext(spr_soulbox, 0, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5 + a*(b*b), 2, 2, 5*(soul_selection_index-i), _c, 1);
-			draw_sprite_ext(spr_soul, 0, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5 + a*(b*b), 2, 2, -90+5*(soul_selection_index-i), _color, 1);
+			draw_sprite_ext(spr_ball, 0, room_width/2 - 64*(soul_selection_index-i), 4*room_height/5 + a*(b*b), 2, 2, -90+5*(soul_selection_index-i), _color, 1);
 		}
 	} 
-	draw_sprite_ext(spr_soul, 0, room_width/2, room_height/2, 1, 1, -90, c_dkgray, 1);
+	draw_sprite_ext(spr_ball, 0, room_width/2, room_height/2, 1, 1, -90, c_dkgray, 1);
 	
 	soul_selection_index += keyboard_check_pressed(vk_right)-keyboard_check_pressed(vk_left);
 	soul_selection_index = clamp(soul_selection_index, 0, array_length(possible_colors)-1);

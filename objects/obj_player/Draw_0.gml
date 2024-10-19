@@ -26,10 +26,10 @@ if (my_color == c_purple) {
 }
 if (alarm[3] > 0) {
 	var scale = 1+2*(1-power((alarm[3]/sec), 2));
-	if (!is_array(my_color)) { draw_sprite_ext(spr_soul, 0, x, y, scale, scale, image_angle, my_color, alarm[3]/sec); }
+	if (!is_array(my_color)) { draw_sprite_ext(spr_ball, 0, x, y, scale, scale, image_angle, my_color, alarm[3]/sec); }
 	else {
-		draw_sprite_ext(spr_soul, 2+(x < redbluehalf.x), x, y, scale, scale, image_angle, my_color[0], alarm[3]/sec);
-		draw_sprite_ext(spr_soul, 2+(x >= redbluehalf.x), redbluehalf.x, redbluehalf.y, scale, scale, image_angle, my_color[1], alarm[3]/sec);
+		draw_sprite_ext(spr_ball, 2+(x < redbluehalf.x), x, y, scale, scale, image_angle, my_color[0], alarm[3]/sec);
+		draw_sprite_ext(spr_ball, 2+(x >= redbluehalf.x), redbluehalf.x, redbluehalf.y, scale, scale, image_angle, my_color[1], alarm[3]/sec);
 	}
 }
 if (my_color == c_orange) {
