@@ -8,7 +8,7 @@ if (act_done > 0) {
 		var _killcoll = ds_list_create();
 		var percent = power(1-power(((act_done/sec)), 2), 2);
 		var _killcollcount = collision_circle_list(x, y, fight_rad*percent, obj_mon, false, true, _killcoll, false);
-		for (var i=0; i<_killcollcount; i++) { instance_destroy(_killcoll[|i]); }
+		for (var i=0; i<_killcollcount; i++) { count_for_combo(player, 1); instance_destroy(_killcoll[|i]); }
 		ds_list_destroy(_killcoll);
 	}
 	
@@ -26,7 +26,7 @@ if (SUPER > 0) {
 	speed = 9;
 	image_index = 2;
 	var _coll_mon = collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, obj_mon, true, false);
-	if (_coll_mon != noone) { instance_destroy(_coll_mon); }
+	if (_coll_mon != noone) { instance_destroy(_coll_mon); count_for_combo(player, 1); }
 	if (sprite_index == spr_bruh) {
 		turn_sped = 1;
 	}

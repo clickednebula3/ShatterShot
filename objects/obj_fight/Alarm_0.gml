@@ -14,12 +14,13 @@ if (sprite_index == spr_act) {
 	possible_acts = possible_act_acts;
 	act_index = irandom_range(0, array_length(possible_act_acts)-1);
 	sprite_index = possible_act_acts[act_index%array_length(possible_act_acts)];
+	return;
 }
 if (sprite_index == spr_item) {
 	if (instance_exists(player)) { player.HP += 2; }
 }
 if (sprite_index == spr_mercy) {
-	with (obj_mon) { instance_destroy(self); break; }
+	with (obj_mon) { instance_destroy(self); count_for_combo(player, 1); break; }
 }
 if (sprite_index == spr_bruh) {
 	turn_sped = 1;

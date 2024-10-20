@@ -10,8 +10,12 @@ soulscore = ds_map_create();
 //gravitation or smth to player
 
 player_id = 0;
-controller_index = 0;
-uses_mouse = false;
+controller_index = 1;
+uses_mouse = true;
+
+combo_timer = 0;
+combo_timer_max = 1*sec;
+combo = 0;
 
 white_grapple = noone;
 white_grapple_cooldown = 0;

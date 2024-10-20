@@ -1,1 +1,1 @@
-game_load("save.txt");
+//game_load("save.txt");

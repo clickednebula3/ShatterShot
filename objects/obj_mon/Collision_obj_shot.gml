@@ -5,6 +5,7 @@ if (other.owner != self) {
 		my_shield -= 1+2*(other.image_index);
 		return;
 	}
+	count_for_combo(other.owner, 1);
 	if (!other.image_index) { instance_destroy(other); }
 	instance_destroy();
 }

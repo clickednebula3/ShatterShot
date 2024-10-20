@@ -4,12 +4,21 @@ function scr__main__(){
 
 }
 
+function count_for_combo(soul, count) {
+	if (instance_exists(soul)) {
+		soul.combo += count;
+		soul.combo_timer = soul.combo_timer_max;
+	}
+}
+
 function stun_soul(soul) { soul.aqua_stunned = true; soul.aqua_move_meter = -sec/2; }
 
 function soul_save_game(soul)
 {
 	soul.alarm[2] = sec;
+	show_debug_message("a");
 	game_save("save.txt");
+	show_debug_message("b");
 	soul.alarm[1] = sec;
 	soul.alarm[2] = 0;
 }

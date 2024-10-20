@@ -89,7 +89,8 @@ else if (my_color = c_purple)
 			purples_strings_makes_them_ring_b.direction = point_direction(x, y, _target.x, _target.y);
 			purples_strings_makes_them_ring_b.image_alpha = 0.2;
 		}
-		if (Time % (sec*3) == sec*2.5 && instance_exists(purples_strings_makes_them_ring_b)) { purples_strings_makes_them_ring_b.image_alpha = 0.4; }
+		if (Time % (sec*3) == sec*2.5 && instance_exists(purples_strings_makes_them_ring_b))
+		{ purples_strings_makes_them_ring_b.image_alpha = 0.4; }
 		
 	}
 	

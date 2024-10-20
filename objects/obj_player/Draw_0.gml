@@ -129,6 +129,6 @@ draw_set_valign(fa_top);
 for (var i=0; i<array_length(possible_colors); i++) {
 	var _col = possible_colors[i];
 	if (ds_map_exists(soulscore, _col) && !is_array(_col)) {
-		draw_healthbar(32+i*16, 100, 32+(i+1)*16, 116, soulscore[?_col], c_black, _col, _col, 0, true, true);
+		draw_healthbar((room_width/2)+i*16, 8+player_id*16, (room_width/2)+(i+1)*16, 24+player_id*16, soulscore[?_col]*3, c_dkgray, _col, _col, 0, true, false);
 	}
 }

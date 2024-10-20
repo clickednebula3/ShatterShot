@@ -12,4 +12,4 @@ enum OBST_COLOR {
 }
 
 possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white];
-my_color = possible_colors[OBST_COLOR.WHITE];
+my_color = possible_colors[OBST_COLOR.AQUA];

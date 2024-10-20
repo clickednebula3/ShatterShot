@@ -12,6 +12,7 @@ var aim = gravity_direction;
 if (keyboard_check_pressed(vk_f1)) { controller_index = max(0, controller_index-1); }
 if (keyboard_check_pressed(vk_f2)) { controller_index++; }
 if (keyboard_check_pressed(vk_f3)) { uses_mouse = !uses_mouse; }
+if (keyboard_check_pressed(vk_f7)) { game_save("test.txt"); }
 
 //if (keyboard_check_pressed(vk_pageup)) { controller_index++; }
 //if (keyboard_check_pressed(vk_pagedown)) { controller_index--; }
@@ -45,6 +46,7 @@ else if (controller_index == 1)//WASD/ZQSD
 		aim = point_direction(x, y, mouse_x, mouse_y);
 		shoot_hold = mouse_check_button(mb_left);
 		shoot_dont = mouse_check_button_released(mb_left);
+		shift = shift || mouse_check_button(mb_right);
 	} else {
 		if ((pad_r xor pad_l) || (pad_d xor pad_u)) { aim = point_direction(0, 0, pad_r-pad_l, pad_d-pad_u); }
 		shoot_hold = keyboard_check_direct(vk_lcontrol);
@@ -97,6 +99,18 @@ if (speed > obj_mon_spawner.unhandlable_pure_speed) {
 if (redyellow_timer == 0) { redyellow_timer = -1; soulmode_set(self, COLOR_INDEX.RED); }
 if (redyellow_timer > 0) { redyellow_timer--; }
 
+if (combo_timer > 0) {
+	combo_timer--;
+	if (combo_timer == 0) {
+		if (combo >= 2) {
+			var _combo = instance_create_depth(x, y, depth, obj_combo);
+			_combo.combo = combo;
+			_combo.my_color = my_color;
+		}
+		combo = 0;
+	}
+}
+
 redbluehalf.visible = false;
 if (is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua) {
 	gravity = 0;
@@ -120,7 +134,7 @@ if (is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua) {
 }
 else if (my_color == c_red)
 {
-	if (shift) { game_load("save.txt"); return; }
+	//if (shift) { game_load("save.txt"); return; }
 	
 	image_angle = -90;//Users/Shared/*/YoYo Runner.app/Contents/MacOS/Mac_Runner
 	if (shoot_dont) {
@@ -129,6 +143,7 @@ else if (my_color == c_red)
 		{ _fight_coll.player = self; _fight_coll.alarm[0] = 1; }
 		else { soul_save_game(self); }
 	}
+	
 }
 else if (my_color == c_yellow)
 {
@@ -171,8 +186,10 @@ else if (my_color == c_yellow)
 }
 else if (my_color == c_white)
 {
-	if (shoot_hold && (abs(pad_r-pad_l) || abs(pad_d-pad_u))) {
+	var _direction_given = uses_mouse || (abs(pad_r-pad_l) || abs(pad_d-pad_u));
+	if (shoot_hold && _direction_given) {
 		aim = point_direction(0, 0, (pad_r-pad_l), (pad_d-pad_u));
+		if (uses_mouse) { aim = point_direction(x, y, mouse_x, mouse_y); }
 		if (!instance_exists(white_grapple) && white_grapple_cooldown <= 0) {
 			white_grapple = instance_create_depth(x, y, depth-1, obj_grapple2);
 			white_grapple.direction = aim;
@@ -180,8 +197,9 @@ else if (my_color == c_white)
 			white_grapple_cooldown = white_grapple_cooldown_max;
 		}
 	}
-	if (shift && (abs(pad_r-pad_l) || abs(pad_d-pad_u))) {
+	if (shift && _direction_given) {
 		aim = point_direction(0, 0, (pad_r-pad_l), (pad_d-pad_u));
+		if (uses_mouse) { aim = point_direction(x, y, mouse_x, mouse_y); }
 		if (!instance_exists(white_grapple) && white_grapple_cooldown <= 0) {
 			white_grapple = instance_create_depth(x, y, depth-1, obj_grapple2);
 			white_grapple.direction = aim;
@@ -190,8 +208,9 @@ else if (my_color == c_white)
 			white_grapple_cooldown = white_grapple_cooldown_max;
 		}
 	}
-	if (instance_exists(white_grapple) && white_grapple.gravity < 0.3 && (abs(pad_r-pad_l) || abs(pad_d-pad_u))) {
+	if (instance_exists(white_grapple) && white_grapple.gravity < 0.3 && _direction_given) {
 		aim = point_direction(0, 0, (pad_r-pad_l), (pad_d-pad_u));
+		if (uses_mouse) { aim = point_direction(x, y, mouse_x, mouse_y); }
 		white_grapple.direction = aim;
 	}
 	if (white_grapple_cooldown > 0) { white_grapple_cooldown--; }
@@ -216,7 +235,7 @@ else if (my_color == c_orange)
 	direction = gravity_direction;
 	if (pad_r || pad_l || pad_d || pad_u || aqua_move_meter < 0) { aqua_move_meter += 1 - (shift/4); }
 	if (shoot_dont && aqua_move_meter >= 2*sec) { speed = 30; aqua_move_meter = -sec/2; }
-	speed *= 0.84;
+	speed *= 0.9;
 	aqua_move_meter = clamp(aqua_move_meter, -sec/2, 2*sec);
 }
 else if (my_color == c_aqua)
@@ -238,8 +257,8 @@ else if (my_color == c_aqua)
 	if (shoot_dont && !aqua_stunned) {
 		var _coll_mon = ds_list_create();
 		var _coll_mon_count = collision_circle_list(x, y, aqua_parry_rad, obj_mon, false, false, _coll_mon, false);
-		if (_coll_mon_count > 0) { for (var i=0; i<_coll_mon_count; i++) { instance_destroy(_coll_mon[|i]); }  }
-		else { stun_soul(); }
+		if (_coll_mon_count > 0) { for (var i=0; i<_coll_mon_count; i++) { count_for_combo(self, 1); instance_destroy(_coll_mon[|i]); }  }
+		else { stun_soul(self); }
 		ds_list_destroy(_coll_mon);
 	}
 	speed *= 0.7;
@@ -270,11 +289,12 @@ else if (my_color == c_blue)
 	vspeed += 0.1 * (pad_d - pad_u) * (1 - (shift/2));
 	var top_or_bottom = (bbox_top < 2 || bbox_bottom > room_height-2);
 	var left_or_right = (bbox_left < 2 || bbox_right > room_width-2);
-	if (shift && left_or_right) { hspeed = 16*-dcos(gravity_direction);}
-	if (shift && top_or_bottom) { vspeed = 16*dsin(gravity_direction);}
+	if ((shoot_dont || shift) && left_or_right) { hspeed = 16*-dcos(gravity_direction);}
+	if ((shoot_dont || shift) && top_or_bottom) { vspeed = 16*dsin(gravity_direction);}
 	//if (shoot_dont) { gravity_direction-=90; }
+	if (shoot_dont) { gravity_direction-=180; }
 	//if (shoot_hold) { gravity_direction -= 10; }
-	if (shoot_hold && (abs(pad_r-pad_l) || abs(pad_d-pad_u))) { gravity_direction = point_direction(0, 0, (pad_r-pad_l), (pad_d-pad_u)); }
+	//if (shoot_hold && (abs(pad_r-pad_l) || abs(pad_d-pad_u))) { gravity_direction = point_direction(0, 0, (pad_r-pad_l), (pad_d-pad_u)); }
 }
 else if (my_color == c_green)
 {
@@ -288,6 +308,7 @@ else if (my_color == c_green)
 		green_shield.owner = self;
 	}
 	if (instance_exists(green_shield) && green_shield.alarm[0] > sec/2) {
+		if (uses_mouse) { aim = point_direction(green_shield.x, green_shield.y, mouse_x, mouse_y); }
 		green_shield.direction = aim;
 	}
 	if (green_shield_cooldown > 0) { green_shield_cooldown--; }
