@@ -7,6 +7,7 @@ var shoot_hold = mouse_check_button(mb_left) || gamepad_button_check(0, gp_face3
 var special_hold = mouse_check_button(mb_right);
 var shoot_dont = mouse_check_button_released(mb_left) || gamepad_button_check_released(0, gp_face3) || gamepad_button_check_released(0, gp_shoulderr) || gamepad_button_check_released(0, gp_shoulderrb);
 var mode_swap = keyboard_check_pressed(vk_tab);
+var level_up = keyboard_check_pressed(vk_space);
 var aim = gravity_direction;
 
 if (keyboard_check_pressed(vk_f1)) { controller_index = max(0, controller_index-1); }
@@ -69,6 +70,17 @@ else if (controller_index > 1)//CONTROLLER = controller_index-2
 #endregion
 
 if (mode_swap && !shoot_hold && !shift) { soulmode_jump(self); }
+
+if (level_up) {
+	for (var i=0; i < array_length(possible_colors); i++) {
+		var _col = possible_colors[i];
+		var _xp = ds_map_find_value(soulscore, _col);
+		if (_xp >= soulscore_before_level_up) {
+			ds_map_set(soulscore, _col, _xp - soulscore_before_level_up);
+			ds_map_set(soullevel, _col, ds_map_find_value(soullevel, _col)+1);
+		}
+	}
+}
 
 HP = clamp(HP, 0, obj_player.MAX_HP);
 if (my_color != c_purple && my_color != c_white && my_color != c_aqua && !(is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua && redbluehalf.active && !shoot_hold)) {
@@ -160,20 +172,28 @@ else if (my_color == c_yellow)
 			shot.owner = self;
 			audio_play_sound(snd_yellow_pew, 10, false, 1, 0, 1+random_range(-0.1, 0.1));
 		}
-	} else */if (shoot_dont) {
-		
+	} else */
+	if (shoot_dont) {
+		var _lvl = soullevel[?possible_colors[COLOR_INDEX.YELLOW]];
 		if (bigshottery >= bigshottery_max-8) {
 			var shot = instance_create_depth(x, y, depth, obj_shot);
 			shot.image_angle = image_angle;
 			shot.direction = image_angle;
+			shot.image_xscale = 1.5+_lvl/2;
+			shot.image_yscale = 1.5+_lvl/2;
 			shot.image_index = 1;
 			shot.owner = self;
 			audio_play_sound(snd_yellow_pew, 10, false, 1, 0, 1+random_range(-0.1, 0.1));
-		} else if (count_my_shots() <= 3) {
-			var shot = instance_create_depth(x, y, depth, obj_shot);
-			shot.image_angle = image_angle;
-			shot.direction = image_angle;
-			shot.owner = self;
+		} else if (count_my_shots() <= 1*(_lvl+1)) {
+			var _shot_count = 1+_lvl;
+			var _seperation_angle = 10-min(_lvl, 9);
+			var _init_ang = ((_shot_count-1)/2)*_seperation_angle;
+			for (var i=0; i<_shot_count; i++) {
+				var shot = instance_create_depth(x, y, depth, obj_shot);
+				shot.image_angle = image_angle-_init_ang+(i*_seperation_angle);
+				shot.direction = shot.image_angle;
+				shot.owner = self;
+			}
 			audio_play_sound(snd_yellow_pew, 10, false, 1, 0, 1+random_range(-0.1, 0.1));
 		}
 		bigshottery = 0;
@@ -233,9 +253,10 @@ else if (my_color == c_orange)
 	image_angle = -90;
 	gravity_direction = aim;
 	direction = gravity_direction;
-	if (pad_r || pad_l || pad_d || pad_u || aqua_move_meter < 0) { aqua_move_meter += 1 - (shift/4); }
+	var _lvl = soullevel[?possible_colors[COLOR_INDEX.ORANGE]];
+	if (pad_r || pad_l || pad_d || pad_u || aqua_move_meter < 0) { aqua_move_meter += 1 - (shift/4) + _lvl/4; }
 	if (shoot_dont && aqua_move_meter >= 2*sec) { speed = 30; aqua_move_meter = -sec/2; }
-	speed *= 0.9;
+	speed *= 0.8+clamp(_lvl/40, 0, 0.2);
 	aqua_move_meter = clamp(aqua_move_meter, -sec/2, 2*sec);
 }
 else if (my_color == c_aqua)
@@ -243,8 +264,10 @@ else if (my_color == c_aqua)
 	image_angle = -90;
 	gravity_direction = aim;
 	direction = gravity_direction;
+	var _lvl = soullevel[?possible_colors[COLOR_INDEX.AQUA]];
+	aqua_parry_rad = 64 + 4*_lvl;
 	
-	if (!aqua_stunned && (pad_r || pad_l || pad_d || pad_u)) { aqua_move_meter -= 1 - (shift/4); }
+	if (!aqua_stunned && (pad_r || pad_l || pad_d || pad_u)) { aqua_move_meter -= 1 - (shift/4) - clamp(_lvl, 0, 9)/10; }
 	else {aqua_move_meter++; }
 	
 	if (aqua_move_meter > 0) {
@@ -266,11 +289,13 @@ else if (my_color == c_aqua)
 }
 else if (my_color == c_purple)
 {
+	var _lvl = soullevel[?possible_colors[COLOR_INDEX.PURPLE]];
 	var gap = purple_string_gap;
 	var g = gap/2;
 	
-	x = (5*x - ((x-purple_string_x-g)%gap) + g)/5;
-	y = (5*y - ((y-purple_string_y-g)%gap) + g)/5
+	var a = 5;
+	x = (a*x - ((x-purple_string_x-g)%gap) + g)/a;
+	y = (a*y - ((y-purple_string_y-g)%gap) + g)/a;
 	x += 1.81 * spd * (pad_r - pad_l) * (1 - (shift/2));
 	y += 1.81 * spd * (pad_d - pad_u) * (1 - (shift/2));
 	
@@ -306,6 +331,9 @@ else if (my_color == c_green)
 		green_shield.direction = aim;
 		green_shield.speed = 15;
 		green_shield.owner = self;
+		var _lvl = soullevel[?possible_colors[COLOR_INDEX.GREEN]];
+		green_shield.image_xscale = 1+_lvl/2;
+		green_shield.image_yscale = 1+_lvl/2;
 	}
 	if (instance_exists(green_shield) && green_shield.alarm[0] > sec/2) {
 		if (uses_mouse) { aim = point_direction(green_shield.x, green_shield.y, mouse_x, mouse_y); }

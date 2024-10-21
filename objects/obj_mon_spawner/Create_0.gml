@@ -17,43 +17,55 @@ unhandlable_pure_speed = 8;
 //blue
 //white
 
+enum WEIGHT_SUMMONEE_DATA {
+	COLOR = 0,
+	WEIGHT = 1,
+	AVAILABLE_AFTER = 2,
+	PATCH_SIZE = 3,
+}
 
 weight_bag = [
 	//[c_purple, 10000, 3*sec],
-	[c_red, 100, 3*sec],
-	[c_green, 40, 3*sec],
-	[c_aqua, 60, 30*sec], [c_orange, 60, 30*sec],
+	//[color, weight, available_after_time, patch[min, max], ]
+	[c_red, 100, 3*sec, [1, 3]], [c_green, 100, 3*sec, [1, 2]],
+	[c_aqua, 60, 30*sec, [1, 1]], [c_orange, 60, 30*sec, [1, 1]],
 	
-	[c_purple, 100, 50*sec],
-	[c_yellow, 100, 70*sec],
-	[c_blue, 100, 100*sec],
-	[c_white, 100, 140*sec],
+	[c_purple, 100, 50*sec, [2, 2]],
+	[c_yellow, 100, 100*sec, [1, 1]],
+	[c_blue, 200, 170*sec, [1, 1]],
+	[c_white, 200, 250*sec, [1, 1]],
 	
-	[c_yellow, 200, 200*sec],
-	[c_white, 200, 200*sec],
-	[c_green, 100, 200*sec],
+	[c_yellow, 200, 300*sec, [1, 2]], [c_white, 200, 300*sec, [1, 2]], [c_green, 100, 300*sec, [1, 1]],
 ];
 
-function get_random_soulmon(time_counter) {
+function get_weight_bag_data(time_counter) {
 	var _weight_bag = [];
 	var _marble_sum = 0;
 	
 	for (var i=0; i<array_length(weight_bag); i++) {
-		if (weight_bag[i][2] <= time_counter)
-		{ array_push(_weight_bag, weight_bag[i]); _marble_sum += weight_bag[i][1]; }
+		if (weight_bag[i][WEIGHT_SUMMONEE_DATA.AVAILABLE_AFTER] <= time_counter)
+		{ array_push(_weight_bag, weight_bag[i]); _marble_sum += weight_bag[i][WEIGHT_SUMMONEE_DATA.WEIGHT]; }
 		else { break; }
 	}
 	
-	if (_marble_sum <= 0) { return noone; }
+	return [_weight_bag, _marble_sum];
+}
+
+function get_random_soulmon_data(time_counter) {
+	var _weight_bag_data = get_weight_bag_data(time_counter);
+	var _weight_bag = _weight_bag_data[0];
+	var _marble_sum = _weight_bag_data[1];
+	
+	if (_marble_sum <= 0) { return -1; }
 	
 	var _chosen_marble = irandom_range(0, _marble_sum-1);
 	var _marble_pile = 0;
 	for (var i=0; i<array_length(_weight_bag); i++) {
 		_marble_pile += _weight_bag[i][1];
-		if (_marble_pile >= _chosen_marble) { return _weight_bag[i][0]; }
+		if (_marble_pile >= _chosen_marble) { return _weight_bag[i]; }
 	}
 	
-	return noone;
+	return -1;
 }
 
 time_between_spawns_max = 3.8*sec;

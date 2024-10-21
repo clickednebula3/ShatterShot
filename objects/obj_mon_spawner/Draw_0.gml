@@ -16,11 +16,22 @@ draw_text(0, room_height-20, string(time_counter/sec)-((10*time_counter/sec)%1)/
 if (time_between_spawns_now <= 0) {
 	time_between_spawns_now = time_between_spawns_max - (time_between_spawns_max-time_between_spawns_min)*clamp(time_counter/time_between_spawns_width, 0, 1);
 	
-	var summonee = instance_create_depth(
-		random_range(64, room_width-64), random_range(64, room_height-64),
-		depth, obj_mon_spawn);
-	var summonee_color = get_random_soulmon(time_counter);
-	summonee.my_color = summonee_color;
+	var _summonee_data = get_random_soulmon_data(time_counter);
+	var _summonee_color = _summonee_data[WEIGHT_SUMMONEE_DATA.COLOR];
+	var _summonee_patch_data = _summonee_data[WEIGHT_SUMMONEE_DATA.PATCH_SIZE];
+	var _summonee_patch = irandom_range(_summonee_patch_data[0], _summonee_patch_data[1]);
+	
+	var _x_y = [random_range(64, room_width-64), random_range(64, room_height-64)];
+	
+	for (var i=0; i < _summonee_patch; i++) {
+		var summonee = instance_create_depth(_x_y[0], _x_y[1], depth, obj_mon_spawn);
+		summonee.my_color = _summonee_color;
+		
+		_x_y = [
+			clamp(_x_y[0] + random_range(-32, 32), 64, room_width-64),
+			clamp(_x_y[1] + random_range(-32, 32), 64, room_width-64)
+		];
+	}
 	wave_summonee_index++;
 } else { time_between_spawns_now --; }
 

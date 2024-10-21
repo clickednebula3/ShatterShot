@@ -72,9 +72,10 @@ if (my_color == c_aqua) {
 }
 draw_set_alpha(1);
 if (my_color == c_green && !instance_exists(green_shield)) {
+	var _lvl = soullevel[?possible_colors[COLOR_INDEX.GREEN]];
 	if (green_shield_cooldown <= 0)
-	{ draw_sprite_ext(spr_shield, green_allround_shield, x, y, image_xscale, image_yscale, gravity_direction, c_white, 1-0.75*(green_shield_cooldown/green_shield_cooldown_max)); }
-	else {draw_sprite_ext(spr_shield, green_allround_shield, x, y, image_xscale, image_yscale, gravity_direction, c_white, 1); }
+	{ draw_sprite_ext(spr_shield, green_allround_shield, x, y, 1+_lvl/2, 1+_lvl/2, gravity_direction, c_white, 1-0.75*(green_shield_cooldown/green_shield_cooldown_max)); }
+	else {draw_sprite_ext(spr_shield, green_allround_shield, x, y, 1+_lvl/2, 1+_lvl/2, gravity_direction, c_white, 1); }
 }
 if (is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua) {
 	draw_set_color(c_purple);
@@ -126,9 +127,14 @@ draw_set_alpha(1);
 draw_set_valign(fa_top);
 
 
+var _levelup_available = false;
 for (var i=0; i<array_length(possible_colors); i++) {
 	var _col = possible_colors[i];
 	if (ds_map_exists(soulscore, _col) && !is_array(_col)) {
-		draw_healthbar((room_width/2)+i*16, 8+player_id*16, (room_width/2)+(i+1)*16, 24+player_id*16, soulscore[?_col]*3, c_dkgray, _col, _col, 0, true, false);
+		draw_healthbar((room_width/2)+i*16+i*4, 8+player_id*16, (room_width/2)+(i+1)*16+i*4, 24+player_id*16,
+		100*soulscore[?_col]/soulscore_before_level_up, c_dkgray, _col, _col, 0, true, false);
+		draw_text((room_width/2)+i*16+i*4, 24+player_id*16, string(ds_map_find_value(soullevel, _col)));
+		if (soulscore[?_col]/soulscore_before_level_up >= 1) { _levelup_available = true; }
 	}
 }
+if (_levelup_available) { draw_text((room_width/2), 40+player_id*16, "Press Space!"); }

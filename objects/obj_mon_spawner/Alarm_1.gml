@@ -3,7 +3,9 @@
 var _red_player_found = noone;
 with (obj_player) { if (my_color == c_red) { _red_player_found = self; break; } }
 
-if (instance_exists(_red_player_found) && !instance_exists(obj_fight))
+if (instance_exists(_red_player_found) &&
+	instance_number(obj_fight) <= _red_player_found.soullevel[? (_red_player_found.possible_colors[COLOR_INDEX.RED]) ]
+	)
 {
 	var _button = instance_create_depth(
 		irandom_range(64, room_width-64),

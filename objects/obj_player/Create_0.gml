@@ -4,7 +4,11 @@ MAX_HP = 10;
 color_index = COLOR_INDEX.RED;
 possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white, [c_red, c_aqua]];
 my_color = possible_colors[color_index%array_length(possible_colors)];
+
+soulscore_before_level_up = 30;
 soulscore = ds_map_create();
+soullevel = ds_map_create();
+for (var i=0; i < array_length(possible_colors); i++) { ds_map_set(soullevel, possible_colors[i], 0); }
 
 //aqua and orange
 //gravitation or smth to player
