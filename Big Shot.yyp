@@ -70,6 +70,7 @@
     {"id":{"name":"spr_dvd","path":"sprites/spr_dvd/spr_dvd.yy",},},
     {"id":{"name":"spr_fight","path":"sprites/spr_fight/spr_fight.yy",},},
     {"id":{"name":"spr_half","path":"sprites/spr_half/spr_half.yy",},},
+    {"id":{"name":"spr_ICON","path":"sprites/spr_ICON/spr_ICON.yy",},},
     {"id":{"name":"spr_item","path":"sprites/spr_item/spr_item.yy",},},
     {"id":{"name":"spr_mercy","path":"sprites/spr_mercy/spr_mercy.yy",},},
     {"id":{"name":"spr_shield","path":"sprites/spr_shield/spr_shield.yy",},},

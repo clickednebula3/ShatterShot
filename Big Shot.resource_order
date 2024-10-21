@@ -49,6 +49,7 @@
     {"name":"spr_dvd","order":18,"path":"sprites/spr_dvd/spr_dvd.yy",},
     {"name":"spr_fight","order":7,"path":"sprites/spr_fight/spr_fight.yy",},
     {"name":"spr_half","order":20,"path":"sprites/spr_half/spr_half.yy",},
+    {"name":"spr_ICON","order":26,"path":"sprites/spr_ICON/spr_ICON.yy",},
     {"name":"spr_item","order":9,"path":"sprites/spr_item/spr_item.yy",},
     {"name":"spr_mercy","order":8,"path":"sprites/spr_mercy/spr_mercy.yy",},
     {"name":"spr_shield","order":6,"path":"sprites/spr_shield/spr_shield.yy",},
