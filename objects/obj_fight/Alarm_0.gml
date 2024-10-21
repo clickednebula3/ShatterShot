@@ -20,7 +20,8 @@ if (sprite_index == spr_item) {
 	if (instance_exists(player)) { player.HP += 2; }
 }
 if (sprite_index == spr_mercy) {
-	with (obj_mon) { instance_destroy(self); count_for_combo(player, 1); break; }
+	var _p = player;
+	with (obj_mon) { instance_destroy(self); count_for_combo(_p, 1); break; }
 }
 if (sprite_index == spr_bruh) {
 	turn_sped = 1;
