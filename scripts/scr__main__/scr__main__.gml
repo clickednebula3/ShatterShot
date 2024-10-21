@@ -5,7 +5,7 @@ function scr__main__(){
 }
 
 function count_for_combo(soul, count) {
-	if (instance_exists(soul)) {
+	if (instance_exists(soul) && soul.object_index == obj_player) {
 		soul.combo += count;
 		soul.combo_timer = soul.combo_timer_max;
 	}
