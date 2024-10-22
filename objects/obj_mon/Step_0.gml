@@ -1,5 +1,7 @@
-x = clamp(x, 8, room_width-8);
-y = clamp(y, 8, room_height-8);
+if (collision_circle(x, y, (sprite_width+sprite_height)/4, obj_portal, true, true) == noone) {
+	x = clamp(x, x-bbox_left-1, room_width-(bbox_right-x)+1);
+	y = clamp(y, y-bbox_top-1, room_height-(bbox_bottom-y)+1);
+}
 
 var _target_alt = noone;
 var _target = noone;
@@ -144,7 +146,7 @@ else if (my_color = c_orange)
 }
 
 Time ++;
-x = clamp(x, 8, room_width-8);
-y = clamp(y, 8, room_height-8);
+//x = clamp(x, 8, room_width-8);
+//y = clamp(y, 8, room_height-8);
 
 if (orngplayer_tension <= 0) { instance_destroy(); }

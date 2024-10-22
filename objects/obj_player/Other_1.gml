@@ -1,9 +1,9 @@
+if (collision_circle(x, y, (sprite_width+sprite_height)/4, obj_portal, true, true) != noone) { return; }
+
 if (my_color = c_blue) {
-	if (bbox_left < 0 || bbox_right > room_width) {
-		gravity_direction = point_direction(0, 0, hspeed, 0);
-	} else {
-		gravity_direction = point_direction(0, 0, 0, vspeed);
-	}
+	if (bbox_left < 0 || bbox_right > room_width)
+	{ gravity_direction = point_direction(0, 0, hspeed, 0); }
+	else { gravity_direction = point_direction(0, 0, 0, vspeed); }
 	if (bbox_left < 0 || bbox_right > room_width) {hspeed *= -0.5;}
 	if (bbox_top < 0 || bbox_bottom > room_height) {vspeed *= -0.5;}
 	x = clamp(x, x-bbox_left, room_width-(bbox_right-x));

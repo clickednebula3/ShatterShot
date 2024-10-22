@@ -69,8 +69,8 @@ function get_random_soulmon_data(time_counter) {
 }
 
 time_between_spawns_max = 3.8*sec;
-time_between_spawns_min = 1*sec;
-time_between_spawns_width = 400*sec;
+time_between_spawns_min = 0.4*sec;
+time_between_spawns_width = 600*sec;
 time_between_spawns_now = time_between_spawns_max;
 time_counter = 0;
 

@@ -4,6 +4,7 @@ speed = 0;
 if (SUPER > 0 || act_done > 0) { return; }
 act_done = sec;
 if (sprite_index == spr_fight || sprite_index == spr_yell) {
+	audio_play_sound(snd_slash, 10, false);
 	//var _killcoll = ds_list_create();
 	//var _killcollcount = collision_circle_list(x, y, fight_rad, obj_mon, false, true, _killcoll, false);
 	//for (var i=0; i<_killcollcount; i++) { instance_destroy(_killcoll[|i]); }
@@ -16,9 +17,7 @@ if (sprite_index == spr_act) {
 	sprite_index = possible_act_acts[act_index%array_length(possible_act_acts)];
 	return;
 }
-if (sprite_index == spr_item) {
-	if (instance_exists(player)) { player.HP += 2; }
-}
+if (sprite_index == spr_item) { soul_heal(player, 2); }
 if (sprite_index == spr_mercy) {
 	var _p = player;
 	with (obj_mon) { instance_destroy(self); count_for_combo(_p, 1); break; }

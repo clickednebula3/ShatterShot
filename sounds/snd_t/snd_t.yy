@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"snd_squeak",
+  "%Name":"snd_t",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,8 +9,8 @@
   "bitRate":128,
   "compression":0,
   "conversionMode":0,
-  "duration":0.0,
-  "name":"snd_squeak",
+  "duration":0.042086,
+  "name":"snd_t",
   "parent":{
     "name":"Sounds",
     "path":"folders/Sounds.yy",
@@ -19,7 +19,7 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"snd_squeak.wav",
+  "soundFile":"snd_t.wav",
   "type":0,
-  "volume":1.0,
+  "volume":0.15,
 }

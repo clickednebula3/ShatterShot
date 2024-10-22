@@ -91,8 +91,10 @@ if (my_color != c_purple && my_color != c_white && my_color != c_aqua && !(is_ar
 		redbluehalf.y += redbluehalf.spd * (pad_d - pad_u) * (1 - (shift/2));
 	}
 }
-x = clamp(x, x-bbox_left-1, room_width-(bbox_right-x)+1);
-y = clamp(y, y-bbox_top-1, room_height-(bbox_bottom-y)+1);
+if (collision_circle(x, y, (sprite_width+sprite_height)/4, obj_portal, true, true) == noone) {
+	x = clamp(x, x-bbox_left-1, room_width-(bbox_right-x)+1);
+	y = clamp(y, y-bbox_top-1, room_height-(bbox_bottom-y)+1);
+}
 
 if (alarm[0] > 0) { image_alpha = 0.5 + (floor(alarm[0]/3)%2)/2; }
 else { image_alpha = 1; }

@@ -11,6 +11,13 @@ function count_for_combo(soul, count) {
 	}
 }
 
+function soul_heal(soul, HP) {
+	if (instance_exists(soul) && soul.object_index == obj_player) {
+		soul.HP += HP;
+		audio_play_sound(snd_heal, 10, false);
+	}
+}
+
 function stun_soul(soul) { soul.aqua_stunned = true; soul.aqua_move_meter = -sec/2; }
 
 function soul_save_game(soul)

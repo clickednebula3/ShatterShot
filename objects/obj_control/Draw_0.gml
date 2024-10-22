@@ -2,7 +2,7 @@
 //draw Z/X/ARROW
 //draw wave/mon thing
 
-possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white, [c_red, c_aqua]];
+possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white, [c_red, c_aqua], [c_aqua, c_orange]];
 
 if (!game_started) {
 	for (var i=0; i<array_length(possible_colors); i++) {
