@@ -28,7 +28,7 @@ weight_bag = [
 	//[c_purple, 10000, 3*sec],
 	//[color, weight, available_after_time, patch[min, max], ]
 	[c_red, 100, 3*sec, [1, 3]], [c_green, 100, 3*sec, [1, 2]],
-	[c_aqua, 60, 30*sec, [1, 1]], [c_orange, 60, 30*sec, [1, 1]],
+	[c_aqua, 60, 30*sec, [3, 3]], [c_orange, 60, 30*sec, [3, 3]],
 	
 	[c_purple, 100, 50*sec, [2, 2]],
 	[c_yellow, 100, 100*sec, [1, 1]],

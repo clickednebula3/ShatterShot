@@ -114,6 +114,7 @@ else if (my_color = c_purple)
 		x = (10*x + new_x)/11;
 		y = (10*y + new_y)/11;
 	}
+	
 	speed *= 0.5;
 }
 else if (my_color = c_aqua)
