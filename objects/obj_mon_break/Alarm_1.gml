@@ -16,5 +16,6 @@ if (initial_shred) {
 		shred_piece.alarm[1] = 1;
 		shred_piece.my_color = my_color;
 		shred_piece.initial_shred = false;
+		shred_piece.sprite_index = sprite_index;
 	}
 }

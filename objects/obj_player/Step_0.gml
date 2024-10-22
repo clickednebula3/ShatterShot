@@ -153,11 +153,18 @@ else if (my_color == c_red)
 	image_angle = -90;//Users/Shared/*/YoYo Runner.app/Contents/MacOS/Mac_Runner
 	if (shoot_dont) {
 		var _fight_coll = collision_point(x, y, obj_fight, true, false);
-		if (_fight_coll != noone && _fight_coll.alarm[0] <= 0)
-		{ _fight_coll.player = self; _fight_coll.alarm[0] = 1; }
-		else { soul_save_game(self); }
+		if (_fight_coll != noone && _fight_coll.alarm[0] <= 0) { _fight_coll.player = self; _fight_coll.alarm[0] = 1; }
+		//else { soul_save_game(self); }
 	}
 	
+	if (shift) {
+		var _fight_coll = collision_point(x, y, obj_fight, true, false);
+		if (instance_exists(_fight_coll) && _fight_coll.alarm[0] <= 0) {
+			var _fight_break = instance_create_depth(_fight_coll.x, _fight_coll.y, _fight_coll.depth, obj_mon_break);
+			_fight_break.sprite_index = spr_breaks;
+			instance_destroy(_fight_coll);
+		}
+	}
 }
 else if (my_color == c_yellow)
 {
