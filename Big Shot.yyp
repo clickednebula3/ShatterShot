@@ -34,6 +34,7 @@
   },
   "name":"Big Shot",
   "resources":[
+    {"id":{"name":"Note1","path":"notes/Note1/Note1.yy",},},
     {"id":{"name":"obj_capshield","path":"objects/obj_capshield/obj_capshield.yy",},},
     {"id":{"name":"obj_combo","path":"objects/obj_combo/obj_combo.yy",},},
     {"id":{"name":"obj_control","path":"objects/obj_control/obj_control.yy",},},
@@ -44,6 +45,7 @@
     {"id":{"name":"obj_mon_spawn","path":"objects/obj_mon_spawn/obj_mon_spawn.yy",},},
     {"id":{"name":"obj_mon_spawner","path":"objects/obj_mon_spawner/obj_mon_spawner.yy",},},
     {"id":{"name":"obj_mon","path":"objects/obj_mon/obj_mon.yy",},},
+    {"id":{"name":"obj_myspoke","path":"objects/obj_myspoke/obj_myspoke.yy",},},
     {"id":{"name":"obj_obst","path":"objects/obj_obst/obj_obst.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"obj_portal","path":"objects/obj_portal/obj_portal.yy",},},
@@ -79,6 +81,7 @@
     {"id":{"name":"spr_item","path":"sprites/spr_item/spr_item.yy",},},
     {"id":{"name":"spr_load","path":"sprites/spr_load/spr_load.yy",},},
     {"id":{"name":"spr_mercy","path":"sprites/spr_mercy/spr_mercy.yy",},},
+    {"id":{"name":"spr_myspoke","path":"sprites/spr_myspoke/spr_myspoke.yy",},},
     {"id":{"name":"spr_portal","path":"sprites/spr_portal/spr_portal.yy",},},
     {"id":{"name":"spr_save","path":"sprites/spr_save/spr_save.yy",},},
     {"id":{"name":"spr_shield","path":"sprites/spr_shield/spr_shield.yy",},},
