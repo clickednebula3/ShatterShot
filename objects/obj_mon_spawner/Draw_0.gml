@@ -34,15 +34,29 @@ if (time_between_spawns_now <= 0) {
 		];
 	}
 	
-	if (_summonee_patch > 1 && (_summonee_color == c_orange || _summonee_color == c_aqua)) {
-		var _points = _summonee_arr[0].orange_points;
-		for (var i=1; i<_summonee_patch; i++) {
-			_summonee_arr[i].x = _summonee_arr[0].x;
-			_summonee_arr[i].y = _summonee_arr[0].y;
-			_summonee_arr[i].orange_points = _points;
-			_summonee_arr[i].orange_target_point = i;
-		}
-	}
+	//if (_summonee_patch > 0 && (_summonee_color == c_orange || _summonee_color == c_aqua)) {
+		
+	//		orange_points = [
+	//			[xstart, ystart],
+	//			[
+	//				clamp(irandom_range(64, room_width-64), xstart-orange_distance, xstart+orange_distance),
+	//				clamp(irandom_range(64, room_height-64), ystart-orange_distance, ystart+orange_distance),
+	//			],
+	//			[
+	//				clamp(irandom_range(64, room_width-64), xstart-orange_distance, xstart+orange_distance),
+	//				clamp(irandom_range(64, room_height-64), ystart-orange_distance, ystart+orange_distance),
+	//			],
+	//		];
+	//	var _points = _summonee_arr[0].orange_points;
+	//	for (var i=1; i<_summonee_patch; i++) {
+	//		_summonee_arr[i].x = _summonee_arr[0].x;
+	//		_summonee_arr[i].y = _summonee_arr[0].y;
+	//		_summonee_arr[i].orange_points[0] = _points[0];
+	//		_summonee_arr[i].orange_points[1] = _points[1];
+	//		_summonee_arr[i].orange_points[2] = _points[2];
+	//		_summonee_arr[i].orange_target_point = i;
+	//	}
+	//}
 	
 	wave_summonee_index++;
 } else { time_between_spawns_now --; }
