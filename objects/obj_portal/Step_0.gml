@@ -15,10 +15,11 @@ if (!instance_exists(linked_portal)) {
 		//tan(ang) = -y/x
 		//var m = -dtan(image_angle-90+0.0001);
 		//var b = m*x - y;
-		
-		if (!instance_exists(_coll[|i])) { continue; }
-		var _ripe_for_tp = false;
 		var _obj = _coll[|i];
+		var _ripe_for_tp = false;
+		
+		if (!instance_exists(_obj)) { continue; }
+		if (_obj.object_index == obj_grapple) { continue; }
 		
 		image_angle = image_angle%360;
 		if (image_angle == 0) { if (_obj.x < x) { _ripe_for_tp = true; } }

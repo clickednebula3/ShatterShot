@@ -22,16 +22,28 @@ if (time_between_spawns_now <= 0) {
 	var _summonee_patch = irandom_range(_summonee_patch_data[0], _summonee_patch_data[1]);
 	
 	var _x_y = [random_range(64, room_width-64), random_range(64, room_height-64)];
+	var _summonee_arr = [];
 	
 	for (var i=0; i < _summonee_patch; i++) {
-		var summonee = instance_create_depth(_x_y[0], _x_y[1], depth, obj_mon_spawn);
-		summonee.my_color = _summonee_color;
+		array_push(_summonee_arr, instance_create_depth(_x_y[0], _x_y[1], depth, obj_mon_spawn));
+		_summonee_arr[i].my_color = _summonee_color;
 		
 		_x_y = [
 			clamp(_x_y[0] + random_range(-32, 32), 64, room_width-64),
 			clamp(_x_y[1] + random_range(-32, 32), 64, room_width-64)
 		];
 	}
+	
+	if (_summonee_patch > 1 && (_summonee_color == c_orange || _summonee_color == c_aqua)) {
+		var _points = _summonee_arr[0].orange_points;
+		for (var i=1; i<_summonee_patch; i++) {
+			_summonee_arr[i].x = _summonee_arr[0].x;
+			_summonee_arr[i].y = _summonee_arr[0].y;
+			_summonee_arr[i].orange_points = _points;
+			_summonee_arr[i].orange_target_point = i;
+		}
+	}
+	
 	wave_summonee_index++;
 } else { time_between_spawns_now --; }
 

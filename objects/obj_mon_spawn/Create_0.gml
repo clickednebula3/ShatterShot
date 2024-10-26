@@ -9,3 +9,6 @@ possible_colors = [
 ];
 my_color = possible_colors[irandom_range(0, array_length(possible_colors)-1)];
 image_alpha = 0.7;
+
+orange_points = -1;
+orange_target_point = -1;

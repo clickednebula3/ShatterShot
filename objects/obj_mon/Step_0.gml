@@ -120,8 +120,9 @@ else if (my_color = c_purple)
 else if (my_color = c_aqua)
 {
 	speed = 3;
-	direction = point_direction(x, y, orange_points[orange_target_point][0], orange_points[orange_target_point][1]);
-	if (point_distance(x, y, orange_points[orange_target_point][0], orange_points[orange_target_point][1]) < speed*2) {
+	var _pr = orange_points[orange_target_point%array_length(orange_points)];
+	direction = point_direction(x, y, _pr[0], _pr[1]);
+	if (point_distance(x, y, _pr[0], _pr[1]) < speed*2) {
 		orange_target_point++;
 		if (orange_target_point >= array_length(orange_points)) { orange_target_point = 0; }
 	}
@@ -134,8 +135,9 @@ else if (my_color = c_aqua)
 else if (my_color = c_orange)
 {
 	speed = 3;
-	direction = point_direction(x, y, orange_points[orange_target_point][0], orange_points[orange_target_point][1]);
-	if (point_distance(x, y, orange_points[orange_target_point][0], orange_points[orange_target_point][1]) < speed*2) {
+	var _pr = orange_points[orange_target_point%array_length(orange_points)];
+	direction = point_direction(x, y, _pr[0], _pr[1]);
+	if (point_distance(x, y, _pr[0], _pr[1]) < speed*2) {
 		orange_target_point++;
 		if (orange_target_point >= array_length(orange_points)) { orange_target_point = 0; }
 	}
