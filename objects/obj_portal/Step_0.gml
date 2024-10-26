@@ -8,7 +8,7 @@ if (!instance_exists(linked_portal)) {
 } else {
 	image_index = 1;
 	var _coll = ds_list_create();
-	var _coll_c = collision_rectangle_list(bbox_left, bbox_top, bbox_right, bbox_bottom, all, true, true, _coll, false);
+	var _coll_c = collision_rectangle_list(bbox_left-20, bbox_top-20, bbox_right+20, bbox_bottom+20, all, false, true, _coll, false);
 	
 	for (var i=0; i<_coll_c; i++) {
 		//y=mx
