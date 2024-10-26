@@ -40,6 +40,8 @@ purple_string_y = 0;
 green_shield = noone;
 green_shield_cooldown = 0;
 green_shield_cooldown_max = 3*sec;
+green_defshield = instance_create_depth(x, y, depth+1, obj_defshield);
+green_defshield.owner = self;
 
 redyellow_maxtimer = 12*sec;
 redyellow_timer = -1;

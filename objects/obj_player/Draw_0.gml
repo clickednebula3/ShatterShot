@@ -71,8 +71,10 @@ if (my_color == c_aqua) {
 	
 }
 draw_set_alpha(1);
+if (instance_exists(green_defshield)) { green_defshield.active = false; }
 if (my_color == c_green && !instance_exists(green_shield)) {
 	var _lvl = soullevel[?possible_colors[COLOR_INDEX.GREEN]];
+	if (instance_exists(green_defshield)) { green_defshield.active = true; green_defshield.allround = green_allround_shield;}
 	if (green_shield_cooldown <= 0)
 	{ draw_sprite_ext(spr_shield, green_allround_shield, x, y, 1+_lvl/2, 1+_lvl/2, gravity_direction, c_white, 1-0.75*(green_shield_cooldown/green_shield_cooldown_max)); }
 	else {draw_sprite_ext(spr_shield, green_allround_shield, x, y, 1+_lvl/2, 1+_lvl/2, gravity_direction, c_white, 1); }

@@ -9,22 +9,84 @@ if (instance_exists(my_child))
 			image_index = irandom_range(0, sprite_get_number(sprite_index)-1);
 		}
 	}
+	//var _target = my_child.image_angle % 360;
+	//image_angle = image_angle % 360;
+		
+	//var _diff = _target-image_angle;
+		
+	//if (abs(_diff) > 180) { _diff -= 360; }
+		
+	//image_angle += _diff/10;
 } else {
 	image_index = sprite_get_number(sprite_index)-1;
-	if (instance_exists(obj_player)) {
-		var _ang = point_direction(x, y, obj_player.x, obj_player.y)%360;
-		image_angle %= 360;
+	//if (instance_exists(obj_player)) {
+	//	var _target = point_direction(x, y, obj_player.x, obj_player.y) % 360;
+	//	image_angle = image_angle % 360;
 		
-		if (image_angle-_ang > 180) { _ang += 360; }
+	//	var _diff = _target-image_angle;
 		
-		image_angle = (10*image_angle + _ang)/11;
-	}
+	//	if (abs(_diff) > 180) { _diff -= 360; }
+		
+	//	image_angle += _diff/10;
+	//}
 }
 
 if (instance_exists(my_parent)) {
-	my_parent.image_angle = (10*my_parent.image_angle + image_angle)/11;
+	//my_parent.image_angle = (10*my_parent.image_angle + image_angle)/11;
+	//var _target = my_parent.image_angle;
+	//image_angle = image_angle % 360;
+		
+	//var _diff = _target-image_angle;
+		
+	//if (abs(_diff) > 180) { _diff -= 360; }
+		
+	//image_angle += _diff/10;
+		var _target = my_parent.image_angle;
+		image_angle = image_angle;
+		
+		while (_target < 0) { _target += 360; }
+		while (image_angle < 0) { image_angle += 360; }
+		
+		_target %= 360;
+		image_angle %= 360;
+		
+		var _diff = _target - image_angle;
+		
+		if (abs(_diff) > 180) {
+			if (image_angle > _target) { _diff += 360; }
+			else { _diff -= 360; }
+		}
+		image_angle += _diff/10;
+	
+	
+	
 } else {
 	//if (instance_exists(obj_player)) {
 	//	image_angle = (image_angle + 3*point_direction(x, y, obj_player.x, obj_player.y))/4;
 	//}
+	if (instance_exists(obj_player)) {
+		var _target = point_direction(x, y, obj_player.x, obj_player.y);
+		image_angle = image_angle;
+		
+		while (_target < 0) { _target += 360; }
+		while (image_angle < 0) { image_angle += 360; }
+		
+		_target %= 360;
+		image_angle %= 360;
+		
+		var _diff = _target - image_angle;
+		
+		if (abs(_diff) > 180) {
+			if (image_angle > _target) { _diff += 360; }
+			else { _diff -= 360; }
+		}
+		image_angle += _diff/10;
+		
+		
+		//var _diff = _target-image_angle;
+		
+		//if (abs(_diff) > 180) { _diff -= 360; }
+		
+		//image_angle += _diff/10;
+	}
 }
