@@ -23,6 +23,8 @@ if (time_between_spawns_now <= 0) {
 	
 	var _x_y = [random_range(64, room_width-64), random_range(64, room_height-64)];
 	var _summonee_arr = [];
+	var _orange_points = [[x,y],[x,y],[x,y]];
+	var _orange_distance = 128;
 	
 	for (var i=0; i < _summonee_patch; i++) {
 		array_push(_summonee_arr, instance_create_depth(_x_y[0], _x_y[1], depth, obj_mon_spawn));
@@ -30,33 +32,31 @@ if (time_between_spawns_now <= 0) {
 		
 		_x_y = [
 			clamp(_x_y[0] + random_range(-32, 32), 64, room_width-64),
-			clamp(_x_y[1] + random_range(-32, 32), 64, room_width-64)
+			clamp(_x_y[1] + random_range(-32, 32), 64, room_height-64)
+		];
+		
+		_orange_points = [
+			[_x_y[0], _x_y[1]],
+			[
+				clamp(irandom_range(64, room_width-64), _x_y[0]-_orange_distance, _x_y[0]+_orange_distance),
+				clamp(irandom_range(64, room_height-64), _x_y[1]-_orange_distance, _x_y[1]+_orange_distance),
+			],
+			[
+				clamp(irandom_range(64, room_width-64), _x_y[0]-_orange_distance, _x_y[0]+_orange_distance),
+				clamp(irandom_range(64, room_height-64), _x_y[1]-_orange_distance, _x_y[1]+_orange_distance),
+			],
 		];
 	}
 	
-	//if (_summonee_patch > 0 && (_summonee_color == c_orange || _summonee_color == c_aqua)) {
+	if (_summonee_patch > 0 && (_summonee_color == c_orange || _summonee_color == c_aqua)) {
 		
-	//		orange_points = [
-	//			[xstart, ystart],
-	//			[
-	//				clamp(irandom_range(64, room_width-64), xstart-orange_distance, xstart+orange_distance),
-	//				clamp(irandom_range(64, room_height-64), ystart-orange_distance, ystart+orange_distance),
-	//			],
-	//			[
-	//				clamp(irandom_range(64, room_width-64), xstart-orange_distance, xstart+orange_distance),
-	//				clamp(irandom_range(64, room_height-64), ystart-orange_distance, ystart+orange_distance),
-	//			],
-	//		];
-	//	var _points = _summonee_arr[0].orange_points;
-	//	for (var i=1; i<_summonee_patch; i++) {
-	//		_summonee_arr[i].x = _summonee_arr[0].x;
-	//		_summonee_arr[i].y = _summonee_arr[0].y;
-	//		_summonee_arr[i].orange_points[0] = _points[0];
-	//		_summonee_arr[i].orange_points[1] = _points[1];
-	//		_summonee_arr[i].orange_points[2] = _points[2];
-	//		_summonee_arr[i].orange_target_point = i;
-	//	}
-	//}
+		for (var i=0; i<_summonee_patch; i++) {
+			_summonee_arr[i].x = _summonee_arr[0].x;
+			_summonee_arr[i].y = _summonee_arr[0].y;
+			_summonee_arr[i].orange_points = _orange_points;
+			_summonee_arr[i].orange_target_point = i;
+		}
+	}
 	
 	wave_summonee_index++;
 } else { time_between_spawns_now --; }
