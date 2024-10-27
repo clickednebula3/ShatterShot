@@ -66,6 +66,11 @@ else if (controller_index > 1)//CONTROLLER = controller_index-2
 	shoot_hold = gamepad_button_check(gp_id, gp_face3)			|| gamepad_button_check(gp_id, gp_shoulderr)			|| gamepad_button_check(gp_id, gp_shoulderrb);
 	shoot_dont = gamepad_button_check_released(gp_id, gp_face3) || gamepad_button_check_released(gp_id, gp_shoulderr)	|| gamepad_button_check_released(gp_id, gp_shoulderrb);
 	mode_swap = gamepad_button_check_pressed(gp_id, gp_face4);
+	if (uses_mouse) {
+		aim = point_direction(x, y, mouse_x, mouse_y);
+	} else {
+		if ((pad_r xor pad_l) || (pad_d xor pad_u)) { aim = point_direction(0, 0, pad_r-pad_l, pad_d-pad_u); }
+	}
 }
 #endregion
 

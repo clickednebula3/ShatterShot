@@ -14,7 +14,7 @@ for (var i=0; i < array_length(possible_colors); i++) { ds_map_set(soullevel, po
 //gravitation or smth to player
 
 player_id = 0;
-controller_index = 1;
+controller_index = 0;
 uses_mouse = true;
 
 combo_timer = 0;
