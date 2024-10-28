@@ -39,6 +39,8 @@ else if (my_color = c_green)
 		if (my_shield <= 0) { direction += 180; }
 	}
 	ds_list_destroy(shots_list);
+	
+	if (instance_exists(purplayer_my_purpellet)) { instance_destroy(purplayer_my_purpellet); }
 }
 else if (my_color = c_yellow)
 {

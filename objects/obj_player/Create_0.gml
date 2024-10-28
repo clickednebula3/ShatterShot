@@ -5,7 +5,7 @@ color_index = COLOR_INDEX.RED;
 possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white, [c_red, c_aqua], [c_aqua, c_orange]];
 my_color = possible_colors[color_index%array_length(possible_colors)];
 
-soulscore_before_level_up = 40;
+soulscore_before_level_up = 16;
 soulscore = ds_map_create();
 soullevel = ds_map_create();
 for (var i=0; i < array_length(possible_colors); i++) { ds_map_set(soullevel, possible_colors[i], 0); }
@@ -34,7 +34,7 @@ orange_dropped_pin = [room_width/2, room_height/2];
 aqua_move_meter = 2*sec;
 aqua_stunned = false;
 aqua_parry_rad = 64;
-purple_string_gap = 40;//32
+purple_string_gap = 48;//32
 purple_string_gap_reasonable = 32;
 purple_string_x = 0;//loop in (0 to gap);
 purple_string_y = 0;

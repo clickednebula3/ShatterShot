@@ -22,14 +22,17 @@ if (my_color == c_purple) {
 	//for (var j=-purple_string_gap+purple_string_y; j<=room_height+purple_string_gap; j+=purple_string_gap)
 	//{ draw_line(-1, j, room_width+1, j); }
 	
-	var max_purple_view_distance = purple_string_gap*3;
+	var max_purple_view_distance = purple_string_gap*4;
 	for (var i=-purple_string_gap+purple_string_x; i<=room_width+purple_string_gap; i+=purple_string_gap)
 	{
 		for (var j=-purple_string_gap+purple_string_y; j<=room_height+purple_string_gap; j+=purple_string_gap)
 		{
-			draw_set_alpha(1 - (point_distance(x, y, i+purple_string_gap/2, j)/max_purple_view_distance));
+			var _a = 1 - (point_distance(x, y, i+purple_string_gap/2, j)/max_purple_view_distance);
+			var _b = 1 - (point_distance(x, y, i, j+purple_string_gap/2)/max_purple_view_distance);
+			if (_a < 0 && _b < 0) { continue; }
+			draw_set_alpha(_a);
 			draw_line(i, j, i+purple_string_gap, j);
-			draw_set_alpha(1 - (point_distance(x, y, i, j+purple_string_gap/2)/max_purple_view_distance));
+			draw_set_alpha(_b);
 			draw_line(i, j, i, j+purple_string_gap);
 		}
 	}
@@ -153,4 +156,7 @@ for (var i=0; i<array_length(possible_colors); i++) {
 		if (soulscore[?_col]/soulscore_before_level_up >= 1) { _levelup_available = true; }
 	}
 }
-if (_levelup_available) { draw_text((room_width/2), 40+player_id*16, "Press Space!"); }
+if (_levelup_available) {
+	if (controller_index < 2) { draw_text((room_width/2), 40+player_id*16, "Press Space!"); }
+	else { draw_text((room_width/2), 40+player_id*16, "Press Pad 4!"); }
+}
