@@ -34,7 +34,8 @@ orange_dropped_pin = [room_width/2, room_height/2];
 aqua_move_meter = 2*sec;
 aqua_stunned = false;
 aqua_parry_rad = 64;
-purple_string_gap = 32;
+purple_string_gap = 40;//32
+purple_string_gap_reasonable = 32;
 purple_string_x = 0;//loop in (0 to gap);
 purple_string_y = 0;
 green_shield = noone;
@@ -67,6 +68,18 @@ cayote_time_for_speed = 0;
 //  yellow: for his nutrual special he weilds: a gun
 //	purple: ???????????????????
 //  green: only defends and aggressively deflects
+
+//Levelup
+//  red: more buttons || faster move speed
+//  yellow: more shots || faster big shot
+//  aqua: more range || faster reload
+//  orange: more slots || faster reload
+//  purple: chance of more pellets (per mon) || gravity pellets when nearby
+//  green: larger shield || quick reload time || 
+//  blue: 
+//  white: 
+//  redblue: 
+//  portal: 
 
 //Swap Order
 //Red -> Yellow -> Green -> Purple -> Blue -> Orange -> Aqua

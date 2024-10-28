@@ -17,10 +17,24 @@ if (my_color == c_white) {
 //if (my_color == c_orange || my_color == c_aqua)
 //{ draw_line(x, y, orange_dropped_pin[0], orange_dropped_pin[1]); }
 if (my_color == c_purple) {
+	//for (var i=-purple_string_gap+purple_string_x; i<=room_width+purple_string_gap; i+=purple_string_gap)
+	//{ draw_line(i, -1, i, room_height+1); }
+	//for (var j=-purple_string_gap+purple_string_y; j<=room_height+purple_string_gap; j+=purple_string_gap)
+	//{ draw_line(-1, j, room_width+1, j); }
+	
+	var max_purple_view_distance = purple_string_gap*3;
 	for (var i=-purple_string_gap+purple_string_x; i<=room_width+purple_string_gap; i+=purple_string_gap)
-	{ draw_line(i, -1, i, room_height+1); }
-	for (var j=-purple_string_gap+purple_string_y; j<=room_height+purple_string_gap; j+=purple_string_gap)
-	{ draw_line(-1, j, room_width+1, j); }
+	{
+		for (var j=-purple_string_gap+purple_string_y; j<=room_height+purple_string_gap; j+=purple_string_gap)
+		{
+			draw_set_alpha(1 - (point_distance(x, y, i+purple_string_gap/2, j)/max_purple_view_distance));
+			draw_line(i, j, i+purple_string_gap, j);
+			draw_set_alpha(1 - (point_distance(x, y, i, j+purple_string_gap/2)/max_purple_view_distance));
+			draw_line(i, j, i, j+purple_string_gap);
+		}
+	}
+	
+	draw_set_alpha(1);
 	draw_set_color(c_red);
 	draw_rectangle(3, 3, room_width-4, room_height-4, true);
 }

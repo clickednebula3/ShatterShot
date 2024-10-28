@@ -307,7 +307,7 @@ else if (my_color == c_purple)
 	var gap = purple_string_gap;
 	var g = gap/2;
 	
-	var a = 5;
+	var a = 5*(purple_string_gap/purple_string_gap_reasonable);
 	x = (a*x - ((x-purple_string_x-g)%gap) + g)/a;
 	y = (a*y - ((y-purple_string_y-g)%gap) + g)/a;
 	x += 1.81 * spd * (pad_r - pad_l) * (1 - (shift/2));
