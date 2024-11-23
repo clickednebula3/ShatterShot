@@ -7,7 +7,7 @@ var shoot_hold = mouse_check_button(mb_left) || gamepad_button_check(0, gp_face3
 var special_hold = mouse_check_button(mb_right);
 var shoot_dont = mouse_check_button_released(mb_left) || gamepad_button_check_released(0, gp_face3) || gamepad_button_check_released(0, gp_shoulderr) || gamepad_button_check_released(0, gp_shoulderrb);
 var mode_swap = keyboard_check_pressed(vk_tab);
-var level_up = keyboard_check_pressed(vk_space) || gamepad_button_check(0, gp_face4);
+var level_up = keyboard_check_pressed(vk_space) || gamepad_button_check(0, gp_face1);
 var aim = gravity_direction;
 
 if (keyboard_check_pressed(vk_f1)) { controller_index = max(0, controller_index-1); }

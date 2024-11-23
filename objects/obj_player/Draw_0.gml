@@ -158,5 +158,5 @@ for (var i=0; i<array_length(possible_colors); i++) {
 }
 if (_levelup_available) {
 	if (controller_index < 2) { draw_text((room_width/2), 40+player_id*16, "Press Space!"); }
-	else { draw_text((room_width/2), 40+player_id*16, "Press Pad 4!"); }
+	else { draw_text((room_width/2), 40+player_id*16, "Press Pad 1!"); }
 }
