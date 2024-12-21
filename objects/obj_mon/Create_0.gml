@@ -27,6 +27,7 @@ orngplayer_tension = sec;
 orngplayer_radius = 2*64/3;
 purplayer_my_purpellet = instance_create_depth(
 	irandom_range(64, room_width-64), irandom_range(64, room_height-64), depth, obj_purpellet);
+purplayer_my_purpellet.owner = self;
 
 //white: gravitate towards target
 //red: Just Move Bro

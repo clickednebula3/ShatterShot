@@ -1,7 +1,9 @@
 if (!is_array(my_color)) { draw_set_color(my_color); }
+draw_set_alpha(image_alpha);
 draw_circle(x, y, r*2, false);
-image_xscale = 2*r/16;
-image_yscale = 2*r/16;
+image_xscale = (0.5+2.5*emphasis)*2*r/16;
+image_yscale = (0.5+2.5*emphasis)*2*r/16;
+draw_set_alpha(1);
 
 if (instance_exists(obj_player) && point_distance(x, y, obj_player.x, obj_player.y) < 80) {
 	gravity = 0.3;

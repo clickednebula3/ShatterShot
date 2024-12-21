@@ -33,6 +33,7 @@ function get_random_color_from_weight_bag(_weight_bag) {
 
 
 my_color = weight_bag[get_random_color_from_weight_bag(weight_bag)][0];
+emphasis = false;
 
 //possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white];
 //my_color = possible_colors[irandom_range(0, array_length(possible_colors)-1)];
@@ -40,4 +41,19 @@ my_color = weight_bag[get_random_color_from_weight_bag(weight_bag)][0];
 if (instance_exists(obj_player)) {
 	direction = point_direction(x, y, obj_player.x, obj_player.y)+180+random_range(-10, 10);
 	speed = 10+random_range(-2, 4);//20+random_range(-2, 6);
+	
+	var _emphasis = false;
+	var _col = my_color;
+	
+	with (obj_player) {
+		if (is_array(my_color)) {
+			for (var i=0; i<array_length(my_color); i++) { if (my_color[i] == _col) { _emphasis = true; } }
+		} else {
+			if (my_color == _col) { _emphasis = true; }
+		}
+	}
+	
+	emphasis = _emphasis;
+	
+	if (!emphasis) { image_xscale *= 0.5; image_yscale *= 0.5; image_alpha = 0.3; }
 }

@@ -10,6 +10,10 @@ if (instance_exists(obj_player)) { _target = instance_nearest(x, y, obj_player);
 
 if (!instance_exists(_target) || (instance_exists(_target_alt) && distance_to_object(_target_alt) < distance_to_object(_target)) ) { _target = _target_alt; }
 
+if (distance_to_object(_target) < 64 && instance_exists(purplayer_my_purpellet)) {
+	purplayer_my_purpellet.redness++;
+}
+
 if (my_color = c_white)
 {
 	if (instance_exists(_target)) {
@@ -112,7 +116,11 @@ else if (my_color = c_purple)
 		var b2 = target.y - (m2*target.x);
 		//go to closest point on the grapple line
 		var new_x = (b2-b1)/(m1-m2);
+		new_x = clamp(new_x, 8, room_width-8);
 		var new_y = m1*new_x + b1;
+		new_y = clamp(new_y, 8, room_height-8);
+		new_x = (new_y-b2)/m2;
+		
 		x = (10*x + new_x)/11;
 		y = (10*y + new_y)/11;
 	}
