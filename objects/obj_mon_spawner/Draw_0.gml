@@ -1,4 +1,5 @@
 draw_set_color(c_white);
+draw_set_font(fnt_ol_reliable);
 draw_text(0, 0, "SOUL   LV "+string(1+floor(log2(global.score))));
 draw_text(0, 16, string(global.score));
 
@@ -9,57 +10,63 @@ draw_text(0, 16, string(global.score));
 //if (keyboard_check_pressed(vk_pageup)) { wave_index++; }
 //if (keyboard_check_pressed(vk_pagedown)) { wave_index = max(wave_index-1, 0); }
 
+if (obj_control.game_started) {
+	if (!obj_control.game_paused) {
+		time_counter++;
+		time_counter += 10*(keyboard_check_direct(vk_pageup)-keyboard_check_direct(vk_pagedown));
+	}
 
-time_counter++;
-time_counter += 10*(keyboard_check_direct(vk_pageup)-keyboard_check_direct(vk_pagedown));
-draw_text(0, room_height-20, string(time_counter/sec)-((10*time_counter/sec)%1)/10);
-if (time_between_spawns_now <= 0) {
-	time_between_spawns_now = time_between_spawns_max - (time_between_spawns_max-time_between_spawns_min)*clamp(time_counter/time_between_spawns_width, 0, 1);
+	draw_text(0, room_height-20, string(time_counter/sec)-((10*time_counter/sec)%1)/10);
+
+	if (time_between_spawns_now <= 0) {
+		time_between_spawns_now = time_between_spawns_max - (time_between_spawns_max-time_between_spawns_min)*clamp(time_counter/time_between_spawns_width, 0, 1);
 	
-	var _summonee_data = get_random_soulmon_data(time_counter);
-	var _summonee_color = _summonee_data[WEIGHT_SUMMONEE_DATA.COLOR];
-	var _summonee_patch_data = _summonee_data[WEIGHT_SUMMONEE_DATA.PATCH_SIZE];
-	var _summonee_patch = irandom_range(_summonee_patch_data[0], _summonee_patch_data[1]);
+		var _summonee_data = get_random_soulmon_data(time_counter);
+		var _summonee_color = _summonee_data[WEIGHT_SUMMONEE_DATA.COLOR];
+		var _summonee_patch_data = _summonee_data[WEIGHT_SUMMONEE_DATA.PATCH_SIZE];
+		var _summonee_patch = irandom_range(_summonee_patch_data[0], _summonee_patch_data[1]);
 	
-	var _x_y = [random_range(64, room_width-64), random_range(64, room_height-64)];
-	var _summonee_arr = [];
-	var _orange_points = [[x,y],[x,y],[x,y]];
-	var _orange_distance = 128;
+		var _x_y = [random_range(64, room_width-64), random_range(64, room_height-64)];
+		var _summonee_arr = [];
+		var _orange_points = [[x,y],[x,y],[x,y]];
+		var _orange_distance = 128;
 	
-	for (var i=0; i < _summonee_patch; i++) {
-		array_push(_summonee_arr, instance_create_depth(_x_y[0], _x_y[1], depth, obj_mon_spawn));
-		_summonee_arr[i].my_color = _summonee_color;
+		for (var i=0; i < _summonee_patch; i++) {
+			array_push(_summonee_arr, instance_create_depth(_x_y[0], _x_y[1], depth, obj_mon_spawn));
+			_summonee_arr[i].my_color = _summonee_color;
 		
-		_x_y = [
-			clamp(_x_y[0] + random_range(-32, 32), 64, room_width-64),
-			clamp(_x_y[1] + random_range(-32, 32), 64, room_height-64)
-		];
+			_x_y = [
+				clamp(_x_y[0] + random_range(-32, 32), 64, room_width-64),
+				clamp(_x_y[1] + random_range(-32, 32), 64, room_height-64)
+			];
 		
-		_orange_points = [
-			[_x_y[0], _x_y[1]],
-			[
-				clamp(irandom_range(64, room_width-64), _x_y[0]-_orange_distance, _x_y[0]+_orange_distance),
-				clamp(irandom_range(64, room_height-64), _x_y[1]-_orange_distance, _x_y[1]+_orange_distance),
-			],
-			[
-				clamp(irandom_range(64, room_width-64), _x_y[0]-_orange_distance, _x_y[0]+_orange_distance),
-				clamp(irandom_range(64, room_height-64), _x_y[1]-_orange_distance, _x_y[1]+_orange_distance),
-			],
-		];
-	}
-	
-	if (_summonee_patch > 0 && (_summonee_color == c_orange || _summonee_color == c_aqua)) {
-		
-		for (var i=0; i<_summonee_patch; i++) {
-			_summonee_arr[i].x = _summonee_arr[0].x;
-			_summonee_arr[i].y = _summonee_arr[0].y;
-			_summonee_arr[i].orange_points = _orange_points;
-			_summonee_arr[i].orange_target_point = i;
+			_orange_points = [
+				[_x_y[0], _x_y[1]],
+				[
+					clamp(irandom_range(64, room_width-64), _x_y[0]-_orange_distance, _x_y[0]+_orange_distance),
+					clamp(irandom_range(64, room_height-64), _x_y[1]-_orange_distance, _x_y[1]+_orange_distance),
+				],
+				[
+					clamp(irandom_range(64, room_width-64), _x_y[0]-_orange_distance, _x_y[0]+_orange_distance),
+					clamp(irandom_range(64, room_height-64), _x_y[1]-_orange_distance, _x_y[1]+_orange_distance),
+				],
+			];
 		}
-	}
 	
-	wave_summonee_index++;
-} else { time_between_spawns_now --; }
+		if (_summonee_patch > 0 && (_summonee_color == c_orange || _summonee_color == c_aqua)) {
+		
+			for (var i=0; i<_summonee_patch; i++) {
+				_summonee_arr[i].x = _summonee_arr[0].x;
+				_summonee_arr[i].y = _summonee_arr[0].y;
+				_summonee_arr[i].orange_points = _orange_points;
+				_summonee_arr[i].orange_target_point = i;
+			}
+		}
+	
+		wave_summonee_index++;
+	} else { time_between_spawns_now --; }
+
+}
 
 //draw_rectangle(1, 1, room_width-2, room_height-2, true);
 

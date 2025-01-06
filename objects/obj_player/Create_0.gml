@@ -1,6 +1,6 @@
 spd = 2;
-HP = 3;
-MAX_HP = 10;
+HP = 2;
+MAX_HP = 5;
 color_index = COLOR_INDEX.RED;
 possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white, [c_red, c_aqua], [c_aqua, c_orange]];
 my_color = possible_colors[color_index%array_length(possible_colors)];

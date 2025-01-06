@@ -131,7 +131,36 @@ if (combo_timer > 0) {
 }
 
 redbluehalf.visible = false;
-if (is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua) {
+if (is_array(my_color) && my_color[1] == c_orange && my_color[0] == c_aqua) {
+	gravity = 0;
+	redbluehalf.gravity = 0;
+	redbluehalf.x = x+hspeed;
+	redbluehalf.y = y+vspeed;
+	
+	gravity_direction = aim;
+	image_angle = gravity_direction;
+	
+	//var _lvl = soullevel[?possible_colors[COLOR_INDEX.PORTAL]];
+	if (shoot_hold) {
+		if (instance_number(obj_portalpellet) <= 0) {
+			var shot = instance_create_depth(x, y, depth, obj_portalpellet);
+			shot.portal_id = PORTAL_ID.A;
+			shot.direction = aim;
+			audio_play_sound(snd_yellow_pew, 10, false, 1, 0, 1+random_range(-0.1, 0.1));
+			redbluehalf.active = true;
+		}
+	}
+	if (shift) {
+		if (instance_number(obj_portalpellet) <= 0) {
+			var shot = instance_create_depth(x, y, depth, obj_portalpellet);
+			shot.portal_id = PORTAL_ID.B;
+			shot.direction = aim;
+			audio_play_sound(snd_yellow_pew, 10, false, 1, 0, 1+random_range(-0.1, 0.1));
+			redbluehalf.active = false;
+		}
+	}
+	
+} else if (is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua) {
 	gravity = 0;
 	redbluehalf.gravity = 0;
 	redbluehalf.visible = true;

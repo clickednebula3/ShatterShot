@@ -34,6 +34,7 @@
   },
   "name":"Big Shot",
   "resources":[
+    {"id":{"name":"fnt_ol_reliable","path":"fonts/fnt_ol_reliable/fnt_ol_reliable.yy",},},
     {"id":{"name":"Note1","path":"notes/Note1/Note1.yy",},},
     {"id":{"name":"obj_capshield","path":"objects/obj_capshield/obj_capshield.yy",},},
     {"id":{"name":"obj_combo","path":"objects/obj_combo/obj_combo.yy",},},
@@ -50,6 +51,7 @@
     {"id":{"name":"obj_obst","path":"objects/obj_obst/obj_obst.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"obj_portal","path":"objects/obj_portal/obj_portal.yy",},},
+    {"id":{"name":"obj_portalpellet","path":"objects/obj_portalpellet/obj_portalpellet.yy",},},
     {"id":{"name":"obj_purpellet","path":"objects/obj_purpellet/obj_purpellet.yy",},},
     {"id":{"name":"obj_redbluehalf","path":"objects/obj_redbluehalf/obj_redbluehalf.yy",},},
     {"id":{"name":"obj_shot","path":"objects/obj_shot/obj_shot.yy",},},

@@ -17,10 +17,15 @@ if (sprite_index == spr_act) {
 	sprite_index = possible_act_acts[act_index%array_length(possible_act_acts)];
 	return;
 }
-if (sprite_index == spr_item) { soul_heal(player, 2); }
+if (sprite_index == spr_item) { soul_heal(player, 1); }
 if (sprite_index == spr_mercy) {
 	var _p = player;
-	with (obj_mon) { instance_destroy(self); count_for_combo(_p, 1); break; }
+	//with (obj_mon) { instance_destroy(self); count_for_combo(_p, 1); break; }
+	with (obj_mon) {
+		if (instance_exists(purplayer_my_purpellet)) {
+			if (!irandom_range(0, 2)) { instance_destroy(purplayer_my_purpellet); }
+		}
+	}
 }
 if (sprite_index == spr_bruh) {
 	turn_sped = 1;

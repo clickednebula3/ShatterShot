@@ -131,9 +131,10 @@ if (!is_array(my_color)) {
 }
 //draw_text(0, 0, string(HP));
 
+draw_set_font(fnt_ol_reliable);
 var _y = player_id*32;
 draw_text(116, 0+_y, "HP");
-draw_healthbar(156, 2+_y, room_width/3, 18+_y, HP*10, c_red, c_yellow, c_yellow, 0, true, false);
+draw_healthbar(156, 2+_y, room_width/3, 18+_y, (HP/MAX_HP)*100, c_red, c_yellow, c_yellow, 0, true, false);
 draw_text(24+room_width/3, 0+_y, string(HP)+"/"+string(MAX_HP))
 if (halarity > 0) {draw_text(0, 34+_y, "+"+string(halarity)+" Halariousness Buff"); halarity-=1/sec;}
 
