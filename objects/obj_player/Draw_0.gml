@@ -125,14 +125,16 @@ if (!is_array(my_color)) {
 	);
 } else {
 	redbluehalf.image_angle = image_angle;
-	redbluehalf.image_yscale = 2*(x >= redbluehalf.x)-1;
-	draw_sprite_ext(sprite_index, 2+(x < redbluehalf.x), x, y, image_xscale+0.3*(!redbluehalf.active), image_yscale+0.3*(!redbluehalf.active), image_angle, my_color[0], image_alpha);
-	draw_sprite_ext(sprite_index, 2+(x >= redbluehalf.x), redbluehalf.x, redbluehalf.y, image_xscale+0.3*(redbluehalf.active), image_yscale+0.3*(redbluehalf.active), image_angle, my_color[1], image_alpha);
+	redbluehalf.image_yscale = 1;
+	var _flips = false; if (my_color[0] == c_red && my_color[1] == c_aqua) { _flips = true; }
+	if (_flips) { redbluehalf.image_yscale = 2*(x >= redbluehalf.x)-1; }
+	draw_sprite_ext(sprite_index, 2+(_flips&&x < redbluehalf.x), x, y, image_xscale+0.3*(!redbluehalf.active), image_yscale+0.3*(!redbluehalf.active), image_angle, my_color[0], image_alpha);
+	draw_sprite_ext(sprite_index, 2+(!_flips||x >= redbluehalf.x), redbluehalf.x, redbluehalf.y, image_xscale+0.3*(redbluehalf.active), image_yscale+0.3*(redbluehalf.active), image_angle, my_color[1], image_alpha);
 }
 //draw_text(0, 0, string(HP));
 
 draw_set_font(fnt_ol_reliable);
-var _y = player_id*32;
+var _y = -(player_id+1)*32;
 draw_text(116, 0+_y, "HP");
 draw_healthbar(156, 2+_y, room_width/3, 18+_y, (HP/MAX_HP)*100, c_red, c_yellow, c_yellow, 0, true, false);
 draw_text(24+room_width/3, 0+_y, string(HP)+"/"+string(MAX_HP))

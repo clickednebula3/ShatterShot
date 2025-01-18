@@ -7,6 +7,15 @@ if (!instance_exists(linked_portal)) {
 	}
 } else {
 	image_index = 1;
+	
+	timer++;
+	var _ = instance_create_depth(peripheral_x(random_range(0, 360)), peripheral_y(random_range(0, 360)), depth, obj_portalpellet);
+	_.big_mode = false;
+	_.portal_id = portal_id;
+	_.speed = 0.5;
+	_.direction = image_angle+random_range(-5, 5);
+	
+	
 	var _coll = ds_list_create();
 	var _coll_c = collision_rectangle_list(bbox_left-20, bbox_top-20, bbox_right+20, bbox_bottom+20, all, false, true, _coll, false);
 	
@@ -20,6 +29,7 @@ if (!instance_exists(linked_portal)) {
 		
 		if (!instance_exists(_obj)) { continue; }
 		if (_obj.object_index == obj_grapple) { continue; }
+		if (_obj.object_index == obj_obst) { continue; }
 		
 		image_angle = image_angle%360;
 		if (image_angle == 0) { if (_obj.x < x) { _ripe_for_tp = true; } }
@@ -39,9 +49,11 @@ if (!instance_exists(linked_portal)) {
 			var _ang = point_direction(x, y, _coll[|i].x, _coll[|i].y)-image_angle+180+linked_portal.image_angle;
 			_coll[|i].x = linked_portal.x + _d*dcos(_ang);
 			_coll[|i].y = linked_portal.y + _d*-dsin(_ang);
-			_coll[|i].direction += 180-image_angle+linked_portal.image_angle;
-			_coll[|i].image_angle += 180-image_angle+linked_portal.image_angle;
-			_coll[|i].gravity_direction += 180-image_angle+linked_portal.image_angle;
+			_coll[|i].direction += 180+linked_portal.image_angle-image_angle;
+			_coll[|i].image_angle += 180+linked_portal.image_angle-image_angle;
+			_coll[|i].gravity_direction += 180+linked_portal.image_angle-image_angle;
+			_coll[|i].speed += 3;
+			_coll[|i].portal_stun = sec/3;
 		}
 	}
 	

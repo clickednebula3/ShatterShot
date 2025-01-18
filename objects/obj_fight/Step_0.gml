@@ -10,6 +10,14 @@ if (act_done > 0) {
 		var _killcollcount = collision_circle_list(x, y, fight_rad*percent, obj_mon, false, true, _killcoll, false);
 		for (var i=0; i<_killcollcount; i++) { count_for_combo(player, 1); instance_destroy(_killcoll[|i]); }
 		ds_list_destroy(_killcoll);
+		var _bosscoll = ds_list_create();
+		var _bosscollcount = collision_circle_list(x, y, fight_rad*percent, [obj_myspoke], false, true, _bosscoll, false);
+		for (var i=0; i<_bosscollcount; i++) {
+			if (instance_exists(_bosscoll[|i]) && !array_contains(_bosscoll[|i].immune_to, self)) {
+				_bosscoll[|i].myspoke_hurt(self, 3);
+			}
+		}
+		ds_list_destroy(_bosscoll);
 	}
 	
 	if (act_done == 1) { instance_destroy(); }
@@ -30,6 +38,14 @@ if (SUPER > 0) {
 	if (sprite_index == spr_bruh) {
 		turn_sped = 1;
 	}
+	var _bosscoll = ds_list_create();
+	var _bosscollcount = collision_rectangle_list(bbox_left, bbox_top, bbox_right, bbox_bottom, [obj_myspoke], false, true, _bosscoll, false);
+	for (var i=0; i<_bosscollcount; i++) {
+		if (instance_exists(_bosscoll[|i]) && !array_contains(_bosscoll[|i].immune_to, self)) {
+			_bosscoll[|i].myspoke_hurt(self, 3, 0.5);
+		}
+	}
+	ds_list_destroy(_bosscoll);
 }
 
 var top_or_bottom = (bbox_top < 2 || bbox_bottom > room_height-2);

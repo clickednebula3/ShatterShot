@@ -17,6 +17,9 @@ if (instance_exists(my_child))
 	//if (abs(_diff) > 180) { _diff -= 360; }
 		
 	//image_angle += _diff/10;
+	
+	if (redness > 0) { my_child.redness = 1; }
+	
 } else {
 	image_index = sprite_get_number(sprite_index)-1;
 	//if (instance_exists(obj_player)) {
@@ -30,6 +33,8 @@ if (instance_exists(my_child))
 	//	image_angle += _diff/10;
 	//}
 }
+
+if (redness > 0) { redness -= 0.1; }
 
 if (instance_exists(my_parent)) {
 	//my_parent.image_angle = (10*my_parent.image_angle + image_angle)/11;

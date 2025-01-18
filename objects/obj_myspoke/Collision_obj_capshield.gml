@@ -1,0 +1,1 @@
+myspoke_hurt(other, 2);

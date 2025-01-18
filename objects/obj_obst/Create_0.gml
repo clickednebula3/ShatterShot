@@ -1,5 +1,3 @@
-hspeed = -2;
-
 enum OBST_COLOR {
 	RED = 0,//red blue soul
 	YELLOW = 1,//
@@ -12,4 +10,8 @@ enum OBST_COLOR {
 }
 
 possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white];
-my_color = possible_colors[OBST_COLOR.AQUA];
+my_color = possible_colors[OBST_COLOR.WHITE];
+content = noone;
+f = 1;
+
+alarm[0] = 20*sec;

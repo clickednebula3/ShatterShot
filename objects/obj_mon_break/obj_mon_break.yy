@@ -14,8 +14,8 @@
   "name":"obj_mon_break",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"particles",
+    "path":"folders/Objects/particles.yy",
   },
   "parentObjectId":null,
   "persistent":false,

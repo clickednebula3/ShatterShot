@@ -14,8 +14,8 @@
   "name":"obj_grapple2",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"mechanical",
+    "path":"folders/Objects/mechanical.yy",
   },
   "parentObjectId":null,
   "persistent":false,

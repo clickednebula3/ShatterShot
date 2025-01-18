@@ -88,7 +88,10 @@ if (level_up) {
 }
 
 HP = clamp(HP, 0, obj_player.MAX_HP);
-if (my_color != c_purple && my_color != c_white && my_color != c_aqua && !(is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua && redbluehalf.active && !shoot_hold)) {
+if (my_color != c_purple && my_color != c_white && my_color != c_aqua &&
+	!(is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua && redbluehalf.active && !shoot_hold)
+	&& portal_stun <= 0
+) {
 	x += spd * (pad_r - pad_l) * (1 - (shift/2));
 	y += spd * (pad_d - pad_u) * (1 - (shift/2));
 	if (shoot_hold && !redbluehalf.active) {
@@ -103,6 +106,7 @@ if (collision_circle(x, y, (sprite_width+sprite_height)/4, obj_portal, true, tru
 
 if (alarm[0] > 0) { image_alpha = 0.5 + (floor(alarm[0]/3)%2)/2; }
 else { image_alpha = 1; }
+if (portal_stun > 0) { portal_stun--; }
 
 
 //color specific step
@@ -138,11 +142,15 @@ if (is_array(my_color) && my_color[1] == c_orange && my_color[0] == c_aqua) {
 	redbluehalf.y = y+vspeed;
 	
 	gravity_direction = aim;
-	image_angle = gravity_direction;
+	if (portal_stun<=0 && (x!=xprevious||y!=yprevious))
+	{ direction += angle_difference(point_direction(xprevious, yprevious, x, y), direction)/10; }
+	image_angle = -90;
 	
 	//var _lvl = soullevel[?possible_colors[COLOR_INDEX.PORTAL]];
 	if (shoot_hold) {
-		if (instance_number(obj_portalpellet) <= 0) {
+		var _can = true;
+		with (obj_portalpellet) { if (big_mode) { _can = false; break; } }
+		if (_can) {
 			var shot = instance_create_depth(x, y, depth, obj_portalpellet);
 			shot.portal_id = PORTAL_ID.A;
 			shot.direction = aim;
@@ -151,7 +159,9 @@ if (is_array(my_color) && my_color[1] == c_orange && my_color[0] == c_aqua) {
 		}
 	}
 	if (shift) {
-		if (instance_number(obj_portalpellet) <= 0) {
+		var _can = true;
+		with (obj_portalpellet) { if (big_mode) { _can = false; break; } }
+		if (_can) {
 			var shot = instance_create_depth(x, y, depth, obj_portalpellet);
 			shot.portal_id = PORTAL_ID.B;
 			shot.direction = aim;
@@ -160,7 +170,8 @@ if (is_array(my_color) && my_color[1] == c_orange && my_color[0] == c_aqua) {
 		}
 	}
 	
-} else if (is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua) {
+}
+else if (is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua) {
 	gravity = 0;
 	redbluehalf.gravity = 0;
 	redbluehalf.visible = true;
@@ -180,10 +191,18 @@ if (is_array(my_color) && my_color[1] == c_orange && my_color[0] == c_aqua) {
 		if (instance_exists(_coll)) { instance_destroy(_coll); }
 	}
 }
+else if (my_color == c_lime)
+{
+	if (portal_stun<=0 && (x!=xprevious||y!=yprevious))
+	{ direction += angle_difference(point_direction(xprevious, yprevious, x, y), direction)/10; }
+	image_angle = -90;
+	
+}
 else if (my_color == c_red)
 {
 	//if (shift) { game_load("save.txt"); return; }
-	
+	if (portal_stun<=0 && (x!=xprevious||y!=yprevious))
+	{ direction += angle_difference(point_direction(xprevious, yprevious, x, y), direction)/10; }
 	image_angle = -90;//Users/Shared/*/YoYo Runner.app/Contents/MacOS/Mac_Runner
 	if (shoot_dont) {
 		var _fight_coll = collision_point(x, y, obj_fight, true, false);
@@ -203,6 +222,8 @@ else if (my_color == c_red)
 else if (my_color == c_yellow)
 {
 	gravity_direction = aim;
+	if (portal_stun<=0 && (x!=xprevious||y!=yprevious))
+	{ direction += angle_difference(point_direction(xprevious, yprevious, x, y), direction)/10; }
 	image_angle = gravity_direction;
 
 	/*if (special_hold) {
@@ -324,8 +345,13 @@ else if (my_color == c_aqua)
 		var _coll_mon = ds_list_create();
 		var _coll_mon_count = collision_circle_list(x, y, aqua_parry_rad, obj_mon, false, false, _coll_mon, false);
 		if (_coll_mon_count > 0) { for (var i=0; i<_coll_mon_count; i++) { count_for_combo(self, 1); instance_destroy(_coll_mon[|i]); }  }
-		else { stun_soul(self); }
 		ds_list_destroy(_coll_mon);
+		var _coll_boss = ds_list_create();
+		var _coll_boss_count = collision_circle_list(x, y, aqua_parry_rad, [obj_myspoke], false, true, _coll_boss, false);
+		if (_coll_boss_count > 0) { for (var i=0; i<_coll_boss_count; i++)
+			{ if (instance_exists(_coll_boss[|i])) { _coll_boss[|i].myspoke_hurt(self, 1, 0);}  } }
+		ds_list_destroy(_coll_boss);
+		if (_coll_mon_count <= 0 && _coll_boss_count <= 0) { stun_soul(self); }
 	}
 	speed *= 0.7;
 	aqua_move_meter = clamp(aqua_move_meter, -sec/2, 2*sec);
@@ -341,6 +367,8 @@ else if (my_color == c_purple)
 	y = (a*y - ((y-purple_string_y-g)%gap) + g)/a;
 	x += 1.81 * spd * (pad_r - pad_l) * (1 - (shift/2));
 	y += 1.81 * spd * (pad_d - pad_u) * (1 - (shift/2));
+	if (portal_stun<=0 && (x!=xprevious||y!=yprevious))
+	{ direction += angle_difference(point_direction(xprevious, yprevious, x, y), direction)/10; }
 	
 	//purple_string_x += dsin(current_time/25)*dsin(current_time/25)/3;
 	//purple_string_y += dcos(current_time/16)*dcos(current_time/16)/3;
@@ -357,8 +385,8 @@ else if (my_color == c_blue)
 	vspeed += 0.1 * (pad_d - pad_u) * (1 - (shift/2));
 	var top_or_bottom = (bbox_top < 2 || bbox_bottom > room_height-2);
 	var left_or_right = (bbox_left < 2 || bbox_right > room_width-2);
-	if ((shoot_dont || shift) && left_or_right) { hspeed = 16*-dcos(gravity_direction);}
-	if ((shoot_dont || shift) && top_or_bottom) { vspeed = 16*dsin(gravity_direction);}
+	if ((shoot_dont || shift) && left_or_right && speed <= 0.5) { hspeed = 16*-dcos(gravity_direction);}
+	if ((shoot_dont || shift) && top_or_bottom && speed <= 0.5) { vspeed = 16*dsin(gravity_direction);}
 	//if (shoot_dont) { gravity_direction-=90; }
 	if (shoot_dont) { gravity_direction-=180; }
 	//if (shoot_hold) { gravity_direction -= 10; }
@@ -384,6 +412,8 @@ else if (my_color == c_green)
 	}
 	if (green_shield_cooldown > 0) { green_shield_cooldown--; }
 	gravity_direction = aim;
+	if (portal_stun<=0 && (x!=xprevious||y!=yprevious))
+	{ direction += angle_difference(point_direction(xprevious, yprevious, x, y), direction)/10; }
 }
 
 if (speed > 10) { speed *= 0.99; } else { speed *= 0.97; }

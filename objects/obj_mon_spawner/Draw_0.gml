@@ -1,7 +1,7 @@
 draw_set_color(c_white);
 draw_set_font(fnt_ol_reliable);
-draw_text(0, 0, "SOUL   LV "+string(1+floor(log2(global.score))));
-draw_text(0, 16, string(global.score));
+draw_text(0, -32, "SOUL   LV "+string(1+floor(log2(global.score))));
+draw_text(0, -48, string(global.score));
 
 //DEBUG
 //if (mouse_check_button(mb_right)) {

@@ -15,8 +15,8 @@
   "name":"obj_mon_spawner",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"control",
+    "path":"folders/Objects/control.yy",
   },
   "parentObjectId":null,
   "persistent":false,

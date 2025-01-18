@@ -27,8 +27,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"Sprites",
-    "path":"folders/Sprites.yy",
+    "name":"fight_menu_buttons",
+    "path":"folders/Sprites/fight_menu_buttons.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

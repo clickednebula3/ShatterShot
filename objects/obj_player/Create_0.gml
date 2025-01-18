@@ -2,7 +2,7 @@ spd = 2;
 HP = 2;
 MAX_HP = 5;
 color_index = COLOR_INDEX.RED;
-possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white, [c_red, c_aqua], [c_aqua, c_orange]];
+possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white, [c_red, c_aqua], [c_aqua, c_orange], c_lime];
 my_color = possible_colors[color_index%array_length(possible_colors)];
 
 soulscore_before_level_up = 16;
@@ -15,7 +15,7 @@ for (var i=0; i < array_length(possible_colors); i++) { ds_map_set(soullevel, po
 
 player_id = 0;
 controller_index = 0;
-uses_mouse = true;
+uses_mouse = false;
 
 combo_timer = 0;
 combo_timer_max = 1*sec;
@@ -43,6 +43,7 @@ green_shield_cooldown = 0;
 green_shield_cooldown_max = 3*sec;
 green_defshield = instance_create_depth(x, y, depth+1, obj_defshield);
 green_defshield.owner = self;
+portal_stun = 0;
 
 redyellow_maxtimer = 12*sec;
 redyellow_timer = -1;

@@ -13,8 +13,8 @@
   "name":"obj_shot",
   "overriddenProperties":[],
   "parent":{
-    "name":"Objects",
-    "path":"folders/Objects.yy",
+    "name":"mechanical",
+    "path":"folders/Objects/mechanical.yy",
   },
   "parentObjectId":null,
   "persistent":false,

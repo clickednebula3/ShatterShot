@@ -2,10 +2,14 @@
 //draw Z/X/ARROW
 //draw wave/mon thing
 
-possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white, [c_red, c_aqua], [c_aqua, c_orange]];
+possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white, [c_red, c_aqua], [c_aqua, c_orange], c_lime];
 
-window_set_max_width(960);
-window_set_max_height(1000);
+//window_set_size(960, 720);
+//camera_set_view_size(camera_get_active(), 960, 720);
+//camera_set_view_pos(camera_get_active(), -160, -120);
+draw_rectangle(-3, -3, room_width+2, room_height+2, true);
+draw_rectangle(-2, -2, room_width+1, room_height+1, true);
+draw_rectangle(-1, -1, room_width, room_height, true);
 
 if (!game_started) {
 	for (var i=0; i<array_length(possible_colors); i++) {
@@ -86,4 +90,6 @@ if (!game_started) {
 		player_2.controller_index = 1;
 		player_2.player_id = 1;
 	}
+} else {
+	if (keyboard_check_pressed(vk_f6)) { game_paused = !game_paused;}
 }

@@ -102,9 +102,8 @@ else if (my_color = c_purple)
 		
 	}
 	
-	if (instance_exists(purples_strings_makes_them_ring_a)) {
-		//make sure that soul is on line//WJHY ISNT THIS WORKING
-		
+	if (instance_exists(purples_strings_makes_them_ring_a)) {//WJHY ISNT THIS WORKING
+		//make sure that soul is on line
 		var xs = purples_strings_makes_them_ring_a.xstart;
 		var ys = purples_strings_makes_them_ring_a.ystart;
 		var dir = purples_strings_makes_them_ring_a.direction;
@@ -120,9 +119,9 @@ else if (my_color = c_purple)
 		var new_y = m1*new_x + b1;
 		new_y = clamp(new_y, 8, room_height-8);
 		new_x = (new_y-b2)/m2;
-		
-		x = (10*x + new_x)/11;
-		y = (10*y + new_y)/11;
+		//smooth motion to point on line
+		x = (12*x + new_x)/13;
+		y = (12*y + new_y)/13;
 	}
 	
 	speed *= 0.5;
