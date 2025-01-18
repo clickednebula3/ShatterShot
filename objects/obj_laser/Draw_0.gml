@@ -99,7 +99,7 @@ else {
 			else if (_coll_hit.object_index == obj_xp) { instance_destroy(_coll_hit); }
 		}
 		
-		if (hits_possible <= 0 && alarm[2] > 2*sec) { alarm[2] = 2*sec; }
+		if (hits_possible <= 0 && alarm[2] > sec) { alarm[2] = sec; }
 	
 		if (_portal_cooldown > 0) { _portal_cooldown--; }
 		_best_i++;

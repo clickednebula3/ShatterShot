@@ -6,6 +6,7 @@ if (other.owner != self) {
 		return;
 	}
 	count_for_combo(other.owner, 1);
+	if (my_color == c_green) { soul_heal(other.owner, 1); }
 	if (!other.image_index) { instance_destroy(other); }
 	instance_destroy();
 }

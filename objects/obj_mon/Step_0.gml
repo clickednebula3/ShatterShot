@@ -14,21 +14,49 @@ if (distance_to_object(_target) < 64 && instance_exists(purplayer_my_purpellet))
 	purplayer_my_purpellet.redness++;
 }
 
+var _target_coords = [0, 0];
+if (instance_exists(_target)) { _target_coords = [_target.x, _target.y]; }
+
+var _nearest_portal = instance_nearest(x, y, obj_portal);
+if (instance_exists(_nearest_portal) && instance_exists(_nearest_portal.linked_portal)) {
+	var _dist = point_distance(x, y, _nearest_portal.x, _nearest_portal.y);//later add portal_to_orb
+	var _shortest_plyr = -1;
+	var _shortest_half = -1;
+	var _portal_target = noone;
+	
+	if (instance_exists(obj_player)) {
+		var _plyr = instance_nearest(_nearest_portal.x, _nearest_portal.y, obj_player);
+		_shortest_plyr = point_distance(_nearest_portal.linked_portal.x, _nearest_portal.linked_portal.y, _plyr.x, _plyr.y);
+		_portal_target = _plyr;
+	}
+	if (instance_exists(obj_redbluehalf)) {
+		var _half = instance_nearest(_nearest_portal.x, _nearest_portal.y, obj_redbluehalf);
+		if (_half.visible) {
+			_shortest_half = point_distance(_nearest_portal.linked_portal.x, _nearest_portal.linked_portal.y, _half.x, _half.y);
+			if (_shortest_plyr>=0 && _shortest_half < _shortest_plyr) { _portal_target = _half; }
+		}
+	}
+	
+	if (point_distance(x, y, _target_coords[0], _target_coords[1]) > _dist + point_distance(_nearest_portal.linked_portal.x, _nearest_portal.linked_portal.y, _portal_target.x, _portal_target.y)) {
+		_target_coords = [_nearest_portal.x-dcos(_nearest_portal.image_angle), _nearest_portal.y+dsin(_nearest_portal.image_angle)];
+	}
+}
+
 if (my_color = c_white)
 {
 	if (instance_exists(_target)) {
 		gravity = 0.15;
-		gravity_direction = point_direction(x, y, _target.x, _target.y);
+		gravity_direction = point_direction(x, y, _target_coords[0], _target_coords[1]);
 	} else { gravity = 0; }
 	speed *= 0.98;
 }
 else if (my_color = c_red)
 {
 	if (instance_exists(_target)) {
-		if (abs(_target.y-y) > abs(_target.x-x)) {
-			y += 2*((_target.y-y)/abs((_target.y-y)));
+		if (abs(_target_coords[1]-y) > abs(_target_coords[0]-x)) {
+			y += 2*((_target_coords[1]-y)/abs((_target_coords[1]-y)));
 		} else {
-			x += 2*((_target.x-x+0.01)/abs((_target.x-x)));
+			x += 2*((_target_coords[0]-x+0.01)/abs((_target_coords[0]-x)));
 		}
 	}
 	speed *= 0.98;
@@ -50,7 +78,7 @@ else if (my_color = c_yellow)
 {
 	speed *= 0.98;
 	if (instance_exists(_target)) {
-		image_angle = point_direction(x, y, _target.x, _target.y)+90;
+		image_angle = point_direction(x, y, _target_coords[0], _target_coords[1])+90;
 		direction = image_angle;
 		speed = yellow_counterdirectionativity;
 		
@@ -73,9 +101,9 @@ else if (my_color = c_blue)
 	image_angle = gravity_direction+90;
 	if (instance_exists(_target)) {
 		if (gravity_direction%180 == 0) {
-			y += ((_target.y-y)/abs((_target.y-y)));
+			y += ((_target_coords[1]-y)/abs((_target_coords[1]-y)));
 		} else {
-			x += ((_target.x-x+0.01)/abs((_target.x-x)));
+			x += ((_target_coords[0]-x+0.01)/abs((_target_coords[0]-x)));
 		}
 	}
 }

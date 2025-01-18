@@ -7,7 +7,7 @@ alarm[0] = 20*sec;
 alarm[1] = 0;//when summoned in specific way
 my_color = c_white;
 immune_objects = [];
-hits_possible = floor(obj_obst_spawner.time_counter/60)+1;
+hits_possible = floor((obj_obst_spawner.time_counter/sec)/60)+1;
 // limit number of hits possible, use times (mins+1)
 
 enum LASER_MOVEMENT {

@@ -1,5 +1,5 @@
 draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, my_color, image_alpha);
-draw_sprite_ext(sprite_index, 1, x+32*hspeed, y+32*vspeed, image_xscale, image_yscale, image_angle, c_red, 0.4+0.3*dsin(current_time/3));
+draw_sprite_ext(sprite_index, 1, clamp(x, 32, room_width-32), clamp(y, 32, room_height-32), image_xscale, image_yscale, image_angle, c_red, 0.4+0.3*dsin(current_time/3));
 speed *= f;
 
 if (content != noone) {

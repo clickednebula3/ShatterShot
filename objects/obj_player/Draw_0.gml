@@ -118,11 +118,21 @@ if (cayote_time_for_speed > 0) { cayote_time_for_speed--; }
 //}
 draw_set_color(c_white);
 if (!is_array(my_color)) {
-	draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, my_color, image_alpha);
-	draw_sprite_ext(
-		sprite_index, 1, x, y, image_xscale, image_yscale, image_angle, c_white,
-		(bigshottery*bigshottery*bigshottery / (bigshottery_max*bigshottery_max*bigshottery_max))*image_alpha
-	);
+	draw_set_color(my_color);
+	draw_circle(x, y, image_xscale*sprite_get_width(sprite_index)/2, false);
+	draw_set_color(c_white);
+	draw_set_alpha((bigshottery*bigshottery*bigshottery / (bigshottery_max*bigshottery_max*bigshottery_max))*image_alpha);
+	draw_circle(x, y, image_xscale*sprite_get_width(sprite_index)/2, false);
+	draw_set_alpha(1);
+	draw_set_color(c_black);
+	draw_circle(x, y, image_xscale*sprite_get_width(sprite_index)/3, false);
+	draw_set_color(c_white);
+	
+	//draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, my_color, image_alpha);
+	//draw_sprite_ext(
+	//	sprite_index, 1, x, y, image_xscale, image_yscale, image_angle, c_white,
+	//	(bigshottery*bigshottery*bigshottery / (bigshottery_max*bigshottery_max*bigshottery_max))*image_alpha
+	//);
 } else {
 	redbluehalf.image_angle = image_angle;
 	redbluehalf.image_yscale = 1;

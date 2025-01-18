@@ -3,7 +3,6 @@ my_death_particle.image_angle = image_angle;
 my_death_particle.my_color = my_color;
 global.score++;
 
-if (my_color == c_green) { soul_heal(obj_player, 1); }
 instance_destroy(purples_strings_makes_them_ring_a);
 instance_destroy(purples_strings_makes_them_ring_b);
 instance_destroy(purplayer_my_purpellet);
