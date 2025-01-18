@@ -1,0 +1,1 @@
+soul_hit(other, 1/sec, true);

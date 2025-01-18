@@ -66,12 +66,12 @@ function soulmode_jump(soul, _jump_by = 1) {
 	soul.alarm[3] = sec;
 }
 
-function soul_hit(killtarget = noone) {
+function soul_hit(killtarget = noone, hitpoints = 1, karma = false) {
 	if (alarm[0] <= 0 && cayote_time_for_speed <= 0) {
-		HP--;
+		HP-=hitpoints;
 		HP = clamp(HP, 0, 10);
 		if (instance_exists(killtarget)) { instance_destroy(killtarget); }
-		alarm[0] = 2*sec;
+		if (!karma) { alarm[0] = 2*sec; }
 		if (HP > 0) { audio_play_sound(snd_dmg, 10, false, 1, 0, 1+random_range(-0.1, 0.1)); }
 	}
 	if (HP <= 0) {

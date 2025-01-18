@@ -76,16 +76,7 @@ else if (controller_index > 1)//CONTROLLER = controller_index-2
 
 if (mode_swap && !shoot_hold && !shift) { soulmode_jump(self); }
 
-if (level_up) {
-	for (var i=0; i < array_length(possible_colors); i++) {
-		var _col = possible_colors[i];
-		var _xp = ds_map_find_value(soulscore, _col);
-		if (_xp >= soulscore_before_level_up) {
-			ds_map_set(soulscore, _col, _xp - soulscore_before_level_up);
-			ds_map_set(soullevel, _col, ds_map_find_value(soullevel, _col)+1);
-		}
-	}
-}
+if (level_up) { attempt_levelup(); }
 
 HP = clamp(HP, 0, obj_player.MAX_HP);
 if (my_color != c_purple && my_color != c_white && my_color != c_aqua &&

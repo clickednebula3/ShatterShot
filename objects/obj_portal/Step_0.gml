@@ -1,3 +1,9 @@
+if (instance_exists(clings_to)) {
+	var _len = (other.bbox_right-other.bbox_left)/2;
+	x = clings_to.x + _len*dcos(image_angle);
+	y = clings_to.y - _len*dsin(image_angle);
+}
+
 if (!instance_exists(linked_portal)) {
 	image_index = 0;
 	var _my_id = portal_id;

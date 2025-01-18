@@ -47,6 +47,8 @@ else {
 	
 		if (point_distance(_x, _y, _n_x, _n_y) > 5*i_len) { break; }
 		var _percent = 0.7+0.3*dsin(2*timer_counter)*abs(dsin(2*timer_counter));
+		if (hits_possible <= 0) { _percent = 0.4; }
+		
 		draw_set_alpha(_percent);
 		if (my_color == c_white) {
 			draw_set_color(c_red);
@@ -65,7 +67,8 @@ else {
 	
 		if (_x <= 0 || _x >= room_width-1 || _y <= 0 || _y >= room_height-1) { break; }
 	
-		if (_percent > 0.4 && instance_exists(_coll_hit) && !array_contains(immune_objects, _coll_hit)) {
+		if (hits_possible > 0 && _percent > 0.4 && instance_exists(_coll_hit) && !array_contains(immune_objects, _coll_hit)) {
+			
 			if (_coll_hit.object_index == obj_portal && _portal_cooldown <= 0 && instance_exists(_coll_hit.linked_portal)) {
 				var _d = point_distance(_coll_hit.x, _coll_hit.y, _n_x, _n_y);
 				var _ang2 = point_direction(_coll_hit.x, _coll_hit.y, _x, _y)-_coll_hit.image_angle+_coll_hit.linked_portal.image_angle;
@@ -78,13 +81,14 @@ else {
 				if (my_color == c_aqua && abs(_coll_hit.x-_coll_hit.xprevious) > 1.2 || abs(_coll_hit.y-_coll_hit.yprevious) > 1.2) { instance_destroy(_coll_hit); break;}
 				if (my_color == c_orange && _coll_hit.speed < 0.1 &&  _coll_hit.x == _coll_hit.xprevious && _coll_hit.y == _coll_hit.yprevious) {instance_destroy(_coll_hit); break;}
 				if (my_color == c_white) { instance_destroy(_coll_hit); break; }
+				hits_possible--;
 			}
 			else if (_coll_hit.object_index == obj_shot) { if (!obj_shot.image_index) {instance_destroy(_coll_hit);} break; }
 			else if (_coll_hit.object_index == obj_player) {
 				if (my_color == c_aqua && abs(_coll_hit.x-_coll_hit.xprevious) > 1.2 || abs(_coll_hit.y-_coll_hit.yprevious) > 1.2) { with (_coll_hit) { soul_hit(); } break;}
 				if (my_color == c_orange && _coll_hit.speed < 0.1 &&  _coll_hit.x == _coll_hit.xprevious && _coll_hit.y == _coll_hit.yprevious) {with (_coll_hit) { soul_hit(); } break;}
 				if (my_color == c_white) { with (_coll_hit) {soul_hit()}; break; }
-			
+				hits_possible--;
 			}
 			//else if (_coll_hit.object_index == obj_obst) { break; }
 			else if (_coll_hit.object_index == obj_grapple) { instance_destroy(_coll_hit); break; }
@@ -94,6 +98,8 @@ else {
 			else if (_coll_hit.object_index == obj_redbluehalf && _coll_hit.visible) { break; }
 			else if (_coll_hit.object_index == obj_xp) { instance_destroy(_coll_hit); }
 		}
+		
+		if (hits_possible <= 0 && alarm[2] > 2*sec) { alarm[2] = 2*sec; }
 	
 		if (_portal_cooldown > 0) { _portal_cooldown--; }
 		_best_i++;
