@@ -1,5 +1,12 @@
 draw_sprite_ext(sprite_index, image_index, x, y, image_xscale, image_yscale, image_angle, my_color, image_alpha);
-draw_sprite_ext(sprite_index, 1, clamp(x, 32, room_width-32), clamp(y, 32, room_height-32), image_xscale, image_yscale, image_angle, c_red, 0.4+0.3*dsin(current_time/3));
+if (warning_still_there) {
+	draw_sprite_ext(
+		sprite_index, 1, clamp(x, 32, room_width-32), clamp(y, 32, room_height-32),
+		image_xscale, image_yscale, image_angle, c_red, 0.4+0.3*dsin(current_time/3)
+	);
+	
+	if (x > 0 && x < room_width && y > 0 && y < room_height) { warning_still_there = false; }
+}
 speed *= f;
 
 if (content != noone) {

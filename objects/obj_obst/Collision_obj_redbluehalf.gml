@@ -1,3 +1,10 @@
+if (my_color == c_blue) {
+	other.x += x-xprevious;
+	other.y += y-yprevious;
+	return;	
+}
+
+
 if (!other.visible) { return; }
 
 if (my_color == c_green) { other.owner.HP++; instance_destroy(); return; }

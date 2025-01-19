@@ -1,3 +1,11 @@
+if (my_color == c_blue) {
+	other.x += x-xprevious;
+	other.y += y-yprevious;
+	other.gravity = 0;
+	return;	
+}
+
+
 if (my_color == c_green) { other.HP++; instance_destroy(); return; }
 
 if (other.my_color == c_white) { return; }

@@ -79,7 +79,7 @@ if (mode_swap && !shoot_hold && !shift) { soulmode_jump(self); }
 if (level_up) { attempt_levelup(); }
 
 HP = clamp(HP, 0, obj_player.MAX_HP);
-if (my_color != c_purple && my_color != c_white && my_color != c_aqua &&
+if (my_color != c_purple && my_color != c_white && my_color != c_aqua && my_color != c_blue &&
 	!(is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua && redbluehalf.active && !shoot_hold)
 	&& portal_stun <= 0
 ) {
@@ -370,18 +370,34 @@ else if (my_color == c_purple)
 }
 else if (my_color == c_blue)
 {
-	gravity = 0.3;
+	//New System
+	
+	gravity = ((gravity-0.4)*0.5)+0.4;
 	image_angle = gravity_direction;
 	hspeed += 0.1 * (pad_r - pad_l) * (1 - (shift/2));
 	vspeed += 0.1 * (pad_d - pad_u) * (1 - (shift/2));
 	var top_or_bottom = (bbox_top < 2 || bbox_bottom > room_height-2);
 	var left_or_right = (bbox_left < 2 || bbox_right > room_width-2);
-	if ((shoot_dont || shift) && left_or_right && speed <= 0.5) { hspeed = 16*-dcos(gravity_direction);}
-	if ((shoot_dont || shift) && top_or_bottom && speed <= 0.5) { vspeed = 16*dsin(gravity_direction);}
-	//if (shoot_dont) { gravity_direction-=90; }
-	if (shoot_dont) { gravity_direction-=180; }
-	//if (shoot_hold) { gravity_direction -= 10; }
-	//if (shoot_hold && (abs(pad_r-pad_l) || abs(pad_d-pad_u))) { gravity_direction = point_direction(0, 0, (pad_r-pad_l), (pad_d-pad_u)); }
+	//if ((shoot_dont || shift) && left_or_right && speed <= 0.5) { hspeed = 16*-dcos(gravity_direction);}
+	//if ((shoot_dont || shift) && top_or_bottom && speed <= 0.5) { vspeed = 16*dsin(gravity_direction);}
+	//if (shoot_dont) { direction = aim; speed = 20; }//gravity_direction-=180; }
+	if (top_or_bottom || left_or_right) { speed *= 0.9; if (shoot_hold) { speed = 0; } }
+	if ((top_or_bottom || left_or_right) && shoot_dont) { direction = aim; speed = 20; }
+	
+	//OG System
+	
+	//gravity = ((gravity-0.4)*0.5)+0.4;
+	//image_angle = gravity_direction;
+	//hspeed += 0.1 * (pad_r - pad_l) * (1 - (shift/2));
+	//vspeed += 0.1 * (pad_d - pad_u) * (1 - (shift/2));
+	//var top_or_bottom = (bbox_top < 2 || bbox_bottom > room_height-2);
+	//var left_or_right = (bbox_left < 2 || bbox_right > room_width-2);
+	//if ((shoot_dont || shift) && left_or_right && speed <= 0.5) { hspeed = 16*-dcos(gravity_direction);}
+	//if ((shoot_dont || shift) && top_or_bottom && speed <= 0.5) { vspeed = 16*dsin(gravity_direction);}
+	////if (shoot_dont) { gravity_direction-=90; }
+	//if (shoot_dont) { gravity_direction-=180; }
+	////if (shoot_hold) { gravity_direction -= 10; }
+	////if (shoot_hold && (abs(pad_r-pad_l) || abs(pad_d-pad_u))) { gravity_direction = point_direction(0, 0, (pad_r-pad_l), (pad_d-pad_u)); }
 }
 else if (my_color == c_green)
 {

@@ -1,9 +1,10 @@
 enum OBST_COLOR {
 	RED = 0,//red blue soul
 	YELLOW = 1,//
-	GREEN = 2,//heal player
+	GREEN = 2,//
 	PURPLE = 3,//
-	BLUE = 4,//red blue soul
+	
+	BLUE = 4,//platform; no dmg
 	ORANGE = 5,//m- move through those ones!!!
 	AQUA = 6,//<yellow>blue stop signs</yellow>
 	WHITE = 7,//just hit
@@ -12,6 +13,7 @@ enum OBST_COLOR {
 possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white];
 my_color = possible_colors[OBST_COLOR.WHITE];
 content = noone;
+warning_still_there = true;
 f = 1;
 
-alarm[0] = 20*sec;
+alarm[0] = 10*sec;

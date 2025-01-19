@@ -18,6 +18,7 @@ time_till_next_spawn = weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TIME_T
 
 if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.CUBE_A) {
 	var _cube = summon_basic_cube();
+	_cube.my_color = c_blue;
 }
 else if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.LASER_A) {
 	var _i = irandom_range(0, 3);
@@ -73,8 +74,8 @@ else if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.C
 else if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.CUBE_C) {
 	var _cube = summon_basic_cube();
 	var _i = irandom_range(0, 1);
-	if (_i) { _cube.image_xscale *= 0.5; _cube.image_yscale *= 1.3; }
-	else { _cube.image_yscale *= 0.5; _cube.image_xscale *= 1.3; }
+	if (_i) { _cube.image_xscale *= 0.5; _cube.image_yscale *= 2; }
+	else { _cube.image_yscale *= 0.5; _cube.image_xscale *= 2; }
 }
 
 
