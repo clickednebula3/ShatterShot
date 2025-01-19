@@ -2,7 +2,7 @@ if (SUPER > 0)
 {
 	possible_colors = [
 		c_red, c_aqua, c_orange,
-		c_yellow, c_purple, c_blue, c_green
+		c_yellow, c_purple, BLUE, c_green
 	];
 	draw_sprite_ext(
 		spr_dvd, 2, x, y, image_xscale, image_yscale, image_angle,

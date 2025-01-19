@@ -79,7 +79,7 @@ if (mode_swap && !shoot_hold && !shift) { soulmode_jump(self); }
 if (level_up) { attempt_levelup(); }
 
 HP = clamp(HP, 0, obj_player.MAX_HP);
-if (my_color != c_purple && my_color != c_white && my_color != c_aqua && my_color != c_blue &&
+if (my_color != c_purple && my_color != c_white && my_color != c_aqua && my_color != BLUE &&
 	!(is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua && redbluehalf.active && !shoot_hold)
 	&& portal_stun <= 0
 ) {
@@ -368,7 +368,7 @@ else if (my_color == c_purple)
 	if (purple_string_x >= purple_string_gap) { purple_string_x -= purple_string_gap; }
 	if (purple_string_y >= purple_string_gap) { purple_string_y -= purple_string_gap; }
 }
-else if (my_color == c_blue)
+else if (my_color == BLUE)
 {
 	//New System
 	
@@ -382,7 +382,8 @@ else if (my_color == c_blue)
 	//if ((shoot_dont || shift) && top_or_bottom && speed <= 0.5) { vspeed = 16*dsin(gravity_direction);}
 	//if (shoot_dont) { direction = aim; speed = 20; }//gravity_direction-=180; }
 	if (top_or_bottom || left_or_right) { speed *= 0.9; if (shoot_hold) { speed = 0; } }
-	if ((top_or_bottom || left_or_right) && shoot_dont) { direction = aim; speed = 20; }
+	if ((top_or_bottom || left_or_right) && shoot_dont) { direction = aim; speed = 19.3; }
+	if ((top_or_bottom || left_or_right) && shift) { direction = aim; speed = 5; }
 	
 	//OG System
 	

@@ -91,7 +91,7 @@ else if (my_color = c_yellow)
 		if (Time % (sec*3) >= sec*2.5) { x += irandom_range(-1, 1); y += irandom_range(-1, 1); }
 	}
 }
-else if (my_color = c_blue)
+else if (my_color = BLUE)
 {
 	gravity = 1;
 	if (Time % (sec*3) == sec*2.5) { gravity_direction += 180; }

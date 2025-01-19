@@ -34,7 +34,7 @@ if (my_color == c_orange || my_color == c_aqua) {
 		draw_set_alpha(0.2);
 		var _plyr_moved = (abs(_coll.x-_coll.xprevious)>0.1||abs(_coll.y-_coll.yprevious)>0.1);
 		if ((my_color == c_orange && _plyr_moved) || (my_color == c_aqua && !_plyr_moved))
-		{ orngplayer_tension-= 3 + 5*(my_color == c_blue); }
+		{ orngplayer_tension-= 3 + 5*(my_color == BLUE); }
 	}
 	
 	var percent = 1-(orngplayer_tension/orngplayer_tension_max);

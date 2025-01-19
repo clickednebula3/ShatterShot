@@ -2,7 +2,7 @@
 //draw Z/X/ARROW
 //draw wave/mon thing
 
-possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white, [c_red, c_aqua], [c_aqua, c_orange], c_lime];
+possible_colors = [c_red, c_yellow, c_green, c_purple, BLUE, c_orange, c_aqua, c_white, [c_red, c_aqua], [c_aqua, c_orange], c_lime];
 
 //window_set_size(960, 720);
 //camera_set_view_size(camera_get_active(), 960, 720);

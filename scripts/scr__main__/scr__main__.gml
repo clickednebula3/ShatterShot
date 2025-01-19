@@ -8,7 +8,7 @@ function prevent_boundary_escape(object) {
 	if (collision_circle(object.x, object.y, (object.sprite_width+object.sprite_height)/4, obj_portal, true, true) != noone) { return; }
 	
 	if (object.object_index == obj_player) {
-		if (object.my_color = c_blue) {
+		if (object.my_color = BLUE) {
 			if (object.bbox_left < 0 || bbox_right > room_width)
 			{ gravity_direction = point_direction(0, 0, hspeed, 0); }
 			else { gravity_direction = point_direction(0, 0, 0, vspeed); }

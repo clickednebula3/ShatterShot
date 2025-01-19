@@ -18,7 +18,7 @@ time_till_next_spawn = weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TIME_T
 
 if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.CUBE_A) {
 	var _cube = summon_basic_cube();
-	_cube.my_color = c_blue;
+	_cube.my_color = BLUE;
 }
 else if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.LASER_A) {
 	var _i = irandom_range(0, 3);

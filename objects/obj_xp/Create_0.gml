@@ -7,7 +7,7 @@ weight_bag = [
 	[c_red, 50],
 	[c_yellow, 50],
 	[c_white, 100],
-	[c_blue, 100],
+	[BLUE, 100],
 	[c_aqua, 150],
 	[c_orange, 150],
 	[c_purple, 100],
@@ -35,7 +35,7 @@ function get_random_color_from_weight_bag(_weight_bag) {
 my_color = weight_bag[get_random_color_from_weight_bag(weight_bag)][0];
 emphasis = false;
 
-//possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white];
+//possible_colors = [c_red, c_yellow, c_green, c_purple, BLUE, c_orange, c_aqua, c_white];
 //my_color = possible_colors[irandom_range(0, array_length(possible_colors)-1)];
 
 if (instance_exists(obj_player)) {

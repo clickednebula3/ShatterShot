@@ -1,6 +1,6 @@
 if (collision_circle(x, y, (sprite_width+sprite_height)/4, obj_portal, true, true) != noone) { return; }
 
-if (my_color = c_blue) {
+if (my_color = BLUE) {
 	if (bbox_left < 0 || bbox_right > room_width)
 	{ gravity_direction = point_direction(0, 0, hspeed, 0); }
 	else { gravity_direction = point_direction(0, 0, 0, vspeed); }

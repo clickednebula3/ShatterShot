@@ -88,7 +88,7 @@ if (obj_control.game_started) {
 //if (array_contains(waves[wave_index], c_white)) { found_color[0] = true; }
 //if (array_contains(waves[wave_index], c_red)) { found_color[1] = true; }
 //if (array_contains(waves[wave_index], c_green)) { found_color[2] = true; }
-//if (array_contains(waves[wave_index], c_blue)) { found_color[3] = true; }
+//if (array_contains(waves[wave_index], BLUE)) { found_color[3] = true; }
 //if (array_contains(waves[wave_index], c_aqua)) { found_color[4] = true; }
 //if (array_contains(waves[wave_index], c_orange)) { found_color[5] = true; }
 //if (array_contains(waves[wave_index], c_yellow)) { found_color[6] = true; }

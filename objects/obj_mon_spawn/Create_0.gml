@@ -5,7 +5,7 @@ possible_colors = [
 	c_red, c_red,
 	c_yellow, c_yellow,
 	c_purple, c_purple,
-	c_blue, c_green
+	BLUE, c_green
 ];
 my_color = possible_colors[irandom_range(0, array_length(possible_colors)-1)];
 image_alpha = 0.7;

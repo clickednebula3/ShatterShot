@@ -1,8 +1,10 @@
+#macro BLUE		make_color_rgb(82, 82, 230)
+
 spd = 2;
 HP = 2;
 MAX_HP = 5;
 color_index = COLOR_INDEX.RED;
-possible_colors = [c_red, c_yellow, c_green, c_purple, c_blue, c_orange, c_aqua, c_white, [c_red, c_aqua], [c_aqua, c_orange], c_lime];
+possible_colors = [c_red, c_yellow, c_green, c_purple, BLUE, c_orange, c_aqua, c_white, [c_red, c_aqua], [c_aqua, c_orange], c_lime];
 my_color = possible_colors[color_index%array_length(possible_colors)];
 
 soulscore_before_level_up = 16;

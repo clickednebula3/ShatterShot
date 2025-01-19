@@ -32,7 +32,7 @@ weight_bag = [
 	
 	[c_purple, 100, 50*sec, [2, 2]],
 	[c_yellow, 100, 100*sec, [1, 1]],
-	[c_blue, 200, 170*sec, [1, 1]],
+	[BLUE, 200, 170*sec, [1, 1]],
 	[c_white, 200, 250*sec, [1, 1]],
 	
 	[c_yellow, 200, 300*sec, [1, 2]], [c_white, 200, 300*sec, [1, 2]], [c_green, 100, 300*sec, [1, 1]],
@@ -93,38 +93,38 @@ waves = [//the amount of a color is just the number of it in the field? (or weig
 	[c_white, c_orange, c_aqua, c_green],
 	[c_red, c_orange, c_aqua, c_white], //the classic 4
 	//introducing blue
-	[c_blue, c_blue],
-	[c_blue, c_blue, c_blue, c_red, c_green],
-	[c_blue, c_blue, c_blue, c_white, c_white],
-	[c_orange, c_aqua, c_blue, c_blue],
+	[BLUE, BLUE],
+	[BLUE, BLUE, BLUE, c_red, c_green],
+	[BLUE, BLUE, BLUE, c_white, c_white],
+	[c_orange, c_aqua, BLUE, BLUE],
 	//double intro purple&yellow
 	[c_purple, c_yellow, c_green],
 	[c_purple, c_yellow, c_red],
-	[c_purple, c_yellow, c_blue, c_blue], //the quirky 3
+	[c_purple, c_yellow, BLUE, BLUE], //the quirky 3
 	[c_purple, c_orange, c_aqua, c_green],
 	//the versus (any good matchings)
 	[c_orange, c_orange, c_orange, c_green],
 	[c_aqua, c_aqua, c_aqua, c_yellow],
 	[c_red, c_orange, c_aqua, c_white],
 	[c_yellow, c_yellow, c_yellow],
-	[c_green, c_white, c_blue, c_blue],
-	[c_blue, c_blue, c_purple, c_purple],
-	[c_green, c_green, c_yellow, c_yellow, c_blue, c_blue],
+	[c_green, c_white, BLUE, BLUE],
+	[BLUE, BLUE, c_purple, c_purple],
+	[c_green, c_green, c_yellow, c_yellow, BLUE, BLUE],
 	[c_green, c_red, c_white, c_orange, c_aqua],
 	[c_yellow, c_purple, c_white, c_red],
-	[c_yellow, c_purple, c_white, c_red, c_blue],
-	[c_yellow, c_purple, c_blue, c_blue, c_blue],
+	[c_yellow, c_purple, c_white, c_red, BLUE],
+	[c_yellow, c_purple, BLUE, BLUE, BLUE],
 	[c_yellow, c_purple, c_purple, c_white, c_white],
-	[c_red, c_white, c_aqua, c_orange, c_blue, c_blue],
+	[c_red, c_white, c_aqua, c_orange, BLUE, BLUE],
 	[c_green, c_green],
 	[c_yellow, c_yellow, c_yellow, c_yellow, c_yellow, c_yellow, c_green, c_green, c_green],
-	[c_blue, c_blue, c_blue, c_purple, c_purple, c_purple],
+	[BLUE, BLUE, BLUE, c_purple, c_purple, c_purple],
 	[c_green, c_white, c_white, c_white, c_red, c_red],
-	[c_blue, c_yellow, c_purple, c_orange, c_orange],
+	[BLUE, c_yellow, c_purple, c_orange, c_orange],
 	[c_orange, c_orange, c_orange, c_aqua, c_aqua, c_aqua, c_green, c_green],
 	[c_green, c_green, c_green, c_green, c_green, c_green, c_green, c_green],
-	[c_red, c_white, c_yellow, c_orange, c_aqua, c_blue, c_purple],
-	[c_red, c_white, c_yellow, c_orange, c_aqua, c_blue, c_purple],
-	[c_red, c_white, c_yellow, c_orange, c_aqua, c_blue, c_purple, c_green],//just keep looping this onwards
-	[c_red, c_white, c_yellow, c_orange, c_aqua, c_blue, c_purple, c_green, c_red, c_white, c_yellow, c_orange, c_aqua, c_blue, c_purple, c_green],
+	[c_red, c_white, c_yellow, c_orange, c_aqua, BLUE, c_purple],
+	[c_red, c_white, c_yellow, c_orange, c_aqua, BLUE, c_purple],
+	[c_red, c_white, c_yellow, c_orange, c_aqua, BLUE, c_purple, c_green],//just keep looping this onwards
+	[c_red, c_white, c_yellow, c_orange, c_aqua, BLUE, c_purple, c_green, c_red, c_white, c_yellow, c_orange, c_aqua, BLUE, c_purple, c_green],
 ]
