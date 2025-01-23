@@ -58,8 +58,8 @@ else if (controller_index == 1)//WASD/ZQSD
 else if (controller_index > 1)//CONTROLLER = controller_index-2
 {
 	var gp_id = controller_index-2;
-	pad_l = gamepad_button_check(gp_id, gp_stickr);
-	pad_r = gamepad_button_check(gp_id, gp_padr);
+	pad_l = gamepad_button_check(gp_id, gp_stickl);
+	pad_r = gamepad_button_check(gp_id, gp_stickr);
 	pad_u = gamepad_button_check(gp_id, gp_padu);
 	pad_d = gamepad_button_check(gp_id, gp_padd);
 	shift = gamepad_button_check(gp_id, gp_face2) || gamepad_button_check(gp_id, gp_shoulderl) || gamepad_button_check(gp_id, gp_shoulderlb);

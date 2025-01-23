@@ -22,6 +22,7 @@ if (obj_control.game_started) {
 		time_between_spawns_now = time_between_spawns_max - (time_between_spawns_max-time_between_spawns_min)*clamp(time_counter/time_between_spawns_width, 0, 1);
 	
 		var _summonee_data = get_random_soulmon_data(time_counter);
+		if (_summonee_data == -1) { return; }
 		var _summonee_color = _summonee_data[WEIGHT_SUMMONEE_DATA.COLOR];
 		var _summonee_patch_data = _summonee_data[WEIGHT_SUMMONEE_DATA.PATCH_SIZE];
 		var _summonee_patch = irandom_range(_summonee_patch_data[0], _summonee_patch_data[1]);
