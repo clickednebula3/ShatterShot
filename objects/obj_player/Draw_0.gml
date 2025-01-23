@@ -1,5 +1,5 @@
 my_color = possible_colors[color_index%array_length(possible_colors)];
-
+draw_text(0, 0, string(controller_index));
 draw_set_alpha(0.4);
 if (!is_array(my_color)) { draw_set_color(my_color); }
 if(my_color == BLUE) {

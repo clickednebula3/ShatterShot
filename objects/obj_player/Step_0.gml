@@ -58,7 +58,7 @@ else if (controller_index == 1)//WASD/ZQSD
 else if (controller_index > 1)//CONTROLLER = controller_index-2
 {
 	var gp_id = controller_index-2;
-	pad_l = gamepad_button_check(gp_id, gp_padl);
+	pad_l = gamepad_button_check(gp_id, gp_stickr);
 	pad_r = gamepad_button_check(gp_id, gp_padr);
 	pad_u = gamepad_button_check(gp_id, gp_padu);
 	pad_d = gamepad_button_check(gp_id, gp_padd);
@@ -179,7 +179,7 @@ else if (is_array(my_color) && my_color[0] == c_red && my_color[1] == c_aqua) {
 	redbluelaser = clamp(redbluelaser, 0, 20);
 	if (redbluelaser > 5) {
 		var _coll = collision_line(x, y, redbluehalf.x, redbluehalf.y, obj_mon, true, false);
-		if (instance_exists(_coll)) { instance_destroy(_coll); }
+		if (instance_exists(_coll)) { _coll.death_cause = self; instance_destroy(_coll); }
 	}
 }
 else if (my_color == c_lime)

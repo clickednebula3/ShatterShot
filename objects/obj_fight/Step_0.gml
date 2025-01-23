@@ -34,10 +34,8 @@ if (SUPER > 0) {
 	speed = 9;
 	image_index = 2;
 	var _coll_mon = collision_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, obj_mon, true, false);
-	if (_coll_mon != noone) { instance_destroy(_coll_mon); count_for_combo(player, 1); }
-	if (sprite_index == spr_bruh) {
-		turn_sped = 1;
-	}
+	if (_coll_mon != noone) { instance_destroy(_coll_mon); _coll_mon.death_cause = player; count_for_combo(player, 1); }
+	if (sprite_index == spr_bruh) { turn_sped = 1; }
 	var _bosscoll = ds_list_create();
 	var _bosscollcount = collision_rectangle_list(bbox_left, bbox_top, bbox_right, bbox_bottom, [obj_myspoke], false, true, _bosscoll, false);
 	for (var i=0; i<_bosscollcount; i++) {

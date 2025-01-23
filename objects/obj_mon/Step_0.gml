@@ -37,7 +37,10 @@ if (instance_exists(_nearest_portal) && instance_exists(_nearest_portal.linked_p
 		}
 	}
 	
-	if (point_distance(x, y, _target_coords[0], _target_coords[1]) > _dist + point_distance(_nearest_portal.linked_portal.x, _nearest_portal.linked_portal.y, _portal_target.x, _portal_target.y)) {
+	if (
+		instance_exists(_portal_target) &&
+		point_distance(x, y, _target_coords[0], _target_coords[1]) > _dist + point_distance(_nearest_portal.linked_portal.x, _nearest_portal.linked_portal.y, _portal_target.x, _portal_target.y
+	)) {
 		_target_coords = [_nearest_portal.x-dcos(_nearest_portal.image_angle), _nearest_portal.y+dsin(_nearest_portal.image_angle)];
 	}
 }
