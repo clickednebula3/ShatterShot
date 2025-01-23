@@ -1,3 +1,17 @@
+if (de_immunize_players > 0) { de_immunize_players--; }
+if (de_immunize_players == 0) {
+	var a = array_length(immune_to);
+	for (var i=0; i<array_length(immune_to); i++) {
+		if (instance_exists(immune_to[i]) && immune_to[i].object_index == obj_player) {
+			array_delete(immune_to, i, 1);
+			a = array_length(immune_to);
+			i = -1;
+			continue;
+		}
+	}
+	de_immunize_players = sec;
+}
+
 if (instance_exists(my_child))
 {
 	my_child.x = x+rad*dcos(image_angle);

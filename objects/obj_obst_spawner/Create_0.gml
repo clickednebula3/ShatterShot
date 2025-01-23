@@ -9,9 +9,10 @@ enum OBST_SPAWN_WEIGHT_DATA {
 
 enum OBSTACLE {
 	NONE_HAPPY_BREAK_TIME,
-	CUBE_A,
-	CUBE_B,
-	CUBE_C,
+	CUBE_WHITE,
+	CUBE_MOTION_FREEZE,
+	CUBE_WHITE_STRETCHED,
+	CUBE_DROP,
 	LASER_A,
 	LASER_B,
 	LASER_C,
@@ -22,9 +23,11 @@ weight_bag = [
 	//case-specific title, weight, available_after_time, time_till_next_spawn
 	//do not change titles without changing them in draw event
 	[OBSTACLE.NONE_HAPPY_BREAK_TIME, 100, 2*sec, 5*sec],
-	[OBSTACLE.CUBE_A, 100, 10*sec, 5*sec],
-	[OBSTACLE.CUBE_B, 100, 30*sec, 5*sec],
-	[OBSTACLE.CUBE_C, 100, 45*sec, 5*sec],
+	[OBSTACLE.CUBE_WHITE, 100, 10*sec, 5*sec],
+	[OBSTACLE.CUBE_MOTION_FREEZE, 100, 30*sec, 5*sec],
+	[OBSTACLE.CUBE_DROP, 100, 45*sec, 5*sec],
+	[OBSTACLE.CUBE_WHITE_STRETCHED, 100, 45*sec, 5*sec],
+	[OBSTACLE.CUBE_DROP, 100, 45*sec, 5*sec],
 	[OBSTACLE.LASER_A, 100, 70*sec, 10*sec],
 	[OBSTACLE.LASER_B, 100, 150*sec, 10*sec],
 	[OBSTACLE.LASER_C, 100, 100*sec, 10*sec],

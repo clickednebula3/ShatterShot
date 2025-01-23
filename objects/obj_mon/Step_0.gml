@@ -148,8 +148,10 @@ else if (my_color = c_purple)
 		new_y = clamp(new_y, 8, room_height-8);
 		new_x = (new_y-b2)/m2;
 		//smooth motion to point on line
-		x = (12*x + new_x)/13;
-		y = (12*y + new_y)/13;
+		x = new_x;
+		y = new_y;
+		//x = (12*x + new_x)/13;
+		//y = (12*y + new_y)/13;
 	}
 	
 	speed *= 0.5;

@@ -11,6 +11,40 @@ draw_rectangle(-3, -3, room_width+2, room_height+2, true);
 draw_rectangle(-2, -2, room_width+1, room_height+1, true);
 draw_rectangle(-1, -1, room_width, room_height, true);
 
+/*
+	var _p = 64;
+	var _w = room_width/2;
+	var _h = room_height/2;
+
+	draw_set_color(c_gray);
+	if (mouse_x > (2*_p) && mouse_x < (_w-_p) && mouse_y > (_p) && mouse_y < (_h-_p)) { draw_set_color(c_ltgray); }
+	draw_roundrect(2*_p, _p, _w-_p, _h-_p, true);
+	draw_roundrect(2*_p-1, _p-1, _w-_p+1, _h-_p+1, true);
+	draw_roundrect(2*_p-2, _p-2, _w-_p+2, _h-_p+2, true);
+
+	draw_set_color(c_gray);
+	if (mouse_x > (_w+_p) && mouse_x < (room_width-_p*2) && mouse_y > (_h+_p) && mouse_y < (room_height-_p)) { draw_set_color(c_ltgray); }
+	draw_roundrect(_w+_p, _h+_p, room_width-_p*2, room_height-_p, true);
+	draw_roundrect(_w+_p-1, _h+_p-1, room_width-_p*2+1, room_height-_p+1, true);
+	draw_roundrect(_w+_p-2, _h+_p-2, room_width-_p*2+2, room_height-_p+2, true);
+
+	draw_set_color(c_gray);
+	//if (mouse_x > (2*_p) && mouse_x < (_w-_p) && mouse_y > (_p) && mouse_y < (_h-_p)) { draw_set_color(c_ltgray); }
+	draw_roundrect(_w+_p, _p, room_width-_p*2, _h-_p, true);
+	draw_roundrect(_w+_p-1, _p-1, room_width-_p*2+1, _h-_p+1, true);
+	draw_roundrect(_w+_p-2, _p-2, room_width-_p*2+2, _h-_p+2, true);
+
+	draw_set_color(c_gray);
+	//if (mouse_x > (2*_p) && mouse_x < (_w-_p) && mouse_y > (_p) && mouse_y < (_h-_p)) { draw_set_color(c_ltgray); }
+	draw_roundrect(2*_p, _h+_p, _w-_p, room_height-_p, true);
+	draw_roundrect(2*_p-1, _h+_p-1, _w-_p+1, room_height-_p+1, true);
+	draw_roundrect(2*_p-2, _h+_p-2, _w-_p+2, room_height-_p+2, true);
+
+	draw_set_color(c_white);
+*/
+
+
+
 if (!game_started) {
 	for (var i=0; i<array_length(possible_colors); i++) {
 		var _c = c_gray;

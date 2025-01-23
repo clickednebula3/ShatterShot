@@ -1,4 +1,13 @@
-if (other.speed > obj_mon_spawner.unhandlable_pure_speed) { count_for_combo(other, 1); if (my_color == c_green) { soul_heal(other, 1); } instance_destroy(); return; }
+if (other.speed > obj_mon_spawner.unhandlable_pure_speed) {
+	count_for_combo(other, 1);
+	if (my_color == c_green) { soul_heal(other, 1); }
+	direction = other.speed;
+	if (other.my_color == c_orange) { other.aqua_stunned = false; other.aqua_move_meter += sec; }
+	speed = other.speed * 0.5;
+	other.speed *= 1.2;//make positive
+	instance_destroy();
+	return;
+}
 if (my_color == c_green) { count_for_combo(other, 1); if (my_color == c_green) { soul_heal(obj_player, 1); } instance_destroy(); return; }
 
 if (other.my_color == c_green && my_color != c_purple && my_color != c_orange &&
@@ -16,13 +25,13 @@ if (other.my_color == c_aqua && other.aqua_move_meter >= 1.5*sec)
 { instance_destroy(); other.aqua_move_meter = -sec/2; other.aqua_stunned = true; return; }
 
 if (my_color == c_aqua) {
-	if (abs(other.x-other.xprevious) > 1.2 || abs(other.y-other.yprevious) > 1.2) {with (other) { soul_hit(); }}
+	if (abs(other.x-other.xprevious) > 1.2 || abs(other.y-other.yprevious) > 1.2) { soul_hit(other); }
 	return;
 }
 if (my_color == c_orange) {
-	if (other.x == other.xprevious && other.y == other.yprevious) {with (other) { soul_hit(); }}
+	if (other.x == other.xprevious && other.y == other.yprevious) { soul_hit(other); }
 	return;
 }
 
 
-with (other) { soul_hit(); }
+soul_hit(other);

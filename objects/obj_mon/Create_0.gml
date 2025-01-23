@@ -2,6 +2,7 @@ my_color = c_yellow;
 Time = 0;
 my_shield = 3;
 cant_move = false;
+death_cause = noone;
 
 yellow_counterdirectionativity = 2*irandom_range(0, 1) - 1;
 

@@ -66,28 +66,33 @@ function soulmode_jump(soul, _jump_by = 1) {
 	soul.alarm[3] = sec;
 }
 
-function soul_hit(killtarget = noone, hitpoints = 1, karma = false) {
-	if (alarm[0] <= 0 && cayote_time_for_speed <= 0) {
-		HP-=hitpoints;
-		HP = clamp(HP, 0, 10);
+function soul_hit(hit_target = self, killtarget = noone, hitpoints = 1, karma = false) {
+	if (!instance_exists(hit_target) || hit_target.object_index != obj_player) { return -1; }
+	
+	if (hit_target.alarm[0] <= 0 && hit_target.cayote_time_for_speed <= 0) {
+		hit_target.HP-=hitpoints;
+		hit_target.HP = clamp(hit_target.HP, 0, 10);
 		if (instance_exists(killtarget)) { instance_destroy(killtarget); }
-		if (!karma) { alarm[0] = 2*sec; }
-		if (HP > 0) { audio_play_sound(snd_dmg, 10, false, 1, 0, 1+random_range(-0.1, 0.1)); }
+		if (!karma) { hit_target.alarm[0] = 2*sec; }
+		if (hit_target.HP > 0) { audio_play_sound(snd_dmg, 10, false, 1, 0, 1+random_range(-0.1, 0.1)); }
 	}
-	if (HP <= 0) {
-		var my_death_particle = instance_create_depth(x, y, depth, obj_mon_break);
-		my_death_particle.image_angle = image_angle+90;
-		if (is_array(my_color)) {
-			my_death_particle.my_color = my_color[0];
-			my_death_particle.half_soul_mode = 1+(x >= redbluehalf.x);
-			var my_death_particle2 = instance_create_depth(redbluehalf.x, redbluehalf.y, depth, obj_mon_break);
-			my_death_particle2.image_angle = image_angle+90;
-			my_death_particle2.my_color = my_color[1];
-			my_death_particle2.half_soul_mode = 1+(x < redbluehalf.x);
-			instance_destroy(redbluehalf);
-		} else { my_death_particle.my_color = my_color; }
-		instance_destroy();
+	
+	if (hit_target.HP <= 0) {
+		var my_death_particle = instance_create_depth(hit_target.x, hit_target.y, hit_target.depth, obj_mon_break);
+		my_death_particle.image_angle = hit_target.image_angle+90;
+		if (is_array(hit_target.my_color)) {
+			my_death_particle.my_color = hit_target.my_color[0];
+			my_death_particle.half_soul_mode = 1+(hit_target.x >= hit_target.redbluehalf.x);
+			var my_death_particle2 = instance_create_depth(hit_target.redbluehalf.x, hit_target.redbluehalf.y, hit_target.depth, obj_mon_break);
+			my_death_particle2.image_angle = hit_target.image_angle+90;
+			my_death_particle2.my_color = hit_target.my_color[1];
+			my_death_particle2.half_soul_mode = 1+(hit_target.x < hit_target.redbluehalf.x);
+			instance_destroy(hit_target.redbluehalf);
+		} else { my_death_particle.my_color = hit_target.my_color; }
+		instance_destroy(hit_target);
+		return 0;
 	}
+	return hit_target.HP;
 }
 
 function count_my_shots(soul = self) {

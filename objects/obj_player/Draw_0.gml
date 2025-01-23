@@ -2,6 +2,42 @@ my_color = possible_colors[color_index%array_length(possible_colors)];
 
 draw_set_alpha(0.4);
 if (!is_array(my_color)) { draw_set_color(my_color); }
+if(my_color == BLUE) {
+	//todo: fix controls
+	var pad_l = keyboard_check_direct(vk_left) || keyboard_check_direct(ord("A")) || gamepad_button_check(0, gp_padl);
+	var pad_r = keyboard_check_direct(vk_right) || keyboard_check_direct(ord("D")) || gamepad_button_check(0, gp_padr);
+	var pad_u = keyboard_check_direct(vk_up) || keyboard_check_direct(ord("W")) || gamepad_button_check(0, gp_padu);
+	var pad_d = keyboard_check_direct(vk_down) || keyboard_check_direct(ord("S")) || gamepad_button_check(0, gp_padd);
+	var shoot_hold = mouse_check_button(mb_left) || gamepad_button_check(0, gp_face3) || gamepad_button_check(0, gp_shoulderr) || gamepad_button_check(0, gp_shoulderrb) || keyboard_check_direct(ord("Z"));
+	var shift = keyboard_check_direct(vk_shift) || gamepad_button_check(0, gp_face2) || gamepad_button_check(0, gp_shoulderl) || gamepad_button_check(0, gp_shoulderlb) || keyboard_check_direct(ord("X"));
+	var aim = gravity_direction;
+	if ((pad_r xor pad_l) || (pad_d xor pad_u)) { aim = point_direction(0, 0, pad_r-pad_l, pad_d-pad_u); }
+	
+	var top_or_bottom = (bbox_top < 2 || bbox_bottom > room_height-2);
+	var left_or_right = (bbox_left < 2 || bbox_right > room_width-2);
+	
+	var _x = x;
+	var _y = y;
+	var _lvl = soullevel[?possible_colors[COLOR_INDEX.BLUE_]];
+	var _l = 16;
+	var _v = 19.5; if (speed > 10) { _v = speed; }
+	var _hv = _v*dcos(aim);
+	var _vv = _v*-dsin(aim);
+	
+	for (var i=0; ((shoot_hold && (top_or_bottom || left_or_right)) || speed > 10) && i<_lvl*10; i++) {
+		_x = _x+_hv;
+		_y = _y+_vv;
+		if (_x < 8 || _x > room_width-8) { _x = clamp(_x, 8, room_width-8); _hv *= -0.5; }
+		if (_y < 8 || _y > room_height-8) { _y = clamp(_y, 8, room_height-8); _vv *= -0.5; }
+		draw_circle(_x, _y, 2, true);
+		
+		var _f = 0.97;
+		if (point_distance(0, 0, _hv, _vv) > 10) { _f = 0.99; }
+		_hv += gravity*dcos(gravity_direction)*_f;
+		_vv -= gravity*dsin(gravity_direction)*_f;
+		aim = -darctan2(_vv, _hv);
+	}
+}
 if (my_color == c_yellow) {
 	draw_line_color(x, y, x+64*dcos(image_angle), y+64*-dsin(image_angle), my_color, c_black);
 	if (redyellow_timer > 0) {
@@ -37,9 +73,35 @@ if (my_color == c_purple) {
 		}
 	}
 	
-	draw_set_alpha(1);
 	draw_set_color(c_red);
-	draw_rectangle(3, 3, room_width-4, room_height-4, true);
+	
+	//up
+	draw_set_alpha(1 - abs(y)/max_purple_view_distance);
+	draw_line(max(x-32, -1), -1, min(x+32, room_width), -1);
+	draw_line(max(x-28, -2), -2, min(x+28, room_width+1), -2);
+	draw_line(max(x-22, -3), -3, min(x+22, room_width+2), -3);
+	//down
+	draw_set_alpha(1 - abs(y-room_height)/max_purple_view_distance);
+	draw_line(max(x-32, -1), room_height, min(x+32, room_width), room_height);
+	draw_line(max(x-28, -2), room_height+1, min(x+28, room_width+1), room_height+1);
+	draw_line(max(x-22, -3), room_height+2, min(x+22, room_width+2), room_height+2);
+	//left
+	draw_set_alpha(1 - abs(x)/max_purple_view_distance);
+	draw_line(-1, max(y-32, -1), -1, min(y+32, room_height));
+	draw_line(-2, max(y-28, -2), -2, min(y+28, room_height+1));
+	draw_line(-3, max(y-22, -3), -3, min(y+22, room_height+2));
+	//right
+	draw_set_alpha(1 - abs(x-room_width)/max_purple_view_distance);
+	draw_line(room_width, max(y-32, -1), room_width, min(y+32, room_height));
+	draw_line(room_width+1, max(y-28, -2), room_width+1, min(y+28, room_height+1));
+	draw_line(room_width+2, max(y-22, -3), room_width+2, min(y+22, room_height+2));
+	
+	draw_set_alpha(1);
+	draw_set_color(c_white);
+	
+	//draw_set_alpha(1);
+	//draw_set_color(c_red);
+	//draw_rectangle(3, 3, room_width-4, room_height-4, true);
 }
 if (alarm[3] > 0) {
 	var scale = 1+2*(1-power((alarm[3]/sec), 2));
@@ -154,7 +216,7 @@ draw_set_valign(fa_bottom);
 draw_set_alpha(alarm[1] / sec);
 draw_text(0, room_height-_y, "FILE "+string(player_id+1)+" SAVED");
 draw_set_alpha(alarm[2] / sec);
-draw_text(0, room_height-_y, "FILE "+string(player_id)+" LOADED");
+draw_text(0, room_height-_y, "FILE "+string(player_id+1)+" LOADED")
 draw_set_alpha(1);
 draw_set_valign(fa_top);
 
@@ -163,13 +225,13 @@ var _levelup_available = false;
 for (var i=0; i<array_length(possible_colors); i++) {
 	var _col = possible_colors[i];
 	if (ds_map_exists(soulscore, _col) && !is_array(_col)) {
-		draw_healthbar((room_width/2)+i*16+i*4, 8+player_id*16, (room_width/2)+(i+1)*16+i*4, 24+player_id*16,
+		draw_healthbar((room_width/2)+i*16+i*4, 8-(player_id+1)*16, (room_width/2)+(i+1)*16+i*4, 24-(player_id+1)*16,
 		100*soulscore[?_col]/soulscore_before_level_up, c_dkgray, _col, _col, 0, true, false);
-		draw_text((room_width/2)+i*16+i*4, 24+player_id*16, string(ds_map_find_value(soullevel, _col)));
+		draw_text((room_width/2)+i*16+i*4, 24-(player_id+1)*16, string(ds_map_find_value(soullevel, _col)));
 		if (soulscore[?_col]/soulscore_before_level_up >= 1) { _levelup_available = true; }
 	}
 }
 if (_levelup_available) {
-	if (controller_index < 2) { draw_text((room_width/2), 40+player_id*16, "Press Space!"); }
-	else { draw_text((room_width/2), 40+player_id*16, "Press Pad 1!"); }
+	if (controller_index < 2) { draw_text((room_width/2), 40-(player_id+1)*16, "Press Space!"); }
+	else { draw_text((room_width/2), 40-(player_id+1)*16, "Press Pad 1!"); }
 }

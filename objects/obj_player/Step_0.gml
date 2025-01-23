@@ -188,6 +188,12 @@ else if (my_color == c_lime)
 	{ direction += angle_difference(point_direction(xprevious, yprevious, x, y), direction)/10; }
 	image_angle = -90;
 	
+	if (shoot_dont) {
+		var _cube = instance_create_depth(x+20*dcos(direction), y-20*dsin(direction), depth, obj_obst);
+		_cube.direction = direction;
+		//_cube.speed = 5;
+	}
+	
 }
 else if (my_color == c_red)
 {
@@ -335,12 +341,18 @@ else if (my_color == c_aqua)
 	if (shoot_dont && !aqua_stunned) {
 		var _coll_mon = ds_list_create();
 		var _coll_mon_count = collision_circle_list(x, y, aqua_parry_rad, obj_mon, false, false, _coll_mon, false);
-		if (_coll_mon_count > 0) { for (var i=0; i<_coll_mon_count; i++) { count_for_combo(self, 1); instance_destroy(_coll_mon[|i]); }  }
+		if (_coll_mon_count > 0) {
+			for (var i=0; i<_coll_mon_count; i++) {
+				count_for_combo(self, 1);
+				_coll_mon[|i].death_cause = self;
+				instance_destroy(_coll_mon[|i]);
+			} 
+		}
 		ds_list_destroy(_coll_mon);
 		var _coll_boss = ds_list_create();
 		var _coll_boss_count = collision_circle_list(x, y, aqua_parry_rad, [obj_myspoke], false, true, _coll_boss, false);
 		if (_coll_boss_count > 0) { for (var i=0; i<_coll_boss_count; i++)
-			{ if (instance_exists(_coll_boss[|i])) { _coll_boss[|i].myspoke_hurt(self, 1, 0);}  } }
+			{ if (instance_exists(_coll_boss[|i])) { _coll_boss[|i].myspoke_hurt(self, 1, 0.5);}  } }
 		ds_list_destroy(_coll_boss);
 		if (_coll_mon_count <= 0 && _coll_boss_count <= 0) { stun_soul(self); }
 	}
@@ -382,7 +394,7 @@ else if (my_color == BLUE)
 	//if ((shoot_dont || shift) && top_or_bottom && speed <= 0.5) { vspeed = 16*dsin(gravity_direction);}
 	//if (shoot_dont) { direction = aim; speed = 20; }//gravity_direction-=180; }
 	if (top_or_bottom || left_or_right) { speed *= 0.9; if (shoot_hold) { speed = 0; } }
-	if ((top_or_bottom || left_or_right) && shoot_dont) { direction = aim; speed = 19.3; }
+	if ((top_or_bottom || left_or_right) && shoot_dont) { direction = aim; speed = 19.5; }
 	if ((top_or_bottom || left_or_right) && shift) { direction = aim; speed = 5; }
 	
 	//OG System

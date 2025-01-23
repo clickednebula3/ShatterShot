@@ -19,6 +19,8 @@ player_id = 0;
 controller_index = 0;
 uses_mouse = false;
 
+depth-=9999999;
+
 combo_timer = 0;
 combo_timer_max = 1*sec;
 combo = 0;

@@ -77,26 +77,26 @@ else {
 				_ang +=  180-_coll_hit.image_angle+_coll_hit.linked_portal.image_angle;
 				_portal_cooldown = portal_cooldown;
 			}
-			else if (_coll_hit.object_index == obj_mon) {
-				if (my_color == c_aqua && abs(_coll_hit.x-_coll_hit.xprevious) > 1.2 || abs(_coll_hit.y-_coll_hit.yprevious) > 1.2) { instance_destroy(_coll_hit); break;}
-				if (my_color == c_orange && _coll_hit.speed < 0.1 &&  _coll_hit.x == _coll_hit.xprevious && _coll_hit.y == _coll_hit.yprevious) {instance_destroy(_coll_hit); break;}
-				if (my_color == c_white) { instance_destroy(_coll_hit); break; }
-				hits_possible--;
-			}
+			//else if (_coll_hit.object_index == obj_mon) {
+			//	if (my_color == c_aqua && abs(_coll_hit.x-_coll_hit.xprevious) > 1.2 || abs(_coll_hit.y-_coll_hit.yprevious) > 1.2) { instance_destroy(_coll_hit); break;}
+			//	if (my_color == c_orange && _coll_hit.speed < 0.1 &&  _coll_hit.x == _coll_hit.xprevious && _coll_hit.y == _coll_hit.yprevious) {instance_destroy(_coll_hit); break;}
+			//	if (my_color == c_white) { instance_destroy(_coll_hit); break; }
+			//	hits_possible--;
+			//}
 			else if (_coll_hit.object_index == obj_shot) { if (!obj_shot.image_index) {instance_destroy(_coll_hit);} break; }
 			else if (_coll_hit.object_index == obj_player) {
-				if (my_color == c_aqua && abs(_coll_hit.x-_coll_hit.xprevious) > 1.2 || abs(_coll_hit.y-_coll_hit.yprevious) > 1.2) { with (_coll_hit) { soul_hit(); } break;}
-				if (my_color == c_orange && _coll_hit.speed < 0.1 &&  _coll_hit.x == _coll_hit.xprevious && _coll_hit.y == _coll_hit.yprevious) {with (_coll_hit) { soul_hit(); } break;}
-				if (my_color == c_white) { with (_coll_hit) {soul_hit()}; break; }
+				if (my_color == c_aqua && abs(_coll_hit.x-_coll_hit.xprevious) > 1.2 || abs(_coll_hit.y-_coll_hit.yprevious) > 1.2) { soul_hit(_coll_hit); break;}
+				if (my_color == c_orange && _coll_hit.speed < 0.1 &&  _coll_hit.x == _coll_hit.xprevious && _coll_hit.y == _coll_hit.yprevious) { soul_hit(_coll_hit); break;}
+				if (my_color == c_white) { soul_hit(_coll_hit); break; }
 				hits_possible--;
 			}
 			//else if (_coll_hit.object_index == obj_obst) { break; }
 			else if (_coll_hit.object_index == obj_grapple) { instance_destroy(_coll_hit); break; }
 			else if (_coll_hit.object_index == obj_grapple2) { instance_destroy(_coll_hit); break; }
 			else if (_coll_hit.object_index == obj_capshield) { break; }
-			else if (_coll_hit.object_index == obj_defshield && instance_exists(_coll_hit.owner) && _coll_hit.owner.my_color == c_green && _coll_hit.owner.green_shield_cooldown > 0) { break; }
+			else if (_coll_hit.object_index == obj_defshield && instance_exists(_coll_hit.owner) && _coll_hit.owner.my_color == c_green && !instance_exists(_coll_hit.owner.green_shield)) { break; }
 			else if (_coll_hit.object_index == obj_redbluehalf && _coll_hit.visible) { break; }
-			else if (_coll_hit.object_index == obj_xp) { instance_destroy(_coll_hit); }
+			//else if (_coll_hit.object_index == obj_xp) { instance_destroy(_coll_hit); }
 		}
 		
 		if (hits_possible <= 0 && alarm[2] > sec) { alarm[2] = sec; }

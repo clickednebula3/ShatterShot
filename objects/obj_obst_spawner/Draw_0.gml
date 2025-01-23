@@ -16,9 +16,14 @@ time_till_next_spawn = weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TIME_T
 
 
 
-if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.CUBE_A) {
+if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.CUBE_WHITE) {
+	var _cube = summon_basic_cube();
+}
+else if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.CUBE_DROP) {
 	var _cube = summon_basic_cube();
 	_cube.my_color = BLUE;
+	_cube.image_xscale *= 2;
+	_cube.image_yscale *= 2;
 }
 else if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.LASER_A) {
 	var _i = irandom_range(0, 3);
@@ -65,13 +70,14 @@ else if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.L
 else if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.BOSS_MYSPOKE) {
 	var _cube = summon_basic_cube();
 	_cube.content = obj_myspoke;
+	_cube.my_color = c_red;
 }
-else if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.CUBE_B) {
+else if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.CUBE_MOTION_FREEZE) {
 	var _cube = summon_basic_cube();
 	var _i = irandom_range(0, 1);
 	if (_i) { _cube.my_color = c_aqua; } else { _cube.my_color = c_orange; }
 }
-else if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.CUBE_C) {
+else if (weight_bag[current_obst_id][OBST_SPAWN_WEIGHT_DATA.TITLE] == OBSTACLE.CUBE_WHITE_STRETCHED) {
 	var _cube = summon_basic_cube();
 	var _i = irandom_range(0, 1);
 	if (_i) { _cube.image_xscale *= 0.5; _cube.image_yscale *= 2; }

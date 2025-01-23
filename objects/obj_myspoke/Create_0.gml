@@ -6,8 +6,9 @@ redness = 0;
 
 
 immune_to = [];
+de_immunize_players = sec;
 
-alarm[0] = sec/4;
+alarm[0] = sec;
 
 function immunize_against(_obj) {
 	var _childmost = self;
@@ -25,7 +26,7 @@ function immunize_against(_obj) {
 }
 
 function myspoke_hurt(_obj, _dmg = 1, immunization_chance = 1) {
-	if (instance_exists(_obj) && array_contains(immune_to, _obj)) { return; }
+	if (instance_exists(_obj) && array_contains(immune_to, _obj)) { return false; }
 	if (immunization_chance >= random_range(0, 1)) { immunize_against(_obj ); }
 	
 	var _childmost = self;
@@ -46,4 +47,6 @@ function myspoke_hurt(_obj, _dmg = 1, immunization_chance = 1) {
 	instance_destroy(_childmost);
 	
 	if (instance_exists(_parentmost)) { _parentmost.redness = 1; }
+	
+	return true;
 }
