@@ -112,52 +112,110 @@ else if (my_color = BLUE)
 }
 else if (my_color = c_purple)
 {
-	if (Time % (sec*3) == 1) { instance_destroy(purples_strings_makes_them_ring_a);	}
-	if (Time % (sec*3) == 2) {
-		if (instance_exists(purples_strings_makes_them_ring_b)) {
-			purples_strings_makes_them_ring_a = purples_strings_makes_them_ring_b;
-			purples_strings_makes_them_ring_a.image_alpha = 1;
-		}
+	
+	//find target
+	//point initial line
+	//find optimal point on the line
+	//use regular speed to reach there
+	//the next line is always perpendicular
+	
+	//NEW EDITION:
+	
+	var interval = sec*3;
+	
+	//kill main
+	if (Time % interval == 1) {
+		instance_destroy(purples_strings_makes_them_ring_a);
 	}
-	var target = self;
-	if (instance_exists(_target)) {
-		target = _target;
-		
-		if (Time % (sec*3) == sec/2) {
-			purples_strings_makes_them_ring_b = instance_create_depth(x, y, depth, obj_grapple);
-			purples_strings_makes_them_ring_b.direction = point_direction(x, y, _target.x, _target.y);
-			purples_strings_makes_them_ring_b.image_alpha = 0.2;
-		}
-		if (Time % (sec*3) == sec*2.5 && instance_exists(purples_strings_makes_them_ring_b))
-		{ purples_strings_makes_them_ring_b.image_alpha = 0.4; }
-		
+	//update main
+	if (Time % interval == 2 && instance_exists(purples_strings_makes_them_ring_b)) {
+		purples_strings_makes_them_ring_a = purples_strings_makes_them_ring_b;
+		purples_strings_makes_them_ring_a.image_alpha = 1;
 	}
 	
-	if (instance_exists(purples_strings_makes_them_ring_a)) {//WJHY ISNT THIS WORKING
-		//make sure that soul is on line
-		var xs = purples_strings_makes_them_ring_a.xstart;
-		var ys = purples_strings_makes_them_ring_a.ystart;
-		var dir = purples_strings_makes_them_ring_a.direction;
-		//grapple_line			ys = m1*xs + b1
-		var m1 = -dsin(dir) / dcos(dir);
-		var b1 = ys - (m1*xs);
+	if (instance_exists(_target)) {
+		
+		//pathfind
+		
+		
+		
+		//update side
+		if (Time % interval == sec/2) {
+		purples_strings_makes_them_ring_b = instance_create_depth(x, y, depth, obj_grapple);
+		purples_strings_makes_them_ring_b.direction = point_direction(x, y, _target.x, _target.y);
+		if (instance_exists(purples_strings_makes_them_ring_a)) {
+			purples_strings_makes_them_ring_b.direction = purples_strings_makes_them_ring_b.direction;
+		}
+		purples_strings_makes_them_ring_b.image_alpha = 0.2;
+		}
+		//warn side
+		if (Time & interval == sec*2.5 && instance_exists(purples_strings_makes_them_ring_b)) {
+			purples_strings_makes_them_ring_b.image_alpha = 0.4;
+		}
+	}
+	
+	
+	function best_point_on_line(lx, ly, ldir, tx, ty) {
+		var m1 = -dsin(ldir) / dcos(ldir);
+		var b1 = ly - (m1*lx);
 		//perpendicular_line	yplyr = m2*xplyr + b2
 		var m2 = -1/m1;
-		var b2 = target.y - (m2*target.x);
+		var b2 = ty - (m2*tx);
 		//go to closest point on the grapple line
 		var new_x = (b2-b1)/(m1-m2);
-		new_x = clamp(new_x, 8, room_width-8);
 		var new_y = m1*new_x + b1;
-		new_y = clamp(new_y, 8, room_height-8);
-		new_x = (new_y-b2)/m2;
 		//smooth motion to point on line
-		x = new_x;
-		y = new_y;
-		//x = (12*x + new_x)/13;
-		//y = (12*y + new_y)/13;
+		return [new_x, new_y];
 	}
 	
-	speed *= 0.5;
+	//OLD EDITION:
+	
+	//if (Time % (sec*3) == 1) { instance_destroy(purples_strings_makes_them_ring_a);	}
+	//if (Time % (sec*3) == 2) {
+	//	if (instance_exists(purples_strings_makes_them_ring_b)) {
+	//		purples_strings_makes_them_ring_a = purples_strings_makes_them_ring_b;
+	//		purples_strings_makes_them_ring_a.image_alpha = 1;
+	//	}
+	//}
+	//var target = self;
+	//if (instance_exists(_target)) {
+	//	target = _target;
+		
+	//	if (Time % (sec*3) == sec/2) {
+	//		purples_strings_makes_them_ring_b = instance_create_depth(x, y, depth, obj_grapple);
+	//		purples_strings_makes_them_ring_b.direction = point_direction(x, y, _target.x, _target.y);
+	//		purples_strings_makes_them_ring_b.image_alpha = 0.2;
+	//	}
+	//	if (Time % (sec*3) == sec*2.5 && instance_exists(purples_strings_makes_them_ring_b))
+	//	{ purples_strings_makes_them_ring_b.image_alpha = 0.4; }
+		
+	//}
+	
+	//if (instance_exists(purples_strings_makes_them_ring_a)) {//WJHY ISNT THIS WORKING
+	//	//make sure that soul is on line
+	//	var xs = purples_strings_makes_them_ring_a.xstart;
+	//	var ys = purples_strings_makes_them_ring_a.ystart;
+	//	var dir = purples_strings_makes_them_ring_a.direction;
+	//	//grapple_line			ys = m1*xs + b1
+	//	var m1 = -dsin(dir) / dcos(dir);
+	//	var b1 = ys - (m1*xs);
+	//	//perpendicular_line	yplyr = m2*xplyr + b2
+	//	var m2 = -1/m1;
+	//	var b2 = target.y - (m2*target.x);
+	//	//go to closest point on the grapple line
+	//	var new_x = (b2-b1)/(m1-m2);
+	//	new_x = clamp(new_x, 8, room_width-8);
+	//	var new_y = m1*new_x + b1;
+	//	new_y = clamp(new_y, 8, room_height-8);
+	//	new_x = (new_y-b2)/m2;
+	//	//smooth motion to point on line
+	//	x = new_x;
+	//	y = new_y;
+	//	//x = (12*x + new_x)/13;
+	//	//y = (12*y + new_y)/13;
+	//}
+	
+	//speed *= 0.5;
 }
 else if (my_color = c_aqua)
 {
