@@ -55,14 +55,19 @@ if (my_color = c_white)
 }
 else if (my_color = c_red)
 {
-	if (instance_exists(_target)) {
-		if (abs(_target_coords[1]-y) > abs(_target_coords[0]-x)) {
-			y += 2*((_target_coords[1]-y)/abs((_target_coords[1]-y)));
-		} else {
-			x += 2*((_target_coords[0]-x+0.01)/abs((_target_coords[0]-x)));
-		}
+	//if (instance_exists(_target)) {
+	//	if (abs(_target_coords[1]-y) > abs(_target_coords[0]-x)) {
+	//		y += 2*((_target_coords[1]-y)/abs((_target_coords[1]-y)));
+	//	} else {
+	//		x += 2*((_target_coords[0]-x+0.01)/abs((_target_coords[0]-x)));
+	//	}
+	//}
+	//speed *= 0.98;
+	if (abs(speed) > 3) { speed *= 0.98; } else {
+		speed = ((speed-1.8)*0.8)+1.8;
+		direction = point_direction(x, y, _target_coords[0], _target_coords[1]);
 	}
-	speed *= 0.98;
+	
 }
 else if (my_color = c_green)
 {

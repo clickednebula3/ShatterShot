@@ -1,5 +1,7 @@
 #macro BLUE		make_color_rgb(82, 82, 230)
 
+audio_play_sound(mus_loyalprotector, 10, true, 1, 0, 0.8);
+
 spd = 2;
 HP = 2;
 MAX_HP = 5;

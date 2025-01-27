@@ -2,7 +2,7 @@ if (other.speed > obj_mon_spawner.unhandlable_pure_speed) {
 	count_for_combo(other, 1);
 	if (my_color == c_green) { soul_heal(other, 1); }
 	direction = other.speed;
-	if (other.my_color == c_orange) { other.aqua_stunned = false; other.aqua_move_meter += sec; }
+	if (other.my_color == c_orange || other.my_color == c_aqua) { other.aqua_stunned = false; other.aqua_move_meter += sec; }
 	speed = other.speed * 0.5;
 	other.speed *= 1.2;//make positive
 	instance_destroy();

@@ -5,7 +5,11 @@ image_xscale = (0.5+2.5*emphasis)*2*r/16;
 image_yscale = (0.5+2.5*emphasis)*2*r/16;
 draw_set_alpha(1);
 
-if (instance_exists(obj_player) && point_distance(x, y, obj_player.x, obj_player.y) < 80) {
+if (instance_exists(obj_player) &&
+		(point_distance(x, y, obj_player.x, obj_player.y) < 80 ||
+			(point_distance(x, y, obj_player.x, obj_player.y) < obj_player.aqua_parry_rad && obj_player.my_color == c_aqua)
+		)
+	) {
 	gravity = 0.3;
 	gravity_direction = point_direction(x, y, obj_player.x, obj_player.y);
 	speed *= 0.95;

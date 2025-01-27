@@ -339,22 +339,27 @@ else if (my_color == c_aqua)
 	if (aqua_move_meter < 0 && !aqua_stunned) { stun_soul(self); }
 	
 	if (shoot_dont && !aqua_stunned) {
-		var _coll_mon = ds_list_create();
-		var _coll_mon_count = collision_circle_list(x, y, aqua_parry_rad, obj_mon, false, false, _coll_mon, false);
-		if (_coll_mon_count > 0) {
-			for (var i=0; i<_coll_mon_count; i++) {
-				count_for_combo(self, 1);
-				_coll_mon[|i].death_cause = self;
-				instance_destroy(_coll_mon[|i]);
-			} 
+		var _parry_pie = ds_list_create();
+		var _parry_pie_c = collision_circle_list(x, y, aqua_parry_rad, [obj_mon, obj_myspoke, obj_shot, obj_xp], false, true, _parry_pie, false);
+		for (var i=0; i<_parry_pie_c; i++) {
+			if (instance_exists(_parry_pie[|i])) {
+				if (_parry_pie[|i].object_index == obj_mon) {
+					count_for_combo(self, 1);
+					_parry_pie[|i].death_cause = self;
+					instance_destroy(_parry_pie[|i]);
+				} else if (_parry_pie[|i].object_index == obj_myspoke) {
+					 _parry_pie[|i].myspoke_hurt(self, 1, 0.5);
+				} else if (_parry_pie[|i].object_index == obj_shot) {
+					_parry_pie[|i].owner = self;
+					_parry_pie[|i].direction = point_direction(x, y, _parry_pie[|i].x, _parry_pie[|i].y)
+				} else if (_parry_pie[|i].object_index == obj_xp) {
+					_parry_pie[|i].direction = point_direction(_parry_pie[|i].x, _parry_pie[|i].y, x, y);
+					_parry_pie[|i].speed = 2;
+				}
+			}
 		}
-		ds_list_destroy(_coll_mon);
-		var _coll_boss = ds_list_create();
-		var _coll_boss_count = collision_circle_list(x, y, aqua_parry_rad, [obj_myspoke], false, true, _coll_boss, false);
-		if (_coll_boss_count > 0) { for (var i=0; i<_coll_boss_count; i++)
-			{ if (instance_exists(_coll_boss[|i])) { _coll_boss[|i].myspoke_hurt(self, 1, 0.5);}  } }
-		ds_list_destroy(_coll_boss);
-		if (_coll_mon_count <= 0 && _coll_boss_count <= 0) { stun_soul(self); }
+		ds_list_destroy(_parry_pie);
+		if (_parry_pie_c <= 0) { stun_soul(self); } else { aqua_stunned = false; aqua_move_meter += sec;  }
 	}
 	speed *= 0.7;
 	aqua_move_meter = clamp(aqua_move_meter, -sec/2, 2*sec);

@@ -41,6 +41,7 @@
     {"name":"obj_redbluehalf","order":9,"path":"objects/obj_redbluehalf/obj_redbluehalf.yy",},
     {"name":"obj_shot","order":10,"path":"objects/obj_shot/obj_shot.yy",},
     {"name":"obj_xp","order":11,"path":"objects/obj_xp/obj_xp.yy",},
+    {"name":"mus_loyalprotector","order":8,"path":"sounds/mus_loyalprotector/mus_loyalprotector.yy",},
     {"name":"snd_dmg","order":4,"path":"sounds/snd_dmg/snd_dmg.yy",},
     {"name":"snd_encounter","order":3,"path":"sounds/snd_encounter/snd_encounter.yy",},
     {"name":"snd_heal","order":5,"path":"sounds/snd_heal/snd_heal.yy",},

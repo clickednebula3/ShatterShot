@@ -66,6 +66,7 @@
     {"id":{"name":"obj_xp","path":"objects/obj_xp/obj_xp.yy",},},
     {"id":{"name":"rm_game","path":"rooms/rm_game/rm_game.yy",},},
     {"id":{"name":"scr__main__","path":"scripts/scr__main__/scr__main__.yy",},},
+    {"id":{"name":"mus_loyalprotector","path":"sounds/mus_loyalprotector/mus_loyalprotector.yy",},},
     {"id":{"name":"snd_dmg","path":"sounds/snd_dmg/snd_dmg.yy",},},
     {"id":{"name":"snd_encounter","path":"sounds/snd_encounter/snd_encounter.yy",},},
     {"id":{"name":"snd_heal","path":"sounds/snd_heal/snd_heal.yy",},},
