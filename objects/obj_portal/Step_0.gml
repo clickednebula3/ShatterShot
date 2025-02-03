@@ -15,7 +15,7 @@ if (!instance_exists(linked_portal)) {
 	image_index = 1;
 	
 	timer++;
-	var _ = instance_create_depth(peripheral_x(random_range(0, 360)), peripheral_y(random_range(0, 360)), depth, obj_portalpellet);
+	var _ = instance_create_depth(peripheral_x(random_range(-1, 1)), peripheral_y(random_range(-1, 1)), depth, obj_portalpellet);
 	_.big_mode = false;
 	_.portal_id = portal_id;
 	_.speed = 0.5;

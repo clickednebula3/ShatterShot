@@ -40,3 +40,5 @@ purplayer_my_purpellet.owner = self;
 //light green: healing!
 //light blue: don't move through it
 //orange: move through those ones!!
+
+function percent_inator(_a, _b, _percent) { return _a + _percent*(_b-_a); }

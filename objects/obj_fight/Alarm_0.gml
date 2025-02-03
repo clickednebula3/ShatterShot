@@ -1,9 +1,10 @@
 /// @description func run_act():
 
 speed = 0;
+image_index = 2;
 if (SUPER > 0 || act_done > 0) { return; }
 act_done = sec;
-if (sprite_index == spr_fight || sprite_index == spr_yell) {
+if (sprite_index == spr_button_fight || prite_index == spr_fight || sprite_index == spr_yell) {
 	audio_play_sound(snd_slash, 10, false);
 	//var _killcoll = ds_list_create();
 	//var _killcollcount = collision_circle_list(x, y, fight_rad, obj_mon, false, true, _killcoll, false);

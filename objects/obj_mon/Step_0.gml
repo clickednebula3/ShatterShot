@@ -136,29 +136,44 @@ else if (my_color = c_purple)
 	if (Time % interval == 2 && instance_exists(purples_strings_makes_them_ring_b)) {
 		purples_strings_makes_them_ring_a = purples_strings_makes_them_ring_b;
 		purples_strings_makes_them_ring_a.image_alpha = 1;
+		speed = 20+random_range(0, 10);
 	}
 	
 	if (instance_exists(_target)) {
 		
 		//pathfind
-		
-		
+		speed *= 0.9;
+		if (instance_exists(purples_strings_makes_them_ring_a)) {;
+			while (purples_strings_makes_them_ring_a.direction < 0) { purples_strings_makes_them_ring_a.direction += 360; }
+			if (purples_strings_makes_them_ring_a.direction%360 == 0 ||
+				purples_strings_makes_them_ring_a.direction%360 == 180)
+			{
+				direction =  point_direction(x, 0, _target.x, 0);
+				if (abs(x-_target.x) < 3) { speed *= 0.2; }
+			}
+			if (purples_strings_makes_them_ring_a.direction%360 == 90 ||
+				purples_strings_makes_them_ring_a.direction%360 == 270)
+			{
+				direction = point_direction(0, y, 0, _target.y);
+				if (abs(y-_target.y) < 3) { speed *= 0.2; }
+			}
+		}
 		
 		//update side
 		if (Time % interval == sec/2) {
-		purples_strings_makes_them_ring_b = instance_create_depth(x, y, depth, obj_grapple);
-		purples_strings_makes_them_ring_b.direction = point_direction(x, y, _target.x, _target.y);
-		if (instance_exists(purples_strings_makes_them_ring_a)) {
-			purples_strings_makes_them_ring_b.direction = purples_strings_makes_them_ring_b.direction;
-		}
-		purples_strings_makes_them_ring_b.image_alpha = 0.2;
+			purples_strings_makes_them_ring_b = instance_create_depth(x, y, depth, obj_grapple);
+			speed = 0;
+			purples_strings_makes_them_ring_b.direction = 0;//point_direction(x, y, _target.x, _target.y);
+			if (instance_exists(purples_strings_makes_them_ring_a)) {
+				purples_strings_makes_them_ring_b.direction = purples_strings_makes_them_ring_a.direction+90;
+			}
+			purples_strings_makes_them_ring_b.image_alpha = 0.4;
 		}
 		//warn side
 		if (Time & interval == sec*2.5 && instance_exists(purples_strings_makes_them_ring_b)) {
-			purples_strings_makes_them_ring_b.image_alpha = 0.4;
+			purples_strings_makes_them_ring_b.image_alpha = 0.7;
 		}
 	}
-	
 	
 	function best_point_on_line(lx, ly, ldir, tx, ty) {
 		var m1 = -dsin(ldir) / dcos(ldir);
@@ -224,13 +239,15 @@ else if (my_color = c_purple)
 }
 else if (my_color = c_aqua)
 {
-	speed = 3;
-	var _pr = orange_points[orange_target_point%array_length(orange_points)];
-	direction = point_direction(x, y, _pr[0], _pr[1]);
-	if (point_distance(x, y, _pr[0], _pr[1]) < speed*2) {
-		orange_target_point++;
-		if (orange_target_point >= array_length(orange_points)) { orange_target_point = 0; }
-	}
+	
+	//speed = 3;
+	//var _pr = orange_points[orange_target_point%array_length(orange_points)];
+	//direction = point_direction(x, y, _pr[0], _pr[1]);
+	//if (point_distance(x, y, _pr[0], _pr[1]) < speed*2) {
+	//	orange_target_point++;
+	//	if (orange_target_point >= array_length(orange_points)) { orange_target_point = 0; }
+	//}
+	
 	//if (instance_exists(obj_player)) {
 	//	gravity = 0.3;
 	//	gravity_direction = point_direction(x, y, obj_player.x, obj_player.y);
@@ -239,18 +256,18 @@ else if (my_color = c_aqua)
 }
 else if (my_color = c_orange)
 {
-	speed = 3;
-	var _pr = orange_points[orange_target_point%array_length(orange_points)];
-	direction = point_direction(x, y, _pr[0], _pr[1]);
-	if (point_distance(x, y, _pr[0], _pr[1]) < speed*2) {
-		orange_target_point++;
-		if (orange_target_point >= array_length(orange_points)) { orange_target_point = 0; }
-	}
-	//if (instance_exists(obj_player)) {
-	//	gravity = 0.3;
-	//	gravity_direction = point_direction(x, y, obj_player.x, obj_player.y);
-	//} else { gravity = 0; }
-	//speed *= 0.98;
+	//speed = 3;
+	//var _pr = orange_points[orange_target_point%array_length(orange_points)];
+	//direction = point_direction(x, y, _pr[0], _pr[1]);
+	//if (point_distance(x, y, _pr[0], _pr[1]) < speed*2) {
+	//	orange_target_point++;
+	//	if (orange_target_point >= array_length(orange_points)) { orange_target_point = 0; }
+	//}
+	////if (instance_exists(obj_player)) {
+	////	gravity = 0.3;
+	////	gravity_direction = point_direction(x, y, obj_player.x, obj_player.y);
+	////} else { gravity = 0; }
+	////speed *= 0.98;
 }
 
 Time ++;

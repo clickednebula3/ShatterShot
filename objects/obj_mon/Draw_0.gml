@@ -20,29 +20,72 @@ if (my_color == c_orange || my_color == c_aqua) {
 		orange_points[0][0], orange_points[0][1],
 		orange_points[1][0], orange_points[1][1],
 		orange_points[2][0], orange_points[2][1], true);
+	var avrg_point = [
+		(orange_points[0][0]+orange_points[1][0]+orange_points[2][0])/3,
+		(orange_points[0][1]+orange_points[1][1]+orange_points[2][1])/3
+	];
+	x = avrg_point[0];
+	y = avrg_point[1];
+	var max_rad = max(max(
+		point_distance(avrg_point[0], avrg_point[1], orange_points[0][0], orange_points[0][1]),
+		point_distance(avrg_point[0], avrg_point[1], orange_points[1][0], orange_points[1][1])),
+		point_distance(avrg_point[0], avrg_point[1], orange_points[2][0], orange_points[2][1]));
+	var _colls = ds_list_create();
+	var _colls_c = collision_circle_list(avrg_point[0], avrg_point[1], max_rad, [obj_player], true, true, _colls, true);
 	
-	draw_set_alpha(0.3);
-	//draw_triangle(
-	//	x+orngplayer_radius*dcos(Time), y+orngplayer_radius*-dsin(Time),
-	//	x+orngplayer_radius*dcos(Time+120), y+orngplayer_radius*-dsin(Time+120),
-	//	x+orngplayer_radius*dcos(Time+240), y+orngplayer_radius*-dsin(Time+240), true);
-	draw_circle(x, y, orngplayer_radius, true);
-		
 	draw_set_alpha(0.1);
-	var _coll = collision_circle(x, y, orngplayer_radius, _target, false, false);
-	if (_coll != noone) {
-		draw_set_alpha(0.2);
-		var _plyr_moved = (abs(_coll.x-_coll.xprevious)>0.1||abs(_coll.y-_coll.yprevious)>0.1);
-		if ((my_color == c_orange && _plyr_moved) || (my_color == c_aqua && !_plyr_moved))
-		{ orngplayer_tension-= 3 + 5*(my_color == BLUE); }
+	
+	for (var i=0; i<_colls_c; i++) {
+		if (instance_exists(_colls[|i]) &&
+			point_in_triangle(_colls[|i].x, _colls[|i].y, orange_points[0][0], orange_points[0][1], orange_points[1][0], orange_points[1][1], orange_points[2][0], orange_points[2][1])
+		) {
+			draw_set_alpha(0.2);
+			var _plyr_moved = (abs(_colls[|i].x-_colls[|i].xprevious)>0.1||abs(_colls[|i].y-_colls[|i].yprevious)>0.1);
+			if ((my_color == c_orange && _plyr_moved) || (my_color == c_aqua && !_plyr_moved))
+			{ orngplayer_tension-= 3 + 5*(my_color == BLUE); draw_set_alpha(0.3); }
+		}
 	}
 	
+	ds_list_destroy(_colls);
+	
 	var percent = 1-(orngplayer_tension/orngplayer_tension_max);
-	draw_circle(x, y, orngplayer_radius*percent, false);
-	//draw_triangle(
-	//	x+percent*orngplayer_radius*dcos(Time), y+percent*orngplayer_radius*-dsin(Time),
-	//	x+percent*orngplayer_radius*dcos(Time+120), y+percent*orngplayer_radius*-dsin(Time+120),
-	//	x+percent*orngplayer_radius*dcos(Time+240), y+percent*orngplayer_radius*-dsin(Time+240), false);
+	
+	draw_triangle(
+		avrg_point[0], avrg_point[1],
+		percent_inator(avrg_point[0], orange_points[1][0], percent), percent_inator(avrg_point[1], orange_points[1][1], percent),
+		percent_inator(avrg_point[0], orange_points[2][0], percent), percent_inator(avrg_point[1], orange_points[2][1], percent), false);
+	draw_triangle(
+		percent_inator(avrg_point[0], orange_points[0][0], percent), percent_inator(avrg_point[1], orange_points[0][1], percent),
+		avrg_point[0], avrg_point[1],
+		percent_inator(avrg_point[0], orange_points[2][0], percent), percent_inator(avrg_point[1], orange_points[2][1], percent), false);
+	draw_triangle(
+		percent_inator(avrg_point[0], orange_points[0][0], percent), percent_inator(avrg_point[1], orange_points[0][1], percent),
+		percent_inator(avrg_point[0], orange_points[1][0], percent), percent_inator(avrg_point[1], orange_points[1][1], percent),
+		avrg_point[0], avrg_point[1], false);
+	
+	
+	//draw_set_alpha(0.3);
+	////draw_triangle(
+	////	x+orngplayer_radius*dcos(Time), y+orngplayer_radius*-dsin(Time),
+	////	x+orngplayer_radius*dcos(Time+120), y+orngplayer_radius*-dsin(Time+120),
+	////	x+orngplayer_radius*dcos(Time+240), y+orngplayer_radius*-dsin(Time+240), true);
+	//draw_circle(x, y, orngplayer_radius, true);
+		
+	//draw_set_alpha(0.1);
+	//var _coll = collision_circle(x, y, orngplayer_radius, _target, false, false);
+	//if (_coll != noone) {
+	//	draw_set_alpha(0.2);
+	//	var _plyr_moved = (abs(_coll.x-_coll.xprevious)>0.1||abs(_coll.y-_coll.yprevious)>0.1);
+	//	if ((my_color == c_orange && _plyr_moved) || (my_color == c_aqua && !_plyr_moved))
+	//	{ orngplayer_tension-= 3 + 5*(my_color == BLUE); }
+	//}
+	
+	//var percent = 1-(orngplayer_tension/orngplayer_tension_max);
+	//draw_circle(x, y, orngplayer_radius*percent, false);
+	////draw_triangle(
+	////	x+percent*orngplayer_radius*dcos(Time), y+percent*orngplayer_radius*-dsin(Time),
+	////	x+percent*orngplayer_radius*dcos(Time+120), y+percent*orngplayer_radius*-dsin(Time+120),
+	////	x+percent*orngplayer_radius*dcos(Time+240), y+percent*orngplayer_radius*-dsin(Time+240), false);
 }
 
 //reset settings

@@ -7,5 +7,5 @@ my_color = c_orange;
 //cam = camera_create();
 
 timer = 0;
-function peripheral_x(off) { return x+32*dcos(timer+off)*dcos(image_angle+90); }
-function peripheral_y(off) { return y-32*dsin(timer+off)*-dsin(image_angle+90); }
+function peripheral_x(off) { return x+32*dcos(timer*123+off)*dcos(image_angle+90); }
+function peripheral_y(off) { return y-32*dsin(timer*123+off)*-dsin(image_angle+90); }

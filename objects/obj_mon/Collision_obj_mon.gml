@@ -11,3 +11,7 @@
 //} else {
 //	x += 2*((other.x-x+0.01)/abs((other.x-x)));
 //}
+
+var ang = point_direction(other.x, other.y, x, y);
+x+=dcos(ang)*0.5;
+y-=dsin(ang)*0.5;

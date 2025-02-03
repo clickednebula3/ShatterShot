@@ -370,16 +370,28 @@ else if (my_color == c_purple)
 	var gap = purple_string_gap-clamp(8*_lvl, 0, purple_string_gap-8);
 	var g = gap/2;
 	
-	var a = 5*(purple_string_gap/purple_string_gap_reasonable);
-	x = (a*x - ((x-purple_string_x-g)%gap) + g)/a;
-	y = (a*y - ((y-purple_string_y-g)%gap) + g)/a;
-	x += 1.81 * spd * (pad_r - pad_l) * (1 - (shift/2));
-	y += 1.81 * spd * (pad_d - pad_u) * (1 - (shift/2));
-	if (portal_stun<=0 && (x!=xprevious||y!=yprevious))
-	{ direction += angle_difference(point_direction(xprevious, yprevious, x, y), direction)/10; }
+	//var a = 5*(purple_string_gap/purple_string_gap_reasonable);
+	var a = 2*(purple_string_gap/purple_string_gap_reasonable);
+	//x = (a*x - ((x-purple_string_x-g)%gap) + g)/a;
+	//y = (a*y - ((y-purple_string_y-g)%gap) + g)/a;
+	if (!shift && (direction == 90 || direction == 270)) { x = (a*x - ((x-purple_string_x-g)%gap) + g)/a; }
+	if (!shift && (direction == 180 || direction == 0)) { y = (a*y - ((y-purple_string_y-g)%gap) + g)/a; }
+	//x += 1.81 * spd * (pad_r - pad_l) * (1 - (shift/2));
+	//y += 1.81 * spd * (pad_d - pad_u) * (1 - (shift/2));
+	speed += 0.3;
+	speed *= 0.965;
+	if (shift) {speed *= 0.9;}
+	if (pad_r) {direction = 0;}
+	if (pad_l) {direction = 180;}
+	if (pad_d) {direction = 270;}
+	if (pad_u) {direction = 90;}
+	if (shift && (abs(pad_r-pad_l) || abs(pad_d-pad_u))) { direction = point_direction(0, 0, pad_r-pad_l, pad_d-pad_u); }
+	if (shoot_dont) {speed+=1;}
+	//if (portal_stun<=0 && (x!=xprevious||y!=yprevious))
+	//{ direction += angle_difference(point_direction(xprevious, yprevious, x, y), direction)/10; }
 	
-	//purple_string_x += dsin(current_time/25)*dsin(current_time/25)/3;
-	//purple_string_y += dcos(current_time/16)*dcos(current_time/16)/3;
+	////purple_string_x += dsin(current_time/25)*dsin(current_time/25)/3;
+	////purple_string_y += dcos(current_time/16)*dcos(current_time/16)/3;
 	purple_string_x += (x-(room_width/2))/(3*room_width/2);
 	purple_string_y += (y-(room_height/2))/(3*room_height/2);
 	if (purple_string_x >= purple_string_gap) { purple_string_x -= purple_string_gap; }
