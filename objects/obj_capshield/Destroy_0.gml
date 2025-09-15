@@ -1,1 +1,4 @@
-if (instance_exists(owner)) { owner.green_shield_cooldown = owner.green_shield_cooldown_max; owner.green_shield = noone; }
+if (instance_exists(owner)) {
+    owner.green_shield_cooldown = owner.green_shield_cooldown_max;
+    owner.green_shield = noone;
+}

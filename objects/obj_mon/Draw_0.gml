@@ -7,15 +7,17 @@ if (instance_exists(obj_player)) { _target = instance_nearest(x, y, obj_player);
 if (my_color == c_red || my_color == c_white) {
 	draw_arrow(x, y, x + 16*(x-xprevious), y + 16*(y-yprevious), 4);
 }
-if (my_color == c_yellow && instance_exists(_target)) {
-	draw_circle(_target.x, _target.y, point_distance(x, y, _target.x, _target.y), true);
-}
+//if (my_color == c_yellow && instance_exists(_target)) {
+//	draw_circle(_target.x, _target.y, point_distance(x, y, _target.x, _target.y), true);
+//}
 
 if (my_color == c_green) {
 	draw_sprite_ext(spr_shield, 0, x, y, image_xscale, image_yscale, direction, c_white, my_shield/3);
 }
 
 if (my_color == c_orange || my_color == c_aqua) {
+	if (!orange_on) { draw_set_color(c_gray); }
+	
 	draw_triangle(
 		orange_points[0][0], orange_points[0][1],
 		orange_points[1][0], orange_points[1][1],
@@ -30,23 +32,27 @@ if (my_color == c_orange || my_color == c_aqua) {
 		point_distance(avrg_point[0], avrg_point[1], orange_points[0][0], orange_points[0][1]),
 		point_distance(avrg_point[0], avrg_point[1], orange_points[1][0], orange_points[1][1])),
 		point_distance(avrg_point[0], avrg_point[1], orange_points[2][0], orange_points[2][1]));
-	var _colls = ds_list_create();
-	var _colls_c = collision_circle_list(avrg_point[0], avrg_point[1], max_rad, [obj_player], true, true, _colls, true);
+		
+	if (orange_on) {
+		var _colls = ds_list_create();
+		var _colls_c = collision_circle_list(avrg_point[0], avrg_point[1], max_rad, [obj_player], true, true, _colls, true);
 	
-	draw_set_alpha(0.1);
+		draw_set_alpha(0.1);
 	
-	for (var i=0; i<_colls_c; i++) {
-		if (instance_exists(_colls[|i]) &&
-			point_in_triangle(_colls[|i].x, _colls[|i].y, orange_points[0][0], orange_points[0][1], orange_points[1][0], orange_points[1][1], orange_points[2][0], orange_points[2][1])
-		) {
-			draw_set_alpha(0.2);
-			var _plyr_moved = (abs(_colls[|i].x-_colls[|i].xprevious)>0.1||abs(_colls[|i].y-_colls[|i].yprevious)>0.1);
-			if ((my_color == c_orange && _plyr_moved) || (my_color == c_aqua && !_plyr_moved))
-			{ orngplayer_tension-= 3 + 5*(my_color == BLUE); draw_set_alpha(0.3); }
+		for (var i=0; i<_colls_c; i++) {
+			if (instance_exists(_colls[|i]) &&
+				point_in_triangle(_colls[|i].x, _colls[|i].y, orange_points[0][0], orange_points[0][1], orange_points[1][0], orange_points[1][1], orange_points[2][0], orange_points[2][1])
+			) {
+				draw_set_alpha(0.2);
+				var _plyr_moved = (abs(_colls[|i].x-_colls[|i].xprevious)>1.2||abs(_colls[|i].y-_colls[|i].yprevious)>1.2);
+				if ((my_color == c_orange && _plyr_moved) || (my_color == c_aqua && !_plyr_moved))
+				{ orngplayer_tension-= 3 + 5*(my_color == BLUE); draw_set_alpha(0.3); }
+				else { soul_hit(_colls[|i]); }
+			}
 		}
-	}
 	
-	ds_list_destroy(_colls);
+		ds_list_destroy(_colls);
+	}
 	
 	var percent = 1-(orngplayer_tension/orngplayer_tension_max);
 	

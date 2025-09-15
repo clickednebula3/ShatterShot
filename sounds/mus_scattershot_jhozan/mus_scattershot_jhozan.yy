@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"mus_scattershot_jhozan",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":177.21466,
+  "name":"mus_scattershot_jhozan",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"mus_scattershot_jhozan.mp3",
+  "type":0,
+  "volume":1.0,
+}

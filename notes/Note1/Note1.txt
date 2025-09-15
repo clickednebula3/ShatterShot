@@ -9,3 +9,72 @@
 // OR Creeper soul
 // capsabumps laser
 // 
+
+
+// Kirby
+// Throw yourself and explode upon impact
+
+//Minecraft: Place blocks [z], throw tnt [x], break blocks via pickaxe animation [walk through]
+
+
+//Settings:
+
+//Number of players [1,2]
+//Obstacles
+//Hide XP
+
+
+//Music
+//SFX
+//Screen size W
+//Screen size H
+
+
+//Main Menu & player
+
+//specialed bosses for each color that play on their strengths/weaknesses
+//rouge-like
+
+
+//BOSSES
+- Bounding Box
+	(Bounding Box gets cut, changes size during game, potentially moves)
+	# [c] power?
+	# yellow -> shoot wall
+	# blue -> bounce on ball
+	# green -> throw shield on wall
+	# aqua -> parry wall (make it look halarious)
+	# red -> act+arrowkey, just touch it and push it (like the sans fight)
+	# purple -> little spiders could push wall (or not), more spider = faster, big spider pushes wall a constant amount
+	# orange -> bounce
+	# white -> 
+- Triangle
+	(spawns outside of Bounding Box if there is enough negative space, spawns monsters of the player's color)
+	# gets squished by Bounding Box
+- Cube
+	(wanders around in Bounding Box, if it touches the player, it will catch it and player will have to press Z repeatidly to escape)
+	(when player is caught, the Bounding Box slowly shrinks, and grows with each Z)
+	#spam z before it's too late!
+
+//bug fixes
+- green mon pushing player
+- fix purple mon
+
+//[C] powers
+> Get a powerup "final smash" style (runs away from player? has specific path)
+> "final smash" is a colorful orb
+> if one 1 HP for any soul: heal (to max?) instead
+- Orange: bigger, or throws self-clones around (they fade)
+- Yellow: Laser, Bomb, Rapid Fire, Auto-Aim (maybe random?)
+- Purple: Big Spider (moves in a straight line (like dvd), kills N monsters) 
+- Blue: yeet, jump off of background instead of just wall
+- Aqua: freeze everyone for an amount of time
+- Red: DVD (but ensured)
+- Green: The shield can be fully turned while it moves,
+- White: black hole (like hyper goner), 
+
+//white mode
+	(still gravity (around mouse/aim))
+	(Kills all enemies by touching them, has timer bar)
+	(timer bar assigns a 'hit-target' color for white to kill (color of one of the mon on screen))
+	(white must kill one mon in that color in time or get hit)

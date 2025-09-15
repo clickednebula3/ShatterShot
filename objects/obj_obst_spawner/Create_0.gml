@@ -20,17 +20,19 @@ enum OBSTACLE {
 }
 
 weight_bag = [
+	//[OBSTACLE.CUBE_DROP, 99999, 2*sec, 5*sec],
 	//case-specific title, weight, available_after_time, time_till_next_spawn
 	//do not change titles without changing them in draw event
 	[OBSTACLE.NONE_HAPPY_BREAK_TIME, 100, 2*sec, 5*sec],
-	[OBSTACLE.CUBE_WHITE, 100, 10*sec, 5*sec],
-	[OBSTACLE.CUBE_MOTION_FREEZE, 100, 30*sec, 5*sec],
-	[OBSTACLE.CUBE_DROP, 100, 45*sec, 5*sec],
-	[OBSTACLE.CUBE_WHITE_STRETCHED, 100, 45*sec, 5*sec],
-	[OBSTACLE.CUBE_DROP, 100, 45*sec, 5*sec],
-	[OBSTACLE.LASER_A, 100, 70*sec, 10*sec],
+	//currently testing without it, will add it in a later ipdate probably
+	[OBSTACLE.CUBE_WHITE, 100, 15*sec, 5*sec],
+	[OBSTACLE.CUBE_MOTION_FREEZE, 100, 35*sec, 5*sec],
+	[OBSTACLE.CUBE_DROP, 100, 50*sec, 5*sec],
+	[OBSTACLE.CUBE_WHITE_STRETCHED, 100, 85*sec, 5*sec],
+	[OBSTACLE.CUBE_DROP, 100, 100*sec, 5*sec],
+	[OBSTACLE.LASER_A, 100, 120*sec, 10*sec],
 	[OBSTACLE.LASER_B, 100, 150*sec, 10*sec],
-	[OBSTACLE.LASER_C, 100, 100*sec, 10*sec],
+	[OBSTACLE.LASER_C, 100, 180*sec, 10*sec],
 	[OBSTACLE.BOSS_MYSPOKE, 30, 300*sec, 30*sec],
 ];
 current_obst_id = -1;

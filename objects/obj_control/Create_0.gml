@@ -12,5 +12,10 @@ player_2 = noone;
 soul_selection_index = COLOR_INDEX.GREEN;
 soul_sel_slow_index = COLOR_INDEX.GREEN;
 
+hide_xp = false;
+
 instance_create_depth(0, 0, depth, obj_mon_spawner);
 instance_create_depth(0, 0, depth, obj_obst_spawner);
+
+//room_width = 896;
+//room_height = 560;

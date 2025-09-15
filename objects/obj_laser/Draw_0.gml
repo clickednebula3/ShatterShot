@@ -1,9 +1,9 @@
 var _x = x+hspeed;
 var _y = y+vspeed;
 var _ang = image_angle;
-if (movement_type == LASER_MOVEMENT.SINE) { _ang = image_angle + 15*dsin(timer_counter); }
-if (alarm[2] > 0) { best_i = clamp(best_i+16, 0, i_count*(min(alarm[2], sec)/sec)); }
-else { best_i = clamp(best_i+16, 0, i_count); }
+if (movement_type == LASER_MOVEMENT.SINE) { _ang = image_angle + 4*dsin(timer_counter); }
+if (alarm[2] > 0) { best_i = clamp(best_i+3, 0, i_count*(min(alarm[2], sec)/sec)); }
+else { best_i = clamp(best_i+3, 0, i_count); }
 var _best_i = 0;
 
 var _portal_cooldown = 0;
@@ -77,21 +77,21 @@ else {
 				_ang +=  180-_coll_hit.image_angle+_coll_hit.linked_portal.image_angle;
 				_portal_cooldown = portal_cooldown;
 			}
-			//else if (_coll_hit.object_index == obj_mon) {
-			//	if (my_color == c_aqua && abs(_coll_hit.x-_coll_hit.xprevious) > 1.2 || abs(_coll_hit.y-_coll_hit.yprevious) > 1.2) { instance_destroy(_coll_hit); break;}
-			//	if (my_color == c_orange && _coll_hit.speed < 0.1 &&  _coll_hit.x == _coll_hit.xprevious && _coll_hit.y == _coll_hit.yprevious) {instance_destroy(_coll_hit); break;}
-			//	if (my_color == c_white) { instance_destroy(_coll_hit); break; }
-			//	hits_possible--;
-			//}
-			else if (_coll_hit.object_index == obj_shot) { if (!obj_shot.image_index) {instance_destroy(_coll_hit);} break; }
+			else if (_coll_hit.object_index == obj_mon) {
+				if (my_color == c_aqua && abs(_coll_hit.x-_coll_hit.xprevious) > 1.2 || abs(_coll_hit.y-_coll_hit.yprevious) > 1.2) { instance_destroy(_coll_hit); break;}
+				if (my_color == c_orange && _coll_hit.speed < 0.1 &&  _coll_hit.x == _coll_hit.xprevious && _coll_hit.y == _coll_hit.yprevious) {instance_destroy(_coll_hit); break;}
+				if (my_color == c_white) { instance_destroy(_coll_hit); break; }
+				hits_possible--;
+			}
+			else if (_coll_hit.object_index == obj_shot) { if (!obj_shot.image_index) {instance_destroy(_coll_hit); hits_possible-=1/3; } break; }
 			else if (_coll_hit.object_index == obj_player) {
-				if (my_color == c_aqua && abs(_coll_hit.x-_coll_hit.xprevious) > 1.2 || abs(_coll_hit.y-_coll_hit.yprevious) > 1.2) { soul_hit(_coll_hit); break;}
-				if (my_color == c_orange && _coll_hit.speed < 0.1 &&  _coll_hit.x == _coll_hit.xprevious && _coll_hit.y == _coll_hit.yprevious) { soul_hit(_coll_hit); break;}
+				if (my_color == c_aqua && abs(_coll_hit.x-_coll_hit.xprevious) > 1.2 || abs(_coll_hit.y-_coll_hit.yprevious) > 1.2) { soul_hit(_coll_hit); hits_possible--; break;}
+				if (my_color == c_orange && _coll_hit.speed < 0.1 &&  _coll_hit.x == _coll_hit.xprevious && _coll_hit.y == _coll_hit.yprevious) { soul_hit(_coll_hit); hits_possible--; break;}
 				if (my_color == c_white) { soul_hit(_coll_hit); break; }
 				hits_possible--;
 			}
-			//else if (_coll_hit.object_index == obj_obst) { break; }
-			else if (_coll_hit.object_index == obj_grapple) { instance_destroy(_coll_hit); break; }
+			else if (_coll_hit.object_index == obj_obst) { break; }
+			//else if (_coll_hit.object_index == obj_grapple) { instance_destroy(_coll_hit); break; }//dis purple
 			else if (_coll_hit.object_index == obj_grapple2) { instance_destroy(_coll_hit); break; }
 			else if (_coll_hit.object_index == obj_capshield) { break; }
 			else if (_coll_hit.object_index == obj_defshield && instance_exists(_coll_hit.owner) && _coll_hit.owner.my_color == c_green && !instance_exists(_coll_hit.owner.green_shield)) { break; }

@@ -23,6 +23,7 @@
   "height":96,
   "HTile":false,
   "layers":[
+    {"$GMImageLayer":"","%Name":"85ff82f1-fac9-43e3-8c5b-68126f11f565","blendMode":0,"displayName":"Layer 1","isLocked":false,"name":"85ff82f1-fac9-43e3-8c5b-68126f11f565","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
     {"$GMImageLayer":"","%Name":"561c5056-414f-4a82-b638-7dc58c5ce507","blendMode":0,"displayName":"default","isLocked":false,"name":"561c5056-414f-4a82-b638-7dc58c5ce507","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_button",
@@ -36,7 +37,7 @@
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_button",
     "autoRecord":true,
     "backdropHeight":768,

@@ -45,6 +45,12 @@ if (instance_exists(_nearest_portal) && instance_exists(_nearest_portal.linked_p
 	}
 }
 
+orange_timer--;
+if (orange_timer<=0) {
+	orange_on = !orange_on;
+	orange_timer = 3*sec;
+}
+
 if (my_color = c_white)
 {
 	if (instance_exists(_target)) {
@@ -64,7 +70,7 @@ else if (my_color = c_red)
 	//}
 	//speed *= 0.98;
 	if (abs(speed) > 3) { speed *= 0.98; } else {
-		speed = ((speed-1.8)*0.8)+1.8;
+		speed = ((speed-1.7)*0.8)+1.7;
 		direction = point_direction(x, y, _target_coords[0], _target_coords[1]);
 	}
 	
@@ -87,10 +93,12 @@ else if (my_color = c_yellow)
 	speed *= 0.98;
 	if (instance_exists(_target)) {
 		image_angle = point_direction(x, y, _target_coords[0], _target_coords[1])+90;
-		direction = image_angle;
+		//direction = image_angle;
 		speed = yellow_counterdirectionativity;
 		
 		if (Time % (sec*3) == sec*3-1) {
+			direction = image_angle-90;
+			yellow_counterdirectionativity *= -1;
 			var shot = instance_create_depth(x, y, depth, obj_shot);
 			shot.image_angle = image_angle-90;
 			shot.direction = image_angle-90;
@@ -175,18 +183,15 @@ else if (my_color = c_purple)
 		}
 	}
 	
-	function best_point_on_line(lx, ly, ldir, tx, ty) {
-		var m1 = -dsin(ldir) / dcos(ldir);
-		var b1 = ly - (m1*lx);
-		//perpendicular_line	yplyr = m2*xplyr + b2
-		var m2 = -1/m1;
-		var b2 = ty - (m2*tx);
-		//go to closest point on the grapple line
-		var new_x = (b2-b1)/(m1-m2);
-		var new_y = m1*new_x + b1;
-		//smooth motion to point on line
-		return [new_x, new_y];
+	if (instance_exists(purples_strings_makes_them_ring_a)) {
+		purples_strings_makes_them_ring_a.x = (purples_strings_makes_them_ring_a.x+x)/2;
+		purples_strings_makes_them_ring_a.y = (purples_strings_makes_them_ring_a.y+y)/2;
 	}
+	if (instance_exists(purples_strings_makes_them_ring_b)) {
+		purples_strings_makes_them_ring_b.x = (purples_strings_makes_them_ring_b.x+x)/2;
+		purples_strings_makes_them_ring_b.y = (purples_strings_makes_them_ring_b.y+y)/2;
+	}
+	
 	
 	//OLD EDITION:
 	

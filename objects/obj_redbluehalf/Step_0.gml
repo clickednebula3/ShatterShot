@@ -1,11 +1,11 @@
-var pad_l = keyboard_check_direct(vk_left) || keyboard_check_direct(ord("A")) || gamepad_button_check(0, gp_padl);
-var pad_r = keyboard_check_direct(vk_right) || keyboard_check_direct(ord("D")) || gamepad_button_check(0, gp_padr);
-var pad_u = keyboard_check_direct(vk_up) || keyboard_check_direct(ord("W")) || gamepad_button_check(0, gp_padu);
-var pad_d = keyboard_check_direct(vk_down) || keyboard_check_direct(ord("S")) || gamepad_button_check(0, gp_padd);
-var shift = keyboard_check_direct(vk_shift) || gamepad_button_check(0, gp_face2) || gamepad_button_check(0, gp_shoulderl) || gamepad_button_check(0, gp_shoulderlb);
-var shoot_hold = mouse_check_button(mb_left) || gamepad_button_check(0, gp_face3) || gamepad_button_check(0, gp_shoulderr) || gamepad_button_check(0, gp_shoulderrb);
+var pad_l = keyboard_check_direct(vk_left) || keyboard_check_direct(ord("A"));
+var pad_r = keyboard_check_direct(vk_right) || keyboard_check_direct(ord("D"));
+var pad_u = keyboard_check_direct(vk_up) || keyboard_check_direct(ord("W"));
+var pad_d = keyboard_check_direct(vk_down) || keyboard_check_direct(ord("S"));
+var shift = keyboard_check_direct(vk_shift);
+var shoot_hold = mouse_check_button(mb_left);
 var special_hold = mouse_check_button(mb_right);
-var shoot_dont = mouse_check_button_released(mb_left) || gamepad_button_check_released(0, gp_face3) || gamepad_button_check_released(0, gp_shoulderr) || gamepad_button_check_released(0, gp_shoulderrb);
+var shoot_dont = mouse_check_button_released(mb_left);
 var mode_swap = keyboard_check_pressed(vk_tab);
 var aim = gravity_direction;
 
@@ -51,7 +51,7 @@ else if (controller_index == 1)//WASD/ZQSD
 	}
 	mode_swap = keyboard_check_pressed(vk_tab);
 }
-else if (controller_index > 1)//CONTROLLER = controller_index-2
+else if (controller_index > 1 && false)//CONTROLLER = controller_index-2
 {
 	var gp_id = controller_index-2;
 	pad_l = gamepad_button_check(gp_id, gp_padl);

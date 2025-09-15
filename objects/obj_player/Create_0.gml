@@ -1,6 +1,7 @@
 #macro BLUE		make_color_rgb(82, 82, 230)
 
-audio_play_sound(mus_loyalprotector, 10, true, 1, 0, 0.8);
+//audio_play_sound(mus_loyalprotector, 10, true, 1, 0, /*0.8*/1.2);
+audio_play_sound(mus_scattershotter_jhozan, 10, true, 1, 0, 1);
 
 spd = 2;
 HP = 2;
@@ -59,6 +60,8 @@ halarity = 0;
 cayote_time_for_speed_max = 0.5*sec;
 cayote_time_for_speed = 0;
 
+blue_cube_collision = 0;
+
 function attempt_levelup() {
 	for (var i=0; i < array_length(possible_colors); i++) {
 		var _col = possible_colors[i];
@@ -68,6 +71,15 @@ function attempt_levelup() {
 			ds_map_set(soullevel, _col, ds_map_find_value(soullevel, _col)+1);
 		}
 	}
+}
+
+
+function fire_shot(from_obj = self, ang) {
+	var shot = instance_create_depth(from_obj.x, from_obj.y, from_obj.depth, obj_shot);
+	shot.image_angle = ang;
+	shot.direction = shot.image_angle;
+	shot.owner = from_obj;
+	return shot;
 }
 
 //Movement

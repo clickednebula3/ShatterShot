@@ -1,6 +1,6 @@
 enum OBST_COLOR {
 	RED = 0,//red blue soul
-	YELLOW = 1,//
+	YELLOW = 1,//explode
 	GREEN = 2,//
 	PURPLE = 3,//
 	
@@ -14,6 +14,7 @@ possible_colors = [c_red, c_yellow, c_green, c_purple, BLUE, c_orange, c_aqua, c
 my_color = possible_colors[OBST_COLOR.WHITE];
 content = noone;
 warning_still_there = true;
+owner = noone;
 f = 1;
 
 alarm[0] = 10*sec;

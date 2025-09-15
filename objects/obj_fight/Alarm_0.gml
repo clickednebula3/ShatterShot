@@ -4,12 +4,23 @@ speed = 0;
 image_index = 2;
 if (SUPER > 0 || act_done > 0) { return; }
 act_done = sec;
-if (sprite_index == spr_button_fight || prite_index == spr_fight || sprite_index == spr_yell) {
+if (sprite_index == spr_button_fight || sprite_index == spr_fight || sprite_index == spr_yell) {
 	audio_play_sound(snd_slash, 10, false);
 	//var _killcoll = ds_list_create();
 	//var _killcollcount = collision_circle_list(x, y, fight_rad, obj_mon, false, true, _killcoll, false);
 	//for (var i=0; i<_killcollcount; i++) { instance_destroy(_killcoll[|i]); }
 	//ds_list_destroy(_killcoll);
+}
+if (sprite_index == spr_button_color) {
+	with (obj_mon) {
+		instance_destroy(purples_strings_makes_them_ring_a);
+		instance_destroy(purples_strings_makes_them_ring_b);
+		
+		if (my_color == c_red) { instance_destroy(purplayer_my_purpellet); }
+		if (my_color == c_green) { continue; }
+		
+		if (!irandom_range(0, 10)) { my_color = c_green; } else { my_color = c_red; }
+	}
 }
 if (sprite_index == spr_act) {
 	act_done = 0;

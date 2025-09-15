@@ -50,8 +50,8 @@ if (SUPER > 0) {
 	ds_list_destroy(_bosscoll);
 }
 
-var top_or_bottom = (bbox_top < 2 || bbox_bottom > room_height-2);
-var left_or_right = (bbox_left < 2 || bbox_right > room_width-2);
+var top_or_bottom = (bbox_top < 1.5 || bbox_bottom > room_height-1.5);
+var left_or_right = (bbox_left < 1.5 || bbox_right > room_width-1.5);
 
 if (left_or_right && top_or_bottom && !SUPER) {//DVD hitting corner be like: 
 	SUPER = 10*sec;

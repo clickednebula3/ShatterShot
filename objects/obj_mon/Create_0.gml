@@ -22,7 +22,30 @@ orange_points = [
 		clamp(irandom_range(64, room_height-64), ystart-orange_distance, ystart+orange_distance),
 	],
 ];
+
+function best_point_on_line(lx, ly, ldir, tx, ty) {
+	var m1 = -dsin(ldir) / dcos(ldir);
+	var b1 = ly - (m1*lx);
+	//perpendicular_line	yplyr = m2*xplyr + b2
+	var m2 = -1/m1;
+	var b2 = ty - (m2*tx);
+	//go to closest point on the grapple line
+	var new_x = (b2-b1)/(m1-m2);
+	var new_y = m1*new_x + b1;
+	//smooth motion to point on line
+	return [new_x, new_y];
+}
+
+var m = darctan((orange_points[1][1]-orange_points[0][1])/(orange_points[1][0]-orange_points[0][0]));
+var p = best_point_on_line(orange_points[0][0], orange_points[0][1], m, orange_points[2][0], orange_points[2][1]);
+m += 90 * (2*irandom_range(0, 1)-1);
+p[0] += dcos(m)*random_range(orange_distance/3, orange_distance);
+p[1] -= dsin(m)*random_range(orange_distance/3, orange_distance);
+orange_points[2] = p;
+
 orange_target_point = 0;
+orange_timer = 3*sec;
+orange_on = false;
 
 orngplayer_tension_max = sec;
 orngplayer_tension = sec;
@@ -40,5 +63,18 @@ purplayer_my_purpellet.owner = self;
 //light green: healing!
 //light blue: don't move through it
 //orange: move through those ones!!
-
+	
+//function best_point_on_line(lx, ly, ldir, tx, ty) {
+//	var m1 = -dsin(ldir) / dcos(ldir);
+//	var b1 = ly - (m1*lx);
+//	//perpendicular_line	yplyr = m2*xplyr + b2
+//	var m2 = -1/m1;
+//	var b2 = ty - (m2*tx);
+//	//go to closest point on the grapple line
+//	var new_x = (b2-b1)/(m1-m2);
+//	var new_y = m1*new_x + b1;
+//	//smooth motion to point on line
+//	return [new_x, new_y];
+//}
+	
 function percent_inator(_a, _b, _percent) { return _a + _percent*(_b-_a); }

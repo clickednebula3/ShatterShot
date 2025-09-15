@@ -1,13 +1,17 @@
+depth = max(depth, other.depth + 1);
+
 if (my_color == BLUE) {
 	other.x += x-xprevious;
 	other.y += y-yprevious;
-	other.gravity = 0;
+	if (other.blue_cube_collision <= 0) { other.gravity = 0; }
+	other.blue_cube_collision = 3;
 	return;	
 }
 
 
 if (my_color == c_green) { other.HP++; instance_destroy(); return; }
 
+if (owner == other) { return; }
 if (other.my_color == c_white) { return; }
 if (other.my_color == c_aqua && other.aqua_move_meter >= 1.5*sec) { return; }
 

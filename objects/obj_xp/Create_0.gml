@@ -1,7 +1,7 @@
 my_color = c_white;
 r = 3;
 
-
+if (instance_exists(obj_control) && obj_control.hide_xp) { visible = false; }
 
 weight_bag = [
 	[c_red, 50],

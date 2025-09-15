@@ -7,7 +7,7 @@ if (initial_shred) {
 	var _c = irandom_range(1, 4);
 	for (var i=0; i<_c; i++) {
 		var _xp = instance_create_depth(x, y, depth, obj_xp);
-		//_xp.my_color = my_color;
+		if (!irandom_range(0, 9)) { _xp.my_color = my_color; }
 		_xp.r = random_range(0.5, 2);
 	}
 	for (var i=0; i<3-2*(half_soul_mode>0); i++) {

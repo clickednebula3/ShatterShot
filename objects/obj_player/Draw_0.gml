@@ -18,7 +18,7 @@ if(my_color == BLUE) {
 	
 	var _x = x;
 	var _y = y;
-	var _lvl = soullevel[?possible_colors[COLOR_INDEX.BLUE_]];
+	var _lvl = soullevel[?my_color];
 	var _l = 16;
 	var _v = 19.5; if (speed > 10) { _v = speed; }
 	var _hv = _v*dcos(aim);
@@ -39,7 +39,8 @@ if(my_color == BLUE) {
 	}
 }
 if (my_color == c_yellow) {
-	draw_line_color(x, y, x+64*dcos(image_angle), y+64*-dsin(image_angle), my_color, c_black);
+	//draw_line_width_color(x, y, x+64*dcos(gravity_direction), y+64*-dsin(gravity_direction), 2, my_color, c_black);
+	draw_line_width_color(x, y, x+64*dcos(image_angle), y+64*-dsin(image_angle), 2, my_color, c_black);
 	if (redyellow_timer > 0) {
 		draw_set_alpha(1);
 		draw_healthbar(bbox_left-4, bbox_bottom+4, bbox_right+4, bbox_bottom+10, 100*redyellow_timer/redyellow_maxtimer, c_black, my_color, my_color, 0, false, false);
@@ -65,11 +66,17 @@ if (my_color == c_purple) {
 		{
 			var _a = 1 - (point_distance(x, y, i+purple_string_gap/2, j)/max_purple_view_distance);
 			var _b = 1 - (point_distance(x, y, i, j+purple_string_gap/2)/max_purple_view_distance);
+			_a *= 0.7; 
+			_b *= 0.7;
+			if (
+				i+purple_string_gap/2 < 0 || i+purple_string_gap/2 > room_width ||
+				j+purple_string_gap/2 < 0 || j+purple_string_gap/2 > room_height
+			) { continue; }
 			if (_a < 0 && _b < 0) { continue; }
 			draw_set_alpha(_a);
-			draw_line(i, j, i+purple_string_gap, j);
+			draw_line_width(i, j, i+purple_string_gap, j, 2);
 			draw_set_alpha(_b);
-			draw_line(i, j, i, j+purple_string_gap);
+			draw_line_width(i, j, i, j+purple_string_gap, 2);
 		}
 	}
 	
@@ -180,6 +187,8 @@ if (cayote_time_for_speed > 0) { cayote_time_for_speed--; }
 //}
 draw_set_color(c_white);
 if (!is_array(my_color)) {
+	
+	
 	draw_set_color(my_color);
 	draw_circle(x, y, image_xscale*sprite_get_width(sprite_index)/2, false);
 	draw_set_color(c_white);
@@ -205,12 +214,25 @@ if (!is_array(my_color)) {
 }
 //draw_text(0, 0, string(HP));
 
-draw_set_font(fnt_ol_reliable);
+draw_set_font(fnt_yeon);
+//draw_set_font(fnt_ol_reliable);
 var _y = -(player_id+1)*32;
-draw_text(116, 0+_y, "HP");
-draw_healthbar(156, 2+_y, room_width/3, 18+_y, (HP/MAX_HP)*100, c_red, c_yellow, c_yellow, 0, true, false);
-draw_text(24+room_width/3, 0+_y, string(HP)+"/"+string(MAX_HP))
 if (halarity > 0) {draw_text(0, 34+_y, "+"+string(halarity)+" Halariousness Buff"); halarity-=1/sec;}
+
+
+// # HP Bar #
+
+// draw_text(116, 0+_y, "HP");
+// draw_healthbar(156, 2+_y, room_width/3, 18+_y, , c_red, c_yellow, c_yellow, 0, true, false);
+// draw_text(24+room_width/3, 0+_y, string(HP)+"/"+string(MAX_HP))
+
+draw_healthbar(
+	1, -9,
+	sprite_get_width(spr_xp_bar)-1, -7-sprite_get_height(spr_xp_bar),
+	(HP/MAX_HP)*100, c_red, c_yellow, c_yellow, 0, true, false
+);
+draw_sprite(spr_xp_bar, 0, 0, -8);
+
 
 draw_set_valign(fa_bottom);
 draw_set_alpha(alarm[1] / sec);
@@ -222,15 +244,28 @@ draw_set_valign(fa_top);
 
 
 var _levelup_available = false;
+var _my_xp_meter = 0;
+
 for (var i=0; i<array_length(possible_colors); i++) {
 	var _col = possible_colors[i];
 	if (ds_map_exists(soulscore, _col) && !is_array(_col)) {
-		draw_healthbar((room_width/2)+i*16+i*4, 8-(player_id+1)*16, (room_width/2)+(i+1)*16+i*4, 24-(player_id+1)*16,
-		100*soulscore[?_col]/soulscore_before_level_up, c_dkgray, _col, _col, 0, true, false);
-		draw_text((room_width/2)+i*16+i*4, 24-(player_id+1)*16, string(ds_map_find_value(soullevel, _col)));
+		if (_col == my_color) { _my_xp_meter = soulscore[?_col]/soulscore_before_level_up; }
+		//draw_healthbar((room_width/2)+i*16+i*4, 8-(player_id+1)*16, (room_width/2)+(i+1)*16+i*4, 24-(player_id+1)*16,
+		//100*soulscore[?_col]/soulscore_before_level_up, c_dkgray, _col, _col, 0, true, false);
+		//draw_text((room_width/2)+i*16+i*4, 24-(player_id+1)*16, string(ds_map_find_value(soullevel, _col)));
 		if (soulscore[?_col]/soulscore_before_level_up >= 1) { _levelup_available = true; }
 	}
 }
+
+// # XP Bar #
+
+draw_healthbar(
+	room_width-1, -9,
+	room_width+1-sprite_get_width(spr_xp_bar), -7-sprite_get_height(spr_xp_bar),
+	100*_my_xp_meter, c_dkgray, c_gray, my_color, 0, true, false
+);
+draw_sprite(spr_xp_bar, 0, room_width, -8);
+
 if (_levelup_available) {
 	if (controller_index < 2) { draw_text((room_width/2), 40-(player_id+1)*16, "Press Space!"); }
 	else { draw_text((room_width/2), 40-(player_id+1)*16, "Press Pad 1!"); }

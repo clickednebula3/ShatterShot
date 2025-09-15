@@ -1,14 +1,16 @@
-var pad_l = keyboard_check_direct(vk_left) || keyboard_check_direct(ord("A")) || gamepad_button_check(0, gp_padl);
-var pad_r = keyboard_check_direct(vk_right) || keyboard_check_direct(ord("D")) || gamepad_button_check(0, gp_padr);
-var pad_u = keyboard_check_direct(vk_up) || keyboard_check_direct(ord("W")) || gamepad_button_check(0, gp_padu);
-var pad_d = keyboard_check_direct(vk_down) || keyboard_check_direct(ord("S")) || gamepad_button_check(0, gp_padd);
-var shift = keyboard_check_direct(vk_shift) || gamepad_button_check(0, gp_face2) || gamepad_button_check(0, gp_shoulderl) || gamepad_button_check(0, gp_shoulderlb);
-var shoot_hold = mouse_check_button(mb_left) || gamepad_button_check(0, gp_face3) || gamepad_button_check(0, gp_shoulderr) || gamepad_button_check(0, gp_shoulderrb);
+var pad_l = keyboard_check_direct(vk_left) || keyboard_check_direct(ord("A"));
+var pad_r = keyboard_check_direct(vk_right) || keyboard_check_direct(ord("D"));
+var pad_u = keyboard_check_direct(vk_up) || keyboard_check_direct(ord("W"));
+var pad_d = keyboard_check_direct(vk_down) || keyboard_check_direct(ord("S"));
+var shift = keyboard_check_direct(vk_shift);
+var shoot_hold = mouse_check_button(mb_left);
 var special_hold = mouse_check_button(mb_right);
-var shoot_dont = mouse_check_button_released(mb_left) || gamepad_button_check_released(0, gp_face3) || gamepad_button_check_released(0, gp_shoulderr) || gamepad_button_check_released(0, gp_shoulderrb);
+var shoot_dont = mouse_check_button_released(mb_left);
 var mode_swap = keyboard_check_pressed(vk_tab);
-var level_up = keyboard_check_pressed(vk_space) || gamepad_button_check(0, gp_face1);
+var level_up = keyboard_check_pressed(vk_space);
 var aim = gravity_direction;
+
+blue_cube_collision = clamp(blue_cube_collision-1, 0, sec);
 
 if (keyboard_check_pressed(vk_f1)) { controller_index = max(0, controller_index-1); }
 if (keyboard_check_pressed(vk_f2)) { controller_index++; }
@@ -58,13 +60,21 @@ else if (controller_index == 1)//WASD/ZQSD
 else if (controller_index > 1)//CONTROLLER = controller_index-2
 {
 	var gp_id = controller_index-2;
-	pad_l = gamepad_button_check(gp_id, gp_stickl);
-	pad_r = gamepad_button_check(gp_id, gp_stickr);
-	pad_u = gamepad_button_check(gp_id, gp_padu);
-	pad_d = gamepad_button_check(gp_id, gp_padd);
-	shift = gamepad_button_check(gp_id, gp_face2) || gamepad_button_check(gp_id, gp_shoulderl) || gamepad_button_check(gp_id, gp_shoulderlb);
-	shoot_hold = gamepad_button_check(gp_id, gp_face3)			|| gamepad_button_check(gp_id, gp_shoulderr)			|| gamepad_button_check(gp_id, gp_shoulderrb);
-	shoot_dont = gamepad_button_check_released(gp_id, gp_face3) || gamepad_button_check_released(gp_id, gp_shoulderr)	|| gamepad_button_check_released(gp_id, gp_shoulderrb);
+	//pad_l = gamepad_button_check(gp_id, gp_padl);
+	//pad_r = gamepad_button_check(gp_id, gp_padr);
+	//pad_u = gamepad_button_check(gp_id, gp_padu);
+	//pad_d = gamepad_button_check(gp_id, gp_padd);
+	//shift = gamepad_button_check(gp_id, gp_face2) || gamepad_button_check(gp_id, gp_shoulderl) || gamepad_button_check(gp_id, gp_shoulderlb);
+	//shoot_hold = gamepad_button_check(gp_id, gp_face3)			|| gamepad_button_check(gp_id, gp_shoulderr)			|| gamepad_button_check(gp_id, gp_shoulderrb);
+	//shoot_dont = gamepad_button_check_released(gp_id, gp_face3) || gamepad_button_check_released(gp_id, gp_shoulderr)	|| gamepad_button_check_released(gp_id, gp_shoulderrb);
+	//mode_swap = gamepad_button_check_pressed(gp_id, gp_face4);
+	pad_l = gamepad_axis_value(gp_id, gp_axislh) < 0;
+	pad_r = gamepad_axis_value(gp_id, gp_axislh) > 0;
+	pad_u = gamepad_axis_value(gp_id, gp_axislv) < 0;
+	pad_d = gamepad_axis_value(gp_id, gp_axislv) > 0;
+	shift = gamepad_button_check(gp_id, gp_face2) || gamepad_button_check(gp_id, gp_shoulderl);
+	shoot_hold = gamepad_button_check(gp_id, gp_face3) || gamepad_button_check(gp_id, gp_shoulderr);
+	shoot_dont = gamepad_button_check_released(gp_id, gp_face3) || gamepad_button_check_released(gp_id, gp_shoulderr);
 	mode_swap = gamepad_button_check_pressed(gp_id, gp_face4);
 	if (uses_mouse) {
 		aim = point_direction(x, y, mouse_x, mouse_y);
@@ -125,6 +135,8 @@ if (combo_timer > 0) {
 	}
 }
 
+var _lvl = soullevel[?my_color];
+	
 redbluehalf.visible = false;
 if (is_array(my_color) && my_color[1] == c_orange && my_color[0] == c_aqua) {
 	gravity = 0;
@@ -190,9 +202,34 @@ else if (my_color == c_lime)
 	
 	if (shoot_dont) {
 		var _cube = instance_create_depth(x+20*dcos(direction), y-20*dsin(direction), depth, obj_obst);
+		_cube.owner = self;
 		_cube.direction = direction;
-		//_cube.speed = 5;
+		_cube.image_xscale = 2;
+		_cube.image_yscale = 2;
+		_cube.speed = 20;
+		_cube.f = 0.5;
 	}
+	
+	if (shift) {
+		var _cube = instance_create_depth(x, y, depth, obj_obst);
+		_cube.owner = self;
+		_cube.my_color = c_yellow;
+		_cube.direction = direction;
+		_cube.image_xscale = 2;
+		_cube.image_yscale = 2;
+		_cube.speed = 20;
+		_cube.f = 0.8;
+	}
+	
+	//var _i = irandom_range(0, 3);
+	//var _cube = instance_create_depth(room_width, room_height/2, depth, obj_obst);
+	//_cube.image_xscale = 4;
+	//_cube.image_yscale = 4;
+	//if (_i == 0) { _cube.hspeed = -3; _cube.x = room_width+360; _cube.y = random_range(128, room_height-128); }
+	//if (_i == 1) { _cube.vspeed = -3; _cube.x = random_range(128, room_width-128); _cube.y = room_height+240; }
+	//if (_i == 2) { _cube.hspeed = 3; _cube.x = -360; _cube.y = random_range(128, room_height-128); }
+	//if (_i == 3) { _cube.vspeed = 3; _cube.x = random_range(128, room_width-128); _cube.y = -240; }
+	//return _cube;
 	
 }
 else if (my_color == c_red)
@@ -211,17 +248,18 @@ else if (my_color == c_red)
 		var _fight_coll = collision_point(x, y, obj_fight, true, false);
 		if (instance_exists(_fight_coll) && _fight_coll.alarm[0] <= 0) {
 			var _fight_break = instance_create_depth(_fight_coll.x, _fight_coll.y, _fight_coll.depth, obj_mon_break);
-			_fight_break.sprite_index = spr_breaks;
+			_fight_break.sprite_index = spr_button_8r8k;
 			instance_destroy(_fight_coll);
 		}
 	}
 }
 else if (my_color == c_yellow)
 {
-	gravity_direction = aim;
+	gravity_direction += angle_difference(aim, gravity_direction)/2;
+	image_angle = gravity_direction;
+	
 	if (portal_stun<=0 && (x!=xprevious||y!=yprevious))
 	{ direction += angle_difference(point_direction(xprevious, yprevious, x, y), direction)/10; }
-	image_angle = gravity_direction;
 
 	/*if (special_hold) {
 		x = xprevious;
@@ -234,27 +272,45 @@ else if (my_color == c_yellow)
 			audio_play_sound(snd_yellow_pew, 10, false, 1, 0, 1+random_range(-0.1, 0.1));
 		}
 	} else */
+	
+	//if (shift || shoot_hold) {
+	//	//gravity_direction = direction;
+	//	image_angle = direction;
+	//}
+	
+	if (shift) {
+		image_angle = gravity_direction + 180;
+	}
+	
 	if (shoot_dont) {
-		var _lvl = soullevel[?possible_colors[COLOR_INDEX.YELLOW]];
+		//var _lvl = soullevel[?possible_colors[COLOR_INDEX.YELLOW]];
 		if (bigshottery >= bigshottery_max-8) {
+			//[[SHOT OF GREAT MAGNITUDE]]
 			var shot = instance_create_depth(x, y, depth, obj_shot);
 			shot.image_angle = image_angle;
 			shot.direction = image_angle;
 			shot.image_xscale = 1.5+_lvl/2;
 			shot.image_yscale = 1.5+_lvl/2;
-			shot.image_index = 1;
+			shot.image_index = 3;
 			shot.owner = self;
 			audio_play_sound(snd_yellow_pew, 10, false, 1, 0, 1+random_range(-0.1, 0.1));
-		} else if (count_my_shots() <= 1*(_lvl+1)) {
+		}
+		else if (count_my_shots() <= 1*(_lvl+1)) {
+			//multishot
 			var _shot_count = 1+_lvl;
 			var _seperation_angle = 10-min(_lvl, 9);
+			
+			var _is_even = _shot_count%2==0;
+			_shot_count -= _is_even;
+			
 			var _init_ang = ((_shot_count-1)/2)*_seperation_angle;
 			for (var i=0; i<_shot_count; i++) {
-				var shot = instance_create_depth(x, y, depth, obj_shot);
-				shot.image_angle = image_angle-_init_ang+(i*_seperation_angle);
-				shot.direction = shot.image_angle;
-				shot.owner = self;
+				fire_shot(self, image_angle-_init_ang+(i*_seperation_angle));
 			}
+			
+			if (_is_even) { var shot = fire_shot(self, image_angle); }
+			
+			
 			audio_play_sound(snd_yellow_pew, 10, false, 1, 0, 1+random_range(-0.1, 0.1));
 		}
 		bigshottery = 0;
@@ -325,7 +381,6 @@ else if (my_color == c_aqua)
 	image_angle = -90;
 	gravity_direction = aim;
 	direction = gravity_direction;
-	var _lvl = soullevel[?possible_colors[COLOR_INDEX.AQUA]];
 	aqua_parry_rad = 64 + 4*_lvl;
 	
 	if (!aqua_stunned && (pad_r || pad_l || pad_d || pad_u)) { aqua_move_meter -= 1 - (shift/4) - clamp(_lvl, 0, 9)/10; }
@@ -366,7 +421,7 @@ else if (my_color == c_aqua)
 }
 else if (my_color == c_purple)
 {
-	var _lvl = soullevel[?possible_colors[COLOR_INDEX.PURPLE]];
+	//var _lvl = soullevel[?possible_colors[COLOR_INDEX.PURPLE]];
 	var gap = purple_string_gap-clamp(8*_lvl, 0, purple_string_gap-8);
 	var g = gap/2;
 	
@@ -386,22 +441,25 @@ else if (my_color == c_purple)
 	if (pad_d) {direction = 270;}
 	if (pad_u) {direction = 90;}
 	if (shift && (abs(pad_r-pad_l) || abs(pad_d-pad_u))) { direction = point_direction(0, 0, pad_r-pad_l, pad_d-pad_u); }
-	if (shoot_dont) {speed+=1;}
-	//if (portal_stun<=0 && (x!=xprevious||y!=yprevious))
-	//{ direction += angle_difference(point_direction(xprevious, yprevious, x, y), direction)/10; }
+	if (shoot_dont) {
+		var spi = instance_create_depth(x, y, depth+10, obj_spider);
+		spi.owner = self;
+	}
+	////if (portal_stun<=0 && (x!=xprevious||y!=yprevious))
+	////{ direction += angle_difference(point_direction(xprevious, yprevious, x, y), direction)/10; }
 	
-	////purple_string_x += dsin(current_time/25)*dsin(current_time/25)/3;
-	////purple_string_y += dcos(current_time/16)*dcos(current_time/16)/3;
-	purple_string_x += (x-(room_width/2))/(3*room_width/2);
-	purple_string_y += (y-(room_height/2))/(3*room_height/2);
-	if (purple_string_x >= purple_string_gap) { purple_string_x -= purple_string_gap; }
-	if (purple_string_y >= purple_string_gap) { purple_string_y -= purple_string_gap; }
+	//////purple_string_x += dsin(current_time/25)*dsin(current_time/25)/3;
+	//////purple_string_y += dcos(current_time/16)*dcos(current_time/16)/3;
+	//purple_string_x += (x-(room_width/2))/(3*room_width/2);
+	//purple_string_y += (y-(room_height/2))/(3*room_height/2);
+	//if (purple_string_x >= purple_string_gap) { purple_string_x -= purple_string_gap; }
+	//if (purple_string_y >= purple_string_gap) { purple_string_y -= purple_string_gap; }
 }
 else if (my_color == BLUE)
 {
 	//New System
-	
-	gravity = ((gravity-0.4)*0.5)+0.4;
+	var blue_cube_colliding = (blue_cube_collision > 0);
+	if (!blue_cube_colliding) { gravity = ((gravity-0.4)*0.5)+0.4; }
 	image_angle = gravity_direction;
 	hspeed += 0.1 * (pad_r - pad_l) * (1 - (shift/2));
 	vspeed += 0.1 * (pad_d - pad_u) * (1 - (shift/2));
@@ -410,9 +468,9 @@ else if (my_color == BLUE)
 	//if ((shoot_dont || shift) && left_or_right && speed <= 0.5) { hspeed = 16*-dcos(gravity_direction);}
 	//if ((shoot_dont || shift) && top_or_bottom && speed <= 0.5) { vspeed = 16*dsin(gravity_direction);}
 	//if (shoot_dont) { direction = aim; speed = 20; }//gravity_direction-=180; }
-	if (top_or_bottom || left_or_right) { speed *= 0.9; if (shoot_hold) { speed = 0; } }
-	if ((top_or_bottom || left_or_right) && shoot_dont) { direction = aim; speed = 19.5; }
-	if ((top_or_bottom || left_or_right) && shift) { direction = aim; speed = 5; }
+	if (top_or_bottom || left_or_right || blue_cube_colliding) { speed *= 0.9; if (shoot_hold) { speed = 0; } }
+	if ((top_or_bottom || left_or_right || blue_cube_colliding) && shoot_dont) { direction = aim; speed = 19.5; }
+	if ((top_or_bottom || left_or_right || blue_cube_colliding) && shift) { direction = aim; speed = 5; }
 	
 	//OG System
 	
@@ -439,7 +497,7 @@ else if (my_color == c_green)
 		green_shield.direction = aim;
 		green_shield.speed = 15;
 		green_shield.owner = self;
-		var _lvl = soullevel[?possible_colors[COLOR_INDEX.GREEN]];
+		//var _lvl = soullevel[?possible_colors[COLOR_INDEX.GREEN]];
 		green_shield.image_xscale = 1+_lvl/2;
 		green_shield.image_yscale = 1+_lvl/2;
 	}

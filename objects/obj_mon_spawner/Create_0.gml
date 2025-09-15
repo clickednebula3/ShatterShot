@@ -25,14 +25,14 @@ enum WEIGHT_SUMMONEE_DATA {
 }
 
 weight_bag = [
-	//[c_yellow, 10000, 3*sec, [1, 1]],
+	//[c_yellow, 10000, 1*sec, [1, 5]],
 	//[color, weight, available_after_time, patch[min, max], ]
-	[c_red, 100, 3*sec, [1, 3]], [c_green, 100, 3*sec, [1, 2]],
-	[c_aqua, 60, 30*sec, [3, 3]], [c_orange, 60, 30*sec, [3, 3]],
+	[c_red, 100, 1*sec, [1, 3]], [c_green, 100, 1*sec, [1, 2]],
+	//[c_aqua, 60, 30*sec, [3, 3]], [c_orange, 60, 30*sec, [3, 3]],//disable cuz just obstacles... //30sec
 	
-	[c_purple, 100, 50*sec, [2, 2]],
-	[c_yellow, 100, 100*sec, [1, 1]],
-	[BLUE, 200, 170*sec, [1, 1]],
+	[c_purple, 100, 50*sec, [2, 2]],//80sec
+	[c_yellow, 100, 100*sec, [1, 1]],//150sec
+	[BLUE, 200, 175*sec, [1, 1]],
 	[c_white, 200, 250*sec, [1, 1]],
 	
 	[c_yellow, 200, 300*sec, [1, 2]], [c_white, 200, 300*sec, [1, 2]], [c_green, 100, 300*sec, [1, 1]],
@@ -71,7 +71,7 @@ function get_random_soulmon_data(time_counter) {
 time_between_spawns_max = 3.8*sec;
 time_between_spawns_min = 0.4*sec;
 time_between_spawns_width = 600*sec;
-time_between_spawns_now = time_between_spawns_max;
+time_between_spawns_now = 2.8*sec;
 time_counter = 0;
 
 wave_index = 0;

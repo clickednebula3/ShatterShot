@@ -25,11 +25,11 @@ if (other.my_color == c_aqua && other.aqua_move_meter >= 1.5*sec)
 { instance_destroy(); other.aqua_move_meter = -sec/2; other.aqua_stunned = true; return; }
 
 if (my_color == c_aqua) {
-	if (abs(other.x-other.xprevious) > 1.2 || abs(other.y-other.yprevious) > 1.2) { soul_hit(other); }
+	//if (abs(other.x-other.xprevious) > 1.2 || abs(other.y-other.yprevious) > 1.2) { soul_hit(other); }
 	return;
 }
 if (my_color == c_orange) {
-	if (other.x == other.xprevious && other.y == other.yprevious) { soul_hit(other); }
+	//if (other.x == other.xprevious && other.y == other.yprevious) { soul_hit(other); }
 	return;
 }
 
