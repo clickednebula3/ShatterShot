@@ -244,12 +244,17 @@ else if (my_color == c_red)
 		//else { soul_save_game(self); }
 	}
 	
+	if (speed > 10) { speed *= 0.99; }
+	
 	if (shift) {
 		var _fight_coll = collision_point(x, y, obj_fight, true, false);
 		if (instance_exists(_fight_coll) && _fight_coll.alarm[0] <= 0) {
 			var _fight_break = instance_create_depth(_fight_coll.x, _fight_coll.y, _fight_coll.depth, obj_mon_break);
 			_fight_break.sprite_index = spr_button_8r8k;
 			instance_destroy(_fight_coll);
+			if (instance_exists(obj_mon_spawner) && obj_mon_spawner.alarm[1] > 10) {
+				obj_mon_spawner.alarm[1] = 10;
+			}
 		}
 	}
 }

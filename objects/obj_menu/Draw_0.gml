@@ -18,8 +18,6 @@
 //	if (p2 > p2_max) { p2_max = p2; select_i = i; }
 //}
 
-
-
 test += (alarm[0] > 0);
 test = max(test, 0);
 timer += 1/sec;
@@ -32,6 +30,16 @@ draw_set_color(make_color_down(title_orb_color, 0.5));
 draw_settings_box(pad_lr, pad_ud, 1-set_setter, false, title_orb_color);
 
 draw_set_alpha(1);
+draw_set_color(c_white);
+draw_set_valign(fa_bottom);
+draw_set_halign(fa_left);
+draw_set_font(fnt_ol_reliable);
+//put this in settings tab!!
+draw_text(0, room_height, "Version 0.9.1 BETA");
+draw_set_halign(fa_right);
+draw_text(room_width, room_height, "Jhozan	Music\nNebbinz	Development");
+
+draw_set_valign(fa_top);
 draw_set_color(make_color_down(title_orb_color, 0.5));
 draw_set_font(fnt_yeon_BIG);
 draw_set_halign(fa_center);
@@ -230,7 +238,6 @@ else
 {
 	set_setter *=  0.98; // include for all except menu.settings
 }
-
 
 
 //draw_set_color(c_white);

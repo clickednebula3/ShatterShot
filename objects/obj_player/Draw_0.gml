@@ -217,7 +217,19 @@ if (!is_array(my_color)) {
 draw_set_font(fnt_yeon);
 //draw_set_font(fnt_ol_reliable);
 var _y = -(player_id+1)*32;
-if (halarity > 0) {draw_text(0, 34+_y, "+"+string(halarity)+" Halariousness Buff"); halarity-=1/sec;}
+if (halarity > 0) { draw_text(0, 34+_y, "+"+string(halarity)+" Halariousness Buff"); halarity-=1/sec; }
+
+// # Soul Box #
+
+draw_sprite(spr_soul_box, 0, room_width/2, -32);
+
+if (!is_array(my_color)) {
+	draw_set_color(my_color);
+	draw_circle(room_width/2, -32, 12, false);
+	draw_set_color(c_black);
+	draw_circle(room_width/2, -32, 9, false);
+	draw_set_color(c_white);
+}
 
 
 // # HP Bar #
@@ -226,19 +238,21 @@ if (halarity > 0) {draw_text(0, 34+_y, "+"+string(halarity)+" Halariousness Buff
 // draw_healthbar(156, 2+_y, room_width/3, 18+_y, , c_red, c_yellow, c_yellow, 0, true, false);
 // draw_text(24+room_width/3, 0+_y, string(HP)+"/"+string(MAX_HP))
 
-draw_healthbar(
-	1, -9,
-	sprite_get_width(spr_xp_bar)-1, -7-sprite_get_height(spr_xp_bar),
-	(HP/MAX_HP)*100, c_red, c_yellow, c_yellow, 0, true, false
-);
-draw_sprite(spr_xp_bar, 0, 0, -8);
+//draw_healthbar(
+//	2, -2,
+//	sprite_get_width(spr_xp_bar)-2, -sprite_get_height(spr_xp_bar)+2,
+//	(HP/MAX_HP)*100, c_maroon, c_red, c_red, 0, true, false
+//);
+//draw_sprite(spr_xp_bar, 0, 2+sprite_get_width(spr_xp_bar), 2);
+
+draw_sprite(spr_xp_bar, 0, (room_width/2)+(sprite_get_width(spr_soul_box)/2)-1, -32)
 
 
 draw_set_valign(fa_bottom);
 draw_set_alpha(alarm[1] / sec);
-draw_text(0, room_height-_y, "FILE "+string(player_id+1)+" SAVED");
+draw_text(0, room_height-_y, " FILE "+string(player_id+1)+" SAVED");
 draw_set_alpha(alarm[2] / sec);
-draw_text(0, room_height-_y, "FILE "+string(player_id+1)+" LOADED")
+draw_text(0, room_height-_y, " FILE "+string(player_id+1)+" LOADED")
 draw_set_alpha(1);
 draw_set_valign(fa_top);
 
@@ -259,12 +273,12 @@ for (var i=0; i<array_length(possible_colors); i++) {
 
 // # XP Bar #
 
-draw_healthbar(
-	room_width-1, -9,
-	room_width+1-sprite_get_width(spr_xp_bar), -7-sprite_get_height(spr_xp_bar),
-	100*_my_xp_meter, c_dkgray, c_gray, my_color, 0, true, false
-);
-draw_sprite(spr_xp_bar, 0, room_width, -8);
+//draw_healthbar(
+//	room_width-1, -9,
+//	room_width+1-sprite_get_width(spr_xp_bar), -7-sprite_get_height(spr_xp_bar),
+//	100*_my_xp_meter, c_dkgray, c_gray, my_color, 0, true, false
+//);
+//draw_sprite(spr_xp_bar, 0, room_width, -8);
 
 if (_levelup_available) {
 	if (controller_index < 2) { draw_text((room_width/2), 40-(player_id+1)*16, "Press Space!"); }

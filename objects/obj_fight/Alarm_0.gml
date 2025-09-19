@@ -43,7 +43,7 @@ if (sprite_index == spr_bruh) {
 	turn_sped = 1;
 	if (instance_exists(player)) { player.halarity += 5; }
 }
-if (sprite_index == spr_yeet) {
+if (sprite_index == spr_yeet || sprite_index == spr_button_yolo) {
 	if (instance_exists(player)) {
 		with (player) {
 			direction = irandom_range(0, 360);
